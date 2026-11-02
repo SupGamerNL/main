@@ -85,7 +85,7 @@ header > :nth-child(3) { animation-delay: .16s; }
 .card.pre:nth-child(odd) { --fx: -22px; }
 .card.pre:nth-child(even) { --fx: 22px; }
 .card.pre.in { opacity: 1; transform: none; }
-.card[data-cat="Minecraft"] { border-left-color: var(--aqua); }
+.card[data-cat="Minecraft Mods"] { border-left-color: var(--aqua); }
 .card[data-cat="RPG Maker"] { border-left-color: var(--cyan); }
 .card h2 { margin: 0; font-size: 1.25rem; }
 .card p { margin: 0; color: var(--muted); flex: 1; }

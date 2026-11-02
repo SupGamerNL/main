@@ -48,7 +48,10 @@ function render() {
         ...page.versions.map(v => el("div", { className: "version" },
           el("h3", { textContent: v.name }),
           el("p", { className: "range", textContent: v.range }),
-          el("p", { textContent: v.note })
+          el("p", { textContent: v.note }),
+          ...(v.links && v.links.length
+            ? [el("div", { className: "links" }, ...v.links.map(l => el("a", { href: l.url, textContent: l.label })))]
+            : [])
         ))
       )
     ));
