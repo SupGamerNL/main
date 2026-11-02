@@ -130,3 +130,22 @@ footer code { font-family: var(--font-code); color: var(--aqua); }
 .version p { margin: .5rem 0 0; }
 .version .range { color: var(--aqua); font-size: .9rem; }
 footer a { color: var(--cyan); }
+
+/* Hero art: fills the right side on wide screens */
+header { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 3rem; align-items: start; }
+header > .brand, header > h1, header > .lead { grid-column: 1; }
+.hero-art { grid-column: 2; grid-row: 1 / span 3; align-self: center; justify-self: end; text-align: center; }
+header > :nth-child(4) { animation-delay: .24s; }
+.gem { display: grid; grid-template-columns: repeat(10, 20px); grid-template-rows: repeat(8, 20px); gap: 3px; animation: float 7s ease-in-out infinite; }
+.gem i { border-radius: 2px; background: var(--turq); }
+.gem i[data-c="c"] { background: var(--cyan); }
+.gem i[data-c="a"] { background: var(--aqua); }
+.gem i[data-c="w"] { background: var(--white); }
+.gem i.tw { animation: twinkle 5s ease-in-out infinite; animation-delay: var(--d, 0ms); }
+.count { margin: 1.25rem 0 0; color: var(--muted); font-size: .95rem; }
+@keyframes float { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -8px, 0); } }
+@keyframes twinkle { 0%, 100% { opacity: 1; } 50% { opacity: .45; } }
+@media (max-width: 860px) {
+  header { display: block; }
+  .hero-art { display: none; }
+}
