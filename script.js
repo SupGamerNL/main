@@ -67,3 +67,36 @@ function renderFilters() {
 
 renderFilters();
 render();
+
+// Hero art: pixel gem (c = cyan, a = aqua, t = turquoise, w = white, . = empty)
+const GEM = [
+  "..tttttt..",
+  ".tccwwccat",
+  "tcwccccaat",
+  "tccccccaat",
+  ".tccccaat.",
+  "..tccaat..",
+  "...tcat...",
+  "....tt...."
+];
+const gem = document.getElementById("gem");
+if (gem) {
+  const cells = [];
+  GEM.join("").split("").forEach((ch, i) => {
+    const cell = el("i");
+    if (ch === ".") { cell.style.visibility = "hidden"; }
+    else {
+      if (ch !== "t") cell.dataset.c = ch;
+      // A few cells twinkle, with spread-out delays so it never looks synchronized
+      if (i % 5 === 0) { cell.classList.add("tw"); cell.style.setProperty("--d", (i * 370 % 5000) + "ms"); }
+    }
+    cells.push(cell);
+  });
+  gem.append(...cells);
+}
+
+const count = document.getElementById("count");
+if (count) {
+  const n = PROJECTS.length, m = cats.length - 1;
+  count.textContent = n + (n === 1 ? " creation" : " creations") + " in " + m + (m === 1 ? " category" : " categories");
+}
