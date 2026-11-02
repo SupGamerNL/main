@@ -171,3 +171,22 @@ header > :nth-child(4) { animation-delay: .24s; }
 .profiles { display: flex; flex-wrap: wrap; gap: .5rem; padding: 0; margin: 1.25rem 0 0; list-style: none; }
 .profiles a { display: inline-block; padding: .35rem .95rem; border: 1px solid var(--line); border-radius: 999px; background: var(--black); color: var(--white); text-decoration: none; transition: border-color .15s, color .15s; }
 .profiles a:hover { border-color: var(--turq); color: var(--aqua); }
+
+/* Featured profile link (Patreon) */
+.profiles a.featured {
+  position: relative; font-weight: 700; color: var(--black); border-color: transparent;
+  padding: .45rem 1.3rem;
+  background: linear-gradient(90deg, var(--cyan), var(--aqua), var(--turq));
+  box-shadow: 0 0 16px rgba(64, 224, 208, .35);
+  transition: box-shadow .2s, transform .2s;
+}
+.profiles a.featured:hover { color: var(--black); box-shadow: 0 0 26px rgba(127, 255, 212, .6); transform: translate3d(0, -2px, 0); }
+/* Soft halo that slowly breathes (opacity only), skipped when the visitor prefers reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  .profiles a.featured::after {
+    content: ""; position: absolute; inset: -5px; border-radius: 999px; pointer-events: none;
+    border: 1px solid var(--aqua); opacity: 0; animation: halo 3.8s ease-in-out infinite;
+  }
+}
+@keyframes halo { 0%, 100% { opacity: 0; transform: scale(.97); } 50% { opacity: .7; transform: scale(1.03); } }
+

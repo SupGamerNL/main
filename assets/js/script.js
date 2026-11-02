@@ -105,5 +105,7 @@ if (count) {
 // "About me" profile links (from data/profiles.js)
 const profiles = document.getElementById("profiles");
 if (profiles && typeof PROFILES !== "undefined") {
-  profiles.append(...PROFILES.map(p => el("li", {}, el("a", { href: p.url, textContent: p.label }))));
+  // Featured links go first (the sort keeps the rest in their original order)
+  const sorted = [...PROFILES].sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+  profiles.append(...sorted.map(p => el("li", {}, el("a", { href: p.url, textContent: p.label, className: p.featured ? "featured" : "" }))));
 }
