@@ -41,6 +41,12 @@ function render() {
     ));
   }
 
+  if (p.gallery && p.gallery.length) {
+    const grid = el("ul", { className: "shots" });
+    Gallery.thumbs(grid, Gallery.collect().filter(x => x.id === p.id));
+    parts.push(el("section", { className: "sec" }, el("h2", { textContent: "Screenshots" }), grid));
+  }
+
   if (page.versions && page.versions.length) {
     parts.push(el("section", { className: "sec" },
       el("h2", { textContent: "Versions" }),

@@ -2,6 +2,7 @@
 // id: used in the page link (project.html?id=...). Use lowercase letters, numbers and dashes, and keep it unique.
 // category: used for the filter buttons.
 // links: shown on the project page (the first two also show on the card). Leave out any you don't need.
+// gallery: screenshots, as { file, caption }. Put the full-size file in assets/img/<id>/ and a small version (about 640px wide) in assets/img/<id>/thumbs/, same name.
 // page: the extra info for the project page (intro, versions, sections). All parts are optional.
 const PROJECTS = [
   {
@@ -39,6 +40,12 @@ const PROJECTS = [
       { label: "CurseForge", url: "https://www.curseforge.com/minecraft/mc-mods/blood-n-meat" },
       { label: "Modrinth", url: "https://modrinth.com/mod/blood-n-meat" },
       { label: "GitHub", url: "https://github.com/SupGamerNL/blood-n-meat" }
+    ],
+    gallery: [
+      { file: "item-frames.webp", caption: "Item frames on a wooden wall showing the mod's red items: a blood drop, a blood blob, a bloodied ingot and a piece of red meat." },
+      { file: "crafting-grid.webp", caption: "The crafting grid with an iron ingot and a red blob, showing a bloodied ingot as the result." },
+      { file: "campfire-close-up.webp", caption: "A crafting table next to a burning campfire, with a bloodstained item on the fire." },
+      { file: "campfire-from-afar.webp", caption: "The same spot from further away, with a red item on the campfire logs and smoke rising." }
     ],
     page: {
       intro: "Blood 'n Meat is a Minecraft mod made by me. You can download it on CurseForge or Modrinth, and the source code is on GitHub."

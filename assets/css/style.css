@@ -190,3 +190,28 @@ header > :nth-child(4) { animation-delay: .24s; }
 }
 @keyframes halo { 0%, 100% { opacity: 0; transform: scale(.97); } 50% { opacity: .7; transform: scale(1.03); } }
 
+/* Galleries */
+.navlink { margin-left: 1rem; color: var(--cyan); }
+.shots { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: .75rem; padding: 0; margin: 0; list-style: none; }
+.shots li { animation: rise .6s cubic-bezier(.2, .7, .2, 1) both; animation-delay: calc(var(--i, 0) * 45ms); }
+.shot { display: block; width: 100%; aspect-ratio: 16 / 9; padding: 0; overflow: hidden; cursor: zoom-in; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; transition: border-color .15s; }
+.shot img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; }
+.shot:hover { border-color: var(--turq); }
+.shot:hover img { transform: scale(1.04); }
+
+/* Lightbox */
+body:has(dialog[open]) { overflow: hidden; }
+.lightbox { width: 100%; height: 100%; max-width: none; max-height: none; padding: 0; border: 0; color: var(--white); background: rgba(2, 6, 7, .94); }
+.lightbox[open] { display: flex; align-items: center; justify-content: center; animation: fade .2s ease; }
+.lightbox figure { margin: 0; max-width: min(1400px, 92vw); }
+.lightbox img { display: block; max-width: 100%; max-height: 76vh; margin: 0 auto; border: 1px solid var(--line); border-radius: 4px; }
+.lightbox figcaption { margin-top: .9rem; text-align: center; color: var(--muted); }
+.lb-count, .lb-project { margin-left: .75rem; font-size: .9rem; }
+.lb-count { color: var(--aqua); }
+.lb-btn { position: fixed; width: 3rem; height: 3rem; font: inherit; font-size: 2rem; line-height: 1; color: var(--white); background: var(--panel); border: 1px solid var(--line); border-radius: 999px; cursor: pointer; transition: border-color .15s, color .15s; }
+.lb-btn:hover { border-color: var(--turq); color: var(--aqua); }
+.lb-prev { left: 1rem; top: 50%; transform: translateY(-50%); }
+.lb-next { right: 1rem; top: 50%; transform: translateY(-50%); }
+.lb-close { top: 1rem; right: 1rem; }
+@keyframes fade { from { opacity: 0; } }
+

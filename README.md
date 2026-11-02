@@ -13,18 +13,20 @@ No permission is granted to reproduce, modify, redistribute, commercially exploi
 main/
 ├── index.html           Home of the site: the index of all creations
 ├── project.html         Template for every project page (project.html?id=...)
+├── gallery.html         The main gallery with all screenshots
 ├── README.md            This file
 ├── LICENSE.md           Copyright and usage terms
 ├── .nojekyll            Tells GitHub Pages to serve the files as they are
 │
 ├── assets/              Everything the pages load
 │   ├── css/style.css    All styling and animations
-│   ├── js/              script.js (index), project.js (project pages), spotlight.js (cursor glow)
-│   └── img/             Screenshots, banners and icons
+│   ├── js/              script.js (index), project.js, gallery.js, gallery-page.js, spotlight.js (cursor glow)
+│   └── img/             Screenshots: img/<project-id>/ (full size) with thumbs/ inside, plus img/general/
 │
 ├── data/
 │   ├── projects.js      The list of projects. The one file to edit when adding something
-│   └── profiles.js      My profile links (YouTube, Patreon, GitHub and so on)
+│   ├── profiles.js      My profile links (YouTube, Patreon, GitHub and so on)
+│   └── gallery.js       General screenshots that are not tied to one project
 │
 └── downloads/           Downloadable content, sorted by community
     ├── minecraft/
@@ -38,6 +40,14 @@ main/
 3. Optional: put screenshots in `assets/img/` and downloads in `downloads/<community>/`.
 
 The card on the index and the project page are generated from that one entry.
+
+## Adding screenshots
+
+1. Save the full-size image as `assets/img/<project-id>/name.webp` and a small version (about 640px wide) as `assets/img/<project-id>/thumbs/name.webp`.
+2. Add `{ file: "name.webp", caption: "What it shows" }` to that project's `gallery` list in `data/projects.js`.
+3. It shows up on the project page and in the main gallery automatically.
+
+Screenshots that don't belong to a project go in `assets/img/general/` (and `thumbs/`) and are listed in `data/gallery.js`.
 
 ## Downloads
 
