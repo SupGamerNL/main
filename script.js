@@ -70,14 +70,15 @@ render();
 
 // Hero art: pixel gem (c = cyan, a = aqua, t = turquoise, w = white, . = empty)
 const GEM = [
-  "..tttttt..",
-  ".tccwwccat",
-  "tcwccccaat",
-  "tccccccaat",
-  ".tccccaat.",
-  "..tccaat..",
-  "...tcat...",
-  "....tt...."
+  "...tttttt...",
+  "..tcwwccat..",
+  ".tcwccccaat.",
+  "tttttttttttt",
+  ".tccwcccaat.",
+  "..tcwccaat..",
+  "...tccaat...",
+  "....tcat....",
+  ".....tt....."
 ];
 const gem = document.getElementById("gem");
 if (gem) {
