@@ -34,6 +34,8 @@ document.addEventListener("visibilitychange", () => {
   document.documentElement.classList.toggle("paused", document.hidden);
 });
 
+function pageUrl(p) { return "project.html?id=" + encodeURIComponent(p.id); }
+
 function render() {
   grid.replaceChildren();
   const list = PROJECTS.filter(p => active === "All" || p.category === active);
@@ -42,10 +44,12 @@ function render() {
     const card = el("li", { className: "card" });
     card.dataset.cat = p.category;
     card.append(
-      el("h2", { textContent: p.name }),
+      el("h2", {}, el("a", { className: "title-link", href: pageUrl(p), textContent: p.name })),
       el("p", { textContent: p.description }),
       el("div", { className: "meta" }, ...(p.tags || []).map(t => el("span", { className: "tag", textContent: t }))),
-      el("div", { className: "links" }, ...(p.links || []).map(l => el("a", { href: l.url, textContent: l.label })))
+      el("div", { className: "links" },
+          el("a", { href: pageUrl(p), textContent: "Details" }),
+          ...(p.links || []).slice(0, 2).map(l => el("a", { href: l.url, textContent: l.label })))
     );
     grid.append(card);
     if (io) { card.classList.add("pre"); io.observe(card); }
