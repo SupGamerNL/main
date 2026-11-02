@@ -106,3 +106,27 @@ footer code { font-family: var(--font-code); color: var(--aqua); }
   .pulse { opacity: .25; }
   .card.pre { opacity: 1; transform: none; }
 }
+
+/* Project pages */
+.card h2 .title-link { color: var(--white); text-decoration: none; }
+.card h2 .title-link:hover { color: var(--aqua); }
+.project { padding-top: 3rem; padding-bottom: 2rem; }
+.project > * { animation: rise .7s cubic-bezier(.2, .7, .2, 1) both; animation-delay: calc(var(--i, 0) * 70ms); }
+.project h1 { font-size: clamp(2.2rem, 6vw, 3.8rem); margin: 1.5rem 0 1rem; }
+.project .meta { margin-bottom: 1.25rem; }
+.back { display: inline-block; color: var(--muted); text-decoration: none; }
+.back::before { content: "\2190\00a0"; }
+.back:hover { color: var(--cyan); }
+.btns { display: flex; flex-wrap: wrap; gap: .75rem; margin: 1.75rem 0 0; }
+.btn { text-decoration: none; font-weight: 700; color: var(--black); background: var(--turq); padding: .55rem 1.2rem; border-radius: 6px; transition: background .15s; }
+.btn:hover { background: var(--aqua); }
+.sec { margin-top: 3rem; }
+.sec h2 { margin: 0 0 .75rem; }
+.sec p { color: var(--muted); max-width: 65ch; margin: 0 0 1rem; }
+.versions { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+.version { background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--aqua); border-radius: 6px; padding: 1.25rem; }
+.version:nth-child(2) { border-left-color: var(--cyan); }
+.version h3 { margin: 0; font-size: 1.15rem; }
+.version p { margin: .5rem 0 0; }
+.version .range { color: var(--aqua); font-size: .9rem; }
+footer a { color: var(--cyan); }
