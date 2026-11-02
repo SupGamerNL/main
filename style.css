@@ -149,3 +149,20 @@ header > :nth-child(4) { animation-delay: .24s; }
   header { display: block; }
   .hero-art { display: none; }
 }
+
+/* Cursor spotlight (behind all content, so it never covers cards or text) */
+.spot {
+  --bx: 0px; --by: 0px;
+  position: fixed; top: 0; left: 0; width: 520px; height: 520px; z-index: 0; pointer-events: none;
+  opacity: 0; transition: opacity .35s ease; will-change: transform;
+  background-image:
+    linear-gradient(rgba(0, 229, 255, .5) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 255, .5) 1px, transparent 1px),
+    radial-gradient(circle closest-side, rgba(64, 224, 208, .22), rgba(0, 229, 255, .07) 55%, transparent);
+  background-size: 48px 48px, 48px 48px, 100% 100%;
+  background-repeat: repeat, repeat, no-repeat;
+  background-position: var(--bx) var(--by), var(--bx) var(--by), 0 0;
+  -webkit-mask-image: radial-gradient(circle closest-side, #000 25%, transparent);
+  mask-image: radial-gradient(circle closest-side, #000 25%, transparent);
+}
+.spot.on { opacity: 1; }
