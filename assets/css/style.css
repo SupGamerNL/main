@@ -166,3 +166,8 @@ header > :nth-child(4) { animation-delay: .24s; }
   mask-image: radial-gradient(circle closest-side, #000 25%, transparent);
 }
 .spot.on { opacity: 1; }
+
+/* Profile links */
+.profiles { display: flex; flex-wrap: wrap; gap: .5rem; padding: 0; margin: 1.25rem 0 0; list-style: none; }
+.profiles a { display: inline-block; padding: .35rem .95rem; border: 1px solid var(--line); border-radius: 999px; background: var(--black); color: var(--white); text-decoration: none; transition: border-color .15s, color .15s; }
+.profiles a:hover { border-color: var(--turq); color: var(--aqua); }

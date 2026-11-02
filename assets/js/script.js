@@ -101,3 +101,9 @@ if (count) {
   const n = PROJECTS.length, m = cats.length - 1;
   count.textContent = n + (n === 1 ? " creation" : " creations") + " in " + m + (m === 1 ? " category" : " categories");
 }
+
+// "About me" profile links (from data/profiles.js)
+const profiles = document.getElementById("profiles");
+if (profiles && typeof PROFILES !== "undefined") {
+  profiles.append(...PROFILES.map(p => el("li", {}, el("a", { href: p.url, textContent: p.label }))));
+}

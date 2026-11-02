@@ -23,7 +23,8 @@ main/
 │   └── img/             Screenshots, banners and icons
 │
 ├── data/
-│   └── projects.js      The list of projects. The one file to edit when adding something
+│   ├── projects.js      The list of projects. The one file to edit when adding something
+│   └── profiles.js      My profile links (YouTube, Patreon, GitHub and so on)
 │
 └── downloads/           Downloadable content, sorted by community
     ├── minecraft/
