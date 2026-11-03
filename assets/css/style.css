@@ -120,6 +120,8 @@ footer code { font-family: var(--font-code); color: var(--aqua); }
 .btns { display: flex; flex-wrap: wrap; gap: .75rem; margin: 1.75rem 0 0; }
 .btn { text-decoration: none; font-weight: 700; color: var(--black); background: var(--turq); padding: .55rem 1.2rem; border-radius: 6px; transition: background .15s; }
 .btn:hover { background: var(--aqua); }
+.btn.alt { background: transparent; color: var(--aqua); box-shadow: inset 0 0 0 1px var(--turq); }
+.btn.alt:hover { background: var(--panel-hi); color: var(--white); }
 .sec { margin-top: 3rem; }
 .sec h2 { margin: 0 0 .75rem; }
 .sec p { color: var(--muted); max-width: 65ch; margin: 0 0 1rem; }
@@ -247,3 +249,16 @@ header { padding-top: 3rem; }
   .js .nav-links a[aria-current="page"]::after { left: .5rem; right: auto; width: 2rem; bottom: .35rem; }
 }
 
+/* Downloads on project pages */
+.dl-group { margin: 1.5rem 0 .6rem; font-size: 1.05rem; color: var(--aqua); }
+.dls { list-style: none; margin: 0 0 .5rem; padding: 0; display: grid; gap: .75rem; }
+.dl { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem 1.25rem; background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--turq); border-radius: 6px; padding: 1rem 1.25rem; }
+.dl-info { display: flex; flex-direction: column; min-width: 0; }
+.dl-sub { color: var(--muted); font-size: .9rem; }
+.dl-acts { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1rem; }
+.dl-page { color: var(--muted); font-size: .9rem; }
+.dl-page:hover { color: var(--cyan); }
+@media (max-width: 600px) {
+  .dl { flex-direction: column; align-items: stretch; }
+  .dl-acts .btn { flex: 1 1 auto; text-align: center; }
+}

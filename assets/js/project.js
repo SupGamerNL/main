@@ -10,6 +10,49 @@ function el(tag, props = {}, ...kids) {
   return n;
 }
 
+// Encode a path piece for a URL. encodeURIComponent leaves ' ( ) alone, so those are done too
+// (file names like "MOAT(Mo' Ores ...).jar" then work everywhere).
+function enc(s) { return encodeURIComponent(s).replace(/['()]/g, c => "%" + c.charCodeAt(0).toString(16).toUpperCase()); }
+function fileUrl(path) { return path.split("/").map(enc).join("/"); }
+const releasesOn = typeof RELEASES_LIVE !== "undefined" && RELEASES_LIVE && typeof RELEASES_REPO !== "undefined";
+const releasesBase = releasesOn ? "https://github.com/" + RELEASES_REPO + "/releases" : "";
+
+function downloadRow(d) {
+  const info = el("div", { className: "dl-info" }, el("strong", { textContent: d.label }));
+  const sub = [d.note, d.size].filter(Boolean).join(" \u00B7 ");
+  if (sub) info.append(el("span", { className: "dl-sub", textContent: sub }));
+
+  const acts = el("div", { className: "dl-acts" });
+  if (d.file) {
+    // "download" makes the browser save the file instead of opening it (works because it's on the same site)
+    acts.append(el("a", { className: "btn", href: fileUrl(d.file), download: "", textContent: "Download" }));
+  }
+  if (releasesOn && d.release) {
+    // A direct link to the release asset: it starts downloading right away
+    acts.append(el("a", { className: "btn alt", href: releasesBase + "/download/" + enc(d.release.tag) + "/" + enc(d.release.asset), textContent: "GitHub Release" }));
+    acts.append(el("a", { className: "dl-page", href: releasesBase + "/tag/" + enc(d.release.tag), textContent: "Release page" }));
+  }
+  const row = el("li", { className: "dl" }, info, acts);
+  row.querySelectorAll(".btn").forEach(b => b.setAttribute("aria-label", b.textContent + ": " + d.label));
+  return row;
+}
+
+function downloadsSection(list) {
+  const sec = el("section", { className: "sec" }, el("h2", { textContent: "Downloads" }));
+  const groups = [];
+  list.forEach(d => {
+    const name = d.group || "";
+    let g = groups.find(x => x.name === name);
+    if (!g) groups.push(g = { name, items: [] });
+    g.items.push(d);
+  });
+  groups.forEach(g => {
+    if (g.name) sec.append(el("h3", { className: "dl-group", textContent: g.name }));
+    sec.append(el("ul", { className: "dls" }, ...g.items.map(downloadRow)));
+  });
+  return sec;
+}
+
 function notFound() {
   document.title = "Project not found | SupGamer NL";
   root.append(
@@ -40,6 +83,8 @@ function render() {
       ...p.links.map(l => el("a", { className: "btn", href: l.url, textContent: l.label }))
     ));
   }
+
+  if (p.downloads && p.downloads.length) parts.push(downloadsSection(p.downloads));
 
   if (p.gallery && p.gallery.length) {
     const grid = el("ul", { className: "shots" });

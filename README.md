@@ -37,7 +37,7 @@ main/
 
 1. Open `data/projects.js`, copy an existing project block and give it a new unique `id`.
 2. Fill in the name, category, description, tags, links and the `page` section.
-3. Optional: put screenshots in `assets/img/` and downloads in `downloads/<community>/`.
+3. Optional: put screenshots in `assets/img/` and downloads in `downloads/<community>/`, then list them in a `downloads` array (see Downloads below).
 
 The card on the index and the project page are generated from that one entry.
 
@@ -55,7 +55,27 @@ The navigation bar is part of the HTML of every page (`index.html`, `project.htm
 
 ## Downloads
 
-Downloadable content lives in `downloads/`, in a folder per community. Large or versioned files (such as mod `.jar` files) are better published as GitHub Releases and linked from the project page.
+Every project can offer its files in two ways, and the project page shows a "Downloads" section with a button for each:
+
+- **Download**: the file straight from this site, from the `downloads/` folder (a folder per community, then per project, for example `downloads/minecraft/mods/bnm/`).
+- **GitHub Release**: a direct download of the same file from a GitHub Release, plus a small "Release page" link.
+
+Both are set in the `downloads` list of a project in `data/projects.js`:
+
+```js
+downloads: [
+  { group: "Legacy", label: "Minecraft 1.12.2", note: "v3.3.3", size: "2.7 MB",
+    file: "downloads/minecraft/mods/moat/my-file.jar",
+    release: { tag: "moat-1.12.2-v3.3.3", asset: "moat-1.12.2-v3.3.3.jar" } }
+]
+```
+
+- `file` is the path inside this repo. `release` is the Release tag and the exact asset name. Either one can be left out. `group`, `note` and `size` are optional.
+- Browsers can't list folders, so every file needs one entry. Spaces, apostrophes and brackets in file names are handled by the site.
+- GitHub rewrites spaces and special characters in release asset names, so give assets a clean name (letters, numbers, dashes, dots) and use that exact name in `asset`.
+- The Release buttons stay hidden while `RELEASES_LIVE` at the top of `data/projects.js` is `false`. Set it to `true` once the Releases exist, otherwise those buttons would lead to a 404 page.
+- Direct link format: `https://github.com/<owner>/<repo>/releases/download/<tag>/<asset>`.
+- GitHub Releases: one release per tag, and each file can be up to 2 GB. Files inside the repo (and so on the site) are limited to 100 MB.
 
 ## License
 

@@ -4,6 +4,19 @@
 // links: shown on the project page (the first two also show on the card). Leave out any you don't need.
 // gallery: screenshots, as { file, caption }. Put the full-size file in assets/img/<id>/ and a small version (about 640px wide) in assets/img/<id>/thumbs/, same name.
 // page: the extra info for the project page (intro, versions, sections). All parts are optional.
+// downloads: files for the "Downloads" section on the project page, as
+//   { group?, label, note?, size?, file?, release?: { tag, asset } }
+//   file    = path inside this repo (for example "downloads/minecraft/mods/bnm/x.jar"). Gives a "Download" button.
+//   release = the tag and the exact asset name of a GitHub Release. Gives a "GitHub Release" button (direct download) + a link to the release page.
+//   group   = optional heading to sort files under (for example "Legacy"). size = optional text like "2.2 MB".
+//   Either file or release can be left out.
+
+// GitHub repo that holds the Releases ("owner/repo")
+const RELEASES_REPO = "SupGamerNL/main";
+// Keep this false until the Releases below exist, otherwise those buttons would lead to a 404 page.
+// Set it to true once you've published them.
+const RELEASES_LIVE = false;
+
 const PROJECTS = [
   {
     id: "mo-ores-n-tools",
@@ -14,6 +27,20 @@ const PROJECTS = [
     links: [
       { label: "CurseForge", url: "https://www.curseforge.com/minecraft/mc-mods/moat" },
       { label: "GitHub", url: "https://github.com/SupGamerNL/Mo-Ores-n-Tools" }
+    ],
+    downloads: [
+      { group: "Legacy", label: "Minecraft 1.10.2", note: "v1.2.71", size: "1.5 MB",
+        file: "downloads/minecraft/mods/moat/MOAT(Mo' Ores And Tools - 1.10.2 - v1.2.71).jar.jar",
+        release: { tag: "moat-1.10.2-v1.2.71", asset: "moat-1.10.2-v1.2.71.jar" } },
+      { group: "Legacy", label: "Minecraft 1.11.2", note: "v2.2.9 Nature Update v.2", size: "2.2 MB",
+        file: "downloads/minecraft/mods/moat/MOAT(Mo' Ores And Tools - 1.11.2 - v2.2.9 Nature Update v.2).jar",
+        release: { tag: "moat-1.11.2-v2.2.9", asset: "moat-1.11.2-v2.2.9.jar" } },
+      { group: "Legacy", label: "Minecraft 1.12.2", note: "v3.3.3 Going Mech Patch", size: "2.7 MB",
+        file: "downloads/minecraft/mods/moat/MOAT(Mo' Ores And Tools - 1.12.2 - v3.3.3 - Going Mech Patch).jar",
+        release: { tag: "moat-1.12.2-v3.3.3", asset: "moat-1.12.2-v3.3.3.jar" } },
+      { group: "Legacy", label: "Minecraft 1.16.5", note: "v6.1.5 Full Release, Advancements Patch", size: "3.2 MB",
+        file: "downloads/minecraft/mods/moat/MOAT(Mo' Ores and Tools - 1.16.5 - v6.1.5 - Full Release - Advancements Patch).jar",
+        release: { tag: "moat-1.16.5-v6.1.5", asset: "moat-1.16.5-v6.1.5.jar" } }
     ],
     page: {
       intro: "A comprehensive expansion for Minecraft's underground progression, bringing custom metallurgy, tiered equipment, and active multi-version development.",
@@ -47,6 +74,11 @@ const PROJECTS = [
       { file: "campfire-close-up.webp", caption: "A crafting table next to a burning campfire, with a bloodstained item on the fire." },
       { file: "campfire-from-afar.webp", caption: "The same spot from further away, with a red item on the campfire logs and smoke rising." }
     ],
+    downloads: [
+      { label: "NeoForge 1.21.8", note: "v0.0.1", size: "22 KB",
+        file: "downloads/minecraft/mods/bnm/bnm-0.0.1-neoforge-1.21.8.jar",
+        release: { tag: "blood-n-meat-0.0.1", asset: "bnm-0.0.1-neoforge-1.21.8.jar" } }
+    ],
     page: {
       intro: "Overhauls survival gameplay with gritty new culinary options, blood-harvesting mechanics, and atmospheric crafting"
     }
@@ -73,6 +105,11 @@ const PROJECTS = [
     links: [
       { label: "CurseForge", url: "https://www.curseforge.com/minecraft/worlds/fan-made-fnaf-map-season-3" }
     ],
+    downloads: [
+      { label: "Season 3 map", note: "Minecraft 1.12.2", size: "375 KB",
+        file: "downloads/minecraft/maps/Season 3 Five Nights at Freddy's V2.zip",
+        release: { tag: "fnaf-map-season-3", asset: "Season-3-Five-Nights-at-Freddys-V2.zip" } }
+    ],
     page: {
       intro: "A fan-made FNAF map for Minecraft, made by me. This is Season 3. You can download it on CurseForge."
     }
@@ -85,6 +122,11 @@ const PROJECTS = [
     tags: ["1.12.2", "Map", "Modded"],
     links: [
       { label: "CurseForge", url: "https://www.curseforge.com/minecraft/worlds/fan-made-fnaf-map-season-4" }
+    ],
+    downloads: [
+      { label: "Season 4 map", note: "Minecraft 1.12.2, modded", size: "332 KB",
+        file: "downloads/minecraft/maps/Season 4 - Five Nights at Freddy.zip",
+        release: { tag: "fnaf-map-season-4", asset: "Season-4-Five-Nights-at-Freddy.zip" } }
     ],
     page: {
       intro: "Season 4 elevates the FNAF Minecraft experience with deep mod integration, custom environments, and enhanced roleplay mechanics."
