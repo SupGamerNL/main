@@ -56,7 +56,7 @@ const PROJECTS = [
     name: "Hotel of Secrets",
     category: "Minecraft Maps",
     description: "An eerie, atmospheric adventure, puzzle, and thriller map designed to keep players on the edge of their seats.",
-    tags: ["Map"],
+    tags: ["1.8.9", "Map"],
     links: [
       { label: "CurseForge", url: "https://www.curseforge.com/minecraft/worlds/hotel-hotel-of-secrets" }
     ],
@@ -69,7 +69,7 @@ const PROJECTS = [
     name: "Fan Made FNAF Map Season 3",
     category: "Minecraft Maps",
     description: "A classic fan-made Five Nights at Freddy's map capturing that signature tense, spooky survival horror vibe.",
-    tags: ["Map"],
+    tags: ["1.12.2", "Map", "Vanilla"],
     links: [
       { label: "CurseForge", url: "https://www.curseforge.com/minecraft/worlds/fan-made-fnaf-map-season-3" }
     ],
@@ -82,7 +82,7 @@ const PROJECTS = [
     name: "Fan Made FNAF Map Season 4",
     category: "Minecraft Worlds",
     description: "An advanced modded FNAF role-playing and adventure map utilizing immersive environment mods like Custom NPCs, Chisel + CTM, and Decocraft.",
-    tags: ["Map"],
+    tags: ["1.12.2", "Map", "Modded"],
     links: [
       { label: "CurseForge", url: "https://www.curseforge.com/minecraft/worlds/fan-made-fnaf-map-season-4" }
     ],
@@ -95,7 +95,7 @@ const PROJECTS = [
     name: "Veldoria",
     category: "RPG Maker",
     description: "An indie RPG Maker fantasy adventure featuring custom storytelling, exploration, and retro charm.",
-    tags: ["RPG Maker", "Game"],
+    tags: ["Game", "v0.1.0"],
     links: [
       { label: "itch.io", url: "https://supgamernl.itch.io/veldoria" },
       { label: "GitHub", url: "https://github.com/SupGamerNL/Veldoria" }
