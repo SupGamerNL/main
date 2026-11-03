@@ -13,9 +13,8 @@
 
 // GitHub repo that holds the Releases ("owner/repo")
 const RELEASES_REPO = "SupGamerNL/main";
-// Keep this false until the Releases below exist, otherwise those buttons would lead to a 404 page.
-// Set it to true once you've published them.
-const RELEASES_LIVE = false;
+// Release buttons only show while this is true. Only add a "release" to a download once that Release really exists (otherwise it leads to a 404).
+const RELEASES_LIVE = true;
 
 const PROJECTS = [
   {
@@ -30,17 +29,13 @@ const PROJECTS = [
     ],
     downloads: [
       { group: "Legacy", label: "Minecraft 1.10.2", note: "v1.2.71", size: "1.5 MB",
-        file: "downloads/minecraft/mods/moat/MOAT(Mo' Ores And Tools - 1.10.2 - v1.2.71).jar.jar",
-        release: { tag: "moat-1.10.2-v1.2.71", asset: "moat-1.10.2-v1.2.71.jar" } },
+        file: "downloads/minecraft/mods/moat/MOAT(Mo' Ores And Tools - 1.10.2 - v1.2.71).jar" },
       { group: "Legacy", label: "Minecraft 1.11.2", note: "v2.2.9 Nature Update v.2", size: "2.2 MB",
-        file: "downloads/minecraft/mods/moat/MOAT(Mo' Ores And Tools - 1.11.2 - v2.2.9 Nature Update v.2).jar",
-        release: { tag: "moat-1.11.2-v2.2.9", asset: "moat-1.11.2-v2.2.9.jar" } },
+        file: "downloads/minecraft/mods/moat/MOAT(Mo' Ores And Tools - 1.11.2 - v2.2.9 Nature Update v.2).jar" },
       { group: "Legacy", label: "Minecraft 1.12.2", note: "v3.3.3 Going Mech Patch", size: "2.7 MB",
-        file: "downloads/minecraft/mods/moat/MOAT(Mo' Ores And Tools - 1.12.2 - v3.3.3 - Going Mech Patch).jar",
-        release: { tag: "moat-1.12.2-v3.3.3", asset: "moat-1.12.2-v3.3.3.jar" } },
+        file: "downloads/minecraft/mods/moat/MOAT(Mo' Ores And Tools - 1.12.2 - v3.3.3 - Going Mech Patch).jar" },
       { group: "Legacy", label: "Minecraft 1.16.5", note: "v6.1.5 Full Release, Advancements Patch", size: "3.2 MB",
-        file: "downloads/minecraft/mods/moat/MOAT(Mo' Ores and Tools - 1.16.5 - v6.1.5 - Full Release - Advancements Patch).jar",
-        release: { tag: "moat-1.16.5-v6.1.5", asset: "moat-1.16.5-v6.1.5.jar" } }
+        file: "downloads/minecraft/mods/moat/MOAT(Mo' Ores and Tools - 1.16.5 - v6.1.5 - Full Release - Advancements Patch).jar" }
     ],
     page: {
       intro: "A comprehensive expansion for Minecraft's underground progression, bringing custom metallurgy, tiered equipment, and active multi-version development.",
@@ -76,8 +71,7 @@ const PROJECTS = [
     ],
     downloads: [
       { label: "NeoForge 1.21.8", note: "v0.0.1", size: "22 KB",
-        file: "downloads/minecraft/mods/bnm/bnm-0.0.1-neoforge-1.21.8.jar",
-        release: { tag: "blood-n-meat-0.0.1", asset: "bnm-0.0.1-neoforge-1.21.8.jar" } }
+        file: "downloads/minecraft/mods/bnm/bnm-0.0.1-neoforge-1.21.8.jar" }
     ],
     page: {
       intro: "Overhauls survival gameplay with gritty new culinary options, blood-harvesting mechanics, and atmospheric crafting"
@@ -91,6 +85,10 @@ const PROJECTS = [
     tags: ["1.8.9", "Map"],
     links: [
       { label: "CurseForge", url: "https://www.curseforge.com/minecraft/worlds/hotel-hotel-of-secrets" }
+    ],
+    downloads: [
+      { label: "Hotel of Secrets", note: "Minecraft 1.8.9", size: "263 MB",
+        release: { tag: "minecraft-map", asset: "Hotel.of.Secrets.zip" } }
     ],
     page: {
       intro: "Step into a chilling, puzzle-filled adventure where every corridor hides a dark secret waiting to be uncovered."
@@ -107,8 +105,7 @@ const PROJECTS = [
     ],
     downloads: [
       { label: "Season 3 map", note: "Minecraft 1.12.2", size: "375 KB",
-        file: "downloads/minecraft/maps/Season 3 Five Nights at Freddy's V2.zip",
-        release: { tag: "fnaf-map-season-3", asset: "Season-3-Five-Nights-at-Freddys-V2.zip" } }
+        file: "downloads/minecraft/maps/Season 3 Five Nights at Freddy's V2.zip" }
     ],
     page: {
       intro: "A fan-made FNAF map for Minecraft, made by me. This is Season 3. You can download it on CurseForge."
@@ -125,8 +122,7 @@ const PROJECTS = [
     ],
     downloads: [
       { label: "Season 4 map", note: "Minecraft 1.12.2, modded", size: "332 KB",
-        file: "downloads/minecraft/maps/Season 4 - Five Nights at Freddy.zip",
-        release: { tag: "fnaf-map-season-4", asset: "Season-4-Five-Nights-at-Freddy.zip" } }
+        file: "downloads/minecraft/maps/Season 4 - Five Nights at Freddy.zip" }
     ],
     page: {
       intro: "Season 4 elevates the FNAF Minecraft experience with deep mod integration, custom environments, and enhanced roleplay mechanics."
@@ -141,6 +137,10 @@ const PROJECTS = [
     links: [
       { label: "itch.io", url: "https://supgamernl.itch.io/veldoria" },
       { label: "GitHub", url: "https://github.com/SupGamerNL/Veldoria" }
+    ],
+    downloads: [
+      { label: "Veldoria", note: "v0.1.0", size: "120 MB",
+        release: { tag: "rpg-game", asset: "Veldoria.-RPG.Game-.zip" } }
     ],
     page: {
       intro: "An original indie RPG project built with classic retro mechanics, atmospheric soundtracks, and a custom fantasy world."

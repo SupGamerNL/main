@@ -64,18 +64,18 @@ Both are set in the `downloads` list of a project in `data/projects.js`:
 
 ```js
 downloads: [
-  { group: "Legacy", label: "Minecraft 1.12.2", note: "v3.3.3", size: "2.7 MB",
-    file: "downloads/minecraft/mods/moat/my-file.jar",
-    release: { tag: "moat-1.12.2-v3.3.3", asset: "moat-1.12.2-v3.3.3.jar" } }
+  { label: "Hotel of Secrets", note: "Minecraft 1.8.9", size: "263 MB",
+    release: { tag: "minecraft-map", asset: "Hotel.of.Secrets.zip" } }
 ]
 ```
 
 - `file` is the path inside this repo. `release` is the Release tag and the exact asset name. Either one can be left out. `group`, `note` and `size` are optional.
 - Browsers can't list folders, so every file needs one entry. Spaces, apostrophes and brackets in file names are handled by the site.
 - GitHub rewrites spaces and special characters in release asset names, so give assets a clean name (letters, numbers, dashes, dots) and use that exact name in `asset`.
-- The Release buttons stay hidden while `RELEASES_LIVE` at the top of `data/projects.js` is `false`. Set it to `true` once the Releases exist, otherwise those buttons would lead to a 404 page.
+- Release buttons show while `RELEASES_LIVE` at the top of `data/projects.js` is `true`. Only add a `release` once that Release really exists, otherwise the button leads to a 404 page.
+- Files over 100 MB can't live in the repo, so those go in a Release only (Hotel of Secrets and Veldoria do this).
 - Direct link format: `https://github.com/<owner>/<repo>/releases/download/<tag>/<asset>`.
-- GitHub Releases: one release per tag, and each file can be up to 2 GB. Files inside the repo (and so on the site) are limited to 100 MB.
+- Each file in a GitHub Release can be up to 2 GB.
 
 ## License
 

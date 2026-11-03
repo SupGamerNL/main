@@ -29,7 +29,7 @@ function downloadRow(d) {
   }
   if (releasesOn && d.release) {
     // A direct link to the release asset: it starts downloading right away
-    acts.append(el("a", { className: "btn alt", href: releasesBase + "/download/" + enc(d.release.tag) + "/" + enc(d.release.asset), textContent: "GitHub Release" }));
+    acts.append(el("a", { className: d.file ? "btn alt" : "btn", href: releasesBase + "/download/" + enc(d.release.tag) + "/" + enc(d.release.asset), textContent: "GitHub Release" }));
     acts.append(el("a", { className: "dl-page", href: releasesBase + "/tag/" + enc(d.release.tag), textContent: "Release page" }));
   }
   const row = el("li", { className: "dl" }, info, acts);
