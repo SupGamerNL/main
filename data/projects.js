@@ -80,14 +80,14 @@ const PROJECTS = [
   {
     id: "fnaf-map-season-4",
     name: "Fan Made FNAF Map Season 4",
-    category: "Minecraft Worlds",
+    category: "Minecraft Maps",
     description: "An advanced modded FNAF role-playing and adventure map utilizing immersive environment mods like Custom NPCs, Chisel + CTM, and Decocraft.",
     tags: ["1.12.2", "Map", "Modded"],
     links: [
       { label: "CurseForge", url: "https://www.curseforge.com/minecraft/worlds/fan-made-fnaf-map-season-4" }
     ],
     page: {
-      intro: "Pushes the boundaries of Minecraft horror maps with custom modding integration, detailed environments, and deep roleplay immersion."
+      intro: "Season 4 elevates the FNAF Minecraft experience with deep mod integration, custom environments, and enhanced roleplay mechanics."
     }
   },
   {
