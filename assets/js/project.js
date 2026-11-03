@@ -62,11 +62,23 @@ function notFound() {
   );
 }
 
+function setMeta(selector, attribute, value) {
+  const node = document.querySelector(selector);
+  if (node) node.setAttribute(attribute, value);
+}
+
 function render() {
   const page = p.page || {};
-  document.title = p.name + " | SupGamer NL";
-  const desc = document.querySelector('meta[name="description"]');
-  if (desc) desc.content = p.description;
+  const canonical = new URL("projects/" + encodeURIComponent(p.id) + "/", "https://supgamernl.github.io/main/").href;
+  const title = p.name + " | SupGamer NL";
+  document.title = title;
+  setMeta('meta[name="description"]', "content", p.description);
+  setMeta('meta[property="og:title"]', "content", title);
+  setMeta('meta[property="og:description"]', "content", p.description);
+  setMeta('meta[property="og:url"]', "content", canonical);
+  setMeta('link[rel="canonical"]', "href", canonical);
+  setMeta('meta[name="twitter:title"]', "content", title);
+  setMeta('meta[name="twitter:description"]', "content", p.description);
 
   const parts = [];
 

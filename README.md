@@ -53,6 +53,22 @@ Screenshots that don't belong to a project go in `assets/img/general/` (and `thu
 
 The navigation bar is part of the HTML of every page (`index.html`, `project.html`, `gallery.html`). To add a page, add a link to the `<ul class="nav-links">` list in each of them. On phones and tablets the bar turns into a burger menu, handled by `assets/js/nav.js`.
 
+## SEO and project pages
+
+The homepage links to the pre-rendered project pages at `projects/<project-id>/`. These pages include their own title, description, canonical URL, Open Graph/Twitter metadata, and `CreativeWork` structured data, so search engines and social crawlers can read project information without running JavaScript.
+
+The original `project.html?id=<project-id>` route is still supported for backwards compatibility. When opened in a browser, its JavaScript updates the page metadata and canonical URL to the matching static project page.
+
+When you change project information in `data/projects.js`, regenerate the static pages and sitemap:
+
+```bash
+python tools/generate-seo-pages.py
+```
+
+The generator uses only Python's standard library. Python is needed only when maintaining/regenerating the pages; the published website remains plain static HTML, CSS and JavaScript. Commit the updated `projects/` pages and `sitemap.xml` together with your `data/projects.js` changes.
+
+`robots.txt` points crawlers to `sitemap.xml`. The sitemap lists the homepage, gallery and each individual project page. The shared social preview image currently uses `assets/img/icon-image.png`.
+
 ## Downloads
 
 Every project can offer its files in two ways, and the project page shows a "Downloads" section with a button for each:

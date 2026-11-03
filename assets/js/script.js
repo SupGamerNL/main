@@ -34,7 +34,8 @@ document.addEventListener("visibilitychange", () => {
   document.documentElement.classList.toggle("paused", document.hidden);
 });
 
-function pageUrl(p) { return "project.html?id=" + encodeURIComponent(p.id); }
+// Public project links use crawlable, pre-rendered pages. The legacy query route remains available.
+function pageUrl(p) { return "projects/" + encodeURIComponent(p.id) + "/"; }
 
 function render() {
   grid.replaceChildren();

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://supgamernl.github.io/main/sitemap.xml
