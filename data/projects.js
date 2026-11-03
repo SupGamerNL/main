@@ -9,23 +9,23 @@ const PROJECTS = [
     id: "mo-ores-n-tools",
     name: "Mo' Ores 'n Tools",
     category: "Minecraft Mods",
-    description: "My own Minecraft mod adding extra ores and tools. Available for modern (Neo)Forge, with an older legacy version for 1.10.2 to 1.16.5.",
-    tags: ["Mod", "(Neo)Forge"],
+    description: "Adds a massive, well-balanced variety of new ores, robust armor sets, and powerful tools for both modern (Neo)Forge and legacy Minecraft versions.",
+    tags: ["Mod", "Forge", "NeoForge"],
     links: [
       { label: "CurseForge", url: "https://www.curseforge.com/minecraft/mc-mods/moat" },
       { label: "GitHub", url: "https://github.com/SupGamerNL/Mo-Ores-n-Tools" }
     ],
     page: {
-      intro: "Mo' Ores 'n Tools adds extra ores, alloys, gems and the tools to go with them. It's made by me (SupG_NL) and comes in a modern Reforged version and a legacy version.",
+      intro: "A comprehensive expansion for Minecraft's underground progression, bringing custom metallurgy, tiered equipment, and active multi-version development.",
       versions: [
-        { name: "Reforged", range: "Modern (Neo)Forge", note: "The current version, built from the ground up again.",
+        { name: "Reforged", range: "Modern NeoForge; Minecraft 1.21.1", note: "The current version, built from the ground up again.",
           links: [{ label: "Trello board", url: "https://trello.com/b/48BHW3tG/neoforge-mo-ores-n-tools" }] },
-        { name: "Legacy", range: "Minecraft 1.10.2 to 1.16.5", note: "The original version of the mod for older Minecraft releases.",
+        { name: "Legacy", range: "Legacy Forge; Minecraft 1.10.2 to 1.16.5", note: "The original version of the mod for older Minecraft releases.",
           links: [{ label: "Trello board", url: "https://trello.com/b/eCEEPdK0/forge-mo-ores-and-tools" }] }
       ],
       sections: [
         { title: "Materials in the works", text: "The materials list for Reforged is still being drafted, so this can change.",
-          chips: ["Tin", "Bronze", "Steel", "Nickel", "Invar", "Ruby", "Chromium", "Stainless Steel", "Sapphire"] },
+          chips: ["Tin", "Bronze", "Steel", "Nickel", "Invar", "Ruby", "Chromium"] },
         { title: "Planned", chips: ["Zinc", "Brass", "Titanium", "Tungsten", "Shungite", "Azurite", "Peridot", "Sunstone"] }
       ]
     }
@@ -34,8 +34,8 @@ const PROJECTS = [
     id: "blood-n-meat",
     name: "Blood 'n Meat",
     category: "Minecraft Mods",
-    description: "A Minecraft mod made by me. Available on CurseForge and Modrinth.",
-    tags: ["Mod"],
+    description: "Introduces new raw and cooked meats, coagulated blood, unique crafting recipes, and immersive survival mechanics that give Minecraft a darker, visceral feel.",
+    tags: ["Mod", "NeoForge"],
     links: [
       { label: "CurseForge", url: "https://www.curseforge.com/minecraft/mc-mods/blood-n-meat" },
       { label: "Modrinth", url: "https://modrinth.com/mod/blood-n-meat" },
@@ -48,28 +48,28 @@ const PROJECTS = [
       { file: "campfire-from-afar.webp", caption: "The same spot from further away, with a red item on the campfire logs and smoke rising." }
     ],
     page: {
-      intro: "Blood 'n Meat is a Minecraft mod made by me. You can download it on CurseForge or Modrinth, and the source code is on GitHub."
+      intro: "Overhauls survival gameplay with gritty new culinary options, blood-harvesting mechanics, and atmospheric crafting"
     }
   },
   {
     id: "hotel-of-secrets",
     name: "Hotel of Secrets",
-    category: "Minecraft Worlds",
-    description: "A Minecraft world made by me. Download it on CurseForge.",
-    tags: ["World"],
+    category: "Minecraft Maps",
+    description: "An eerie, atmospheric adventure, puzzle, and thriller map designed to keep players on the edge of their seats.",
+    tags: ["Map"],
     links: [
       { label: "CurseForge", url: "https://www.curseforge.com/minecraft/worlds/hotel-hotel-of-secrets" }
     ],
     page: {
-      intro: "Hotel of Secrets is a Minecraft world made by me. You can download it on CurseForge."
+      intro: "Step into a chilling, puzzle-filled adventure where every corridor hides a dark secret waiting to be uncovered."
     }
   },
   {
     id: "fnaf-map-season-3",
     name: "Fan Made FNAF Map Season 3",
-    category: "Minecraft Worlds",
-    description: "A fan-made FNAF map for Minecraft, Season 3. Download it on CurseForge.",
-    tags: ["World", "FNAF", "Fan-made"],
+    category: "Minecraft Maps",
+    description: "A classic fan-made Five Nights at Freddy's map capturing that signature tense, spooky survival horror vibe.",
+    tags: ["Map"],
     links: [
       { label: "CurseForge", url: "https://www.curseforge.com/minecraft/worlds/fan-made-fnaf-map-season-3" }
     ],
@@ -81,27 +81,27 @@ const PROJECTS = [
     id: "fnaf-map-season-4",
     name: "Fan Made FNAF Map Season 4",
     category: "Minecraft Worlds",
-    description: "A fan-made FNAF map for Minecraft, Season 4. Download it on CurseForge.",
-    tags: ["World", "FNAF", "Fan-made"],
+    description: "An advanced modded FNAF role-playing and adventure map utilizing immersive environment mods like Custom NPCs, Chisel + CTM, and Decocraft.",
+    tags: ["Map"],
     links: [
       { label: "CurseForge", url: "https://www.curseforge.com/minecraft/worlds/fan-made-fnaf-map-season-4" }
     ],
     page: {
-      intro: "A fan-made FNAF map for Minecraft, made by me. This is Season 4. You can download it on CurseForge."
+      intro: "Pushes the boundaries of Minecraft horror maps with custom modding integration, detailed environments, and deep roleplay immersion."
     }
   },
   {
     id: "veldoria",
     name: "Veldoria",
     category: "RPG Maker",
-    description: "An RPG Maker game made by me. Play it on itch.io.",
+    description: "An indie RPG Maker fantasy adventure featuring custom storytelling, exploration, and retro charm.",
     tags: ["RPG Maker", "Game"],
     links: [
       { label: "itch.io", url: "https://supgamernl.itch.io/veldoria" },
       { label: "GitHub", url: "https://github.com/SupGamerNL/Veldoria" }
     ],
     page: {
-      intro: "Veldoria is an RPG Maker game made by me. You can play it on itch.io, and the project is on GitHub."
+      intro: "An original indie RPG project built with classic retro mechanics, atmospheric soundtracks, and a custom fantasy world."
     }
   }
 ];
