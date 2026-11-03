@@ -20,7 +20,7 @@ main/
 │
 ├── assets/              Everything the pages load
 │   ├── css/style.css    All styling and animations
-│   ├── js/              script.js (index), project.js, gallery.js, gallery-page.js, spotlight.js (cursor glow)
+│   ├── js/              script.js (index), project.js, gallery.js, gallery-page.js, nav.js (burger menu), spotlight.js (cursor glow)
 │   └── img/             Screenshots: img/<project-id>/ (full size) with thumbs/ inside, plus img/general/
 │
 ├── data/
@@ -48,6 +48,10 @@ The card on the index and the project page are generated from that one entry.
 3. It shows up on the project page and in the main gallery automatically.
 
 Screenshots that don't belong to a project go in `assets/img/general/` (and `thumbs/`) and are listed in `data/gallery.js`.
+
+## Navigation
+
+The navigation bar is part of the HTML of every page (`index.html`, `project.html`, `gallery.html`). To add a page, add a link to the `<ul class="nav-links">` list in each of them. On phones and tablets the bar turns into a burger menu, handled by `assets/js/nav.js`.
 
 ## Downloads
 

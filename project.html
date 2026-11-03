@@ -8,11 +8,23 @@
 <meta name="copyright" content="© 2026 Jelle &quot;SupGamer NL&quot; Koerselman. All rights reserved.">
 <title>Project | SupGamer NL</title>
 <meta name="description" content="Project details.">
+<script>document.documentElement.className = "js";</script>
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 <div class="pulse" aria-hidden="true"></div>
 <div class="pulse b" aria-hidden="true"></div>
+<nav class="nav" aria-label="Main">
+  <div class="nav-in">
+    <a class="nav-brand" href="index.html"><span class="blocks" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>SupGamer NL</span></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html" aria-current="page">Creations</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="index.html#about">About</a></li>
+    </ul>
+  </div>
+</nav>
 
 <main id="project" class="project" aria-live="polite"></main>
 
@@ -25,6 +37,7 @@
 <script src="data/gallery.js" defer></script>
 <script src="assets/js/gallery.js" defer></script>
 <script src="assets/js/project.js" defer></script>
+<script src="assets/js/nav.js" defer></script>
 <script src="assets/js/spotlight.js" defer></script>
 </body>
 </html>
