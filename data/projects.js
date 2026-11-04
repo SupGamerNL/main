@@ -52,7 +52,12 @@ const PROJECTS = [
       { file: "materials.webp", caption: "A few materials thrown on pillars; from left to right we have: A black pearl, purple orb shard and mud ball. (This is shown from 1.10.2's v1.1.43)" },
       { file: "armor.webp", caption: "An armor set made from Black Pearl. (This is shown from 1.10.2's v1.1.43)" },
       { file: "natural-ores.webp", caption: "Some natural spawning ores within the world, besides the furnace and skeleton. (This is shown from 1.10.2's v1.1.43)" },
-      { file: "smelting-tin.webp", caption: "Let's smelt some of that tin ore to tin ingots! (This is shown from 1.10.2's v1.1.43)" }
+      { file: "smelting-tin.webp", caption: "Let's smelt some of that tin ore to tin ingots! (This is shown from 1.10.2's v1.1.43)" },
+      { file: "armor-2.webp", caption: "Another armor set and this time made from Blue Pearl. (This is shown from 1.11.2's v2.2.9)" },
+      { file: "cover-materials.webp", caption: "And some more materials on pillars; with a red orb, copper dust and obsidian crystal. (This is shown from 1.11.2's v2.2.9)" },
+      { file: "mined-item.webp", caption: "Finally I found some wild Black Pearl after I mined its ore! (This is shown from 1.11.2's v2.2.9)" },
+      { file: "mining-ore.webp", caption: "In the progress of mining some Black Pearl... (This is shown from 1.11.2's v2.2.9)" },
+      { file: "ore-generation.webp", caption: "Oh, what's hidden here, sunstone? (This is shown from 1.11.2's v2.2.9)" }
     ],
     downloads: [
       { group: "Legacy", label: "Minecraft 1.10.2", note: "v1.1.43",
