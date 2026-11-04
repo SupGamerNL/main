@@ -49,8 +49,8 @@ const PROJECTS = [
       { label: "GitHub", url: "https://github.com/SupGamerNL/Mo-Ores-n-Tools" }
     ],
     gallery: [
-      { file: "armor.webp", caption: "An armor set made from Black Pearl. (This is shown from 1.10.2's v1.1.43)" },
       { file: "materials.webp", caption: "A few materials thrown on pillars; from left to right we have: A black pearl, purple orb shard and mud ball. (This is shown from 1.10.2's v1.1.43)" },
+      { file: "armor.webp", caption: "An armor set made from Black Pearl. (This is shown from 1.10.2's v1.1.43)" },
       { file: "natural-ores.webp", caption: "Some natural spawning ores within the world, besides the furnace and skeleton. (This is shown from 1.10.2's v1.1.43)" },
       { file: "smelting-tin.webp", caption: "Let's smelt some of that tin ore to tin ingots! (This is shown from 1.10.2's v1.1.43)" }
     ],
