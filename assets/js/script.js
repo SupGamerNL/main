@@ -1,4 +1,4 @@
-// Needs data/projects.js + common.js + stats.js loaded first (PROJECTS, Site, Stats)
+// Needs data/projects.js + common.js loaded first (PROJECTS, Site)
 const { el } = Site;
 const grid = document.getElementById("grid");
 const filters = document.getElementById("filters");
@@ -122,7 +122,6 @@ document.addEventListener("keydown", e => {
 
 renderFilters();
 render(true);
-Stats.view("/", "Home");
 
 // Hero art: pixel gem (c = cyan, a = aqua, t = turquoise, w = white, . = empty)
 const GEM = [

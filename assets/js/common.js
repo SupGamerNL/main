@@ -24,7 +24,6 @@ const Site = (() => {
     if (n < 1024 ** 3) { const mb = n / 1024 ** 2; return (mb >= 100 ? Math.round(mb) : mb.toFixed(1)) + " MB"; }
     return (n / 1024 ** 3).toFixed(1) + " GB";
   }
-  const fmtNum = n => new Intl.NumberFormat("en").format(n);
 
   // ---- Status ----
   const STATUS = {
@@ -103,7 +102,7 @@ const Site = (() => {
     }
   }
 
-  return { cfg, IMG, el, enc, fileUrl, abs, projectUrl, fmtBytes, fmtNum, STATUS, statusBadge, rowTarget, versionText, supportLine, cover, norm, words, searchText, setHead };
+  return { cfg, IMG, el, enc, fileUrl, abs, projectUrl, fmtBytes, STATUS, statusBadge, rowTarget, versionText, supportLine, cover, norm, words, searchText, setHead };
 })();
 
 // Pause the background pulse when the tab isn't visible

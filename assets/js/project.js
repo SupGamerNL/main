@@ -1,66 +1,40 @@
-// Needs data/projects.js + common.js + gallery.js + stats.js loaded first.
+// Needs data/projects.js + common.js + gallery.js + filesize.js loaded first.
 // Opened as project.html?id=<project id>
-const { el, enc, fileUrl, fmtBytes, fmtNum } = Site;
+const { el, enc, fileUrl, fmtBytes } = Site;
 const root = document.getElementById("project");
 const id = new URLSearchParams(location.search).get("id");
 const p = PROJECTS.find(x => x.id === id);
 
 const releasesOn = typeof RELEASES_LIVE !== "undefined" && RELEASES_LIVE && typeof RELEASES_REPO !== "undefined";
 const releasesBase = releasesOn ? "https://github.com/" + RELEASES_REPO + "/releases" : "";
-const releaseCounts = typeof STATS_CONFIG === "undefined" || STATS_CONFIG.releaseCounts !== false;
-const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
 // ---------- Downloads ----------
-// Each row shows: note · size · number of downloads. The size comes from data/sizes.js at once and is
-// then checked live; the number of downloads is added when it is known.
+// Each row shows: note and file size. The size comes from data/sizes.js at once; for files on this site
+// the browser then checks the current size.
 function downloadRow(d) {
-  const state = { size: Stats.knownSize(d), site: null, release: null };
+  let size = FileSize.known(d);
   const sub = el("span", { className: "dl-sub" });
-  const paint = () => {
-    const known = [state.site, state.release].filter(n => n !== null);
-    const total = known.reduce((a, b) => a + b, 0);
-    sub.textContent = [d.note, state.size, known.length ? fmtNum(total) + (total === 1 ? " download" : " downloads") : ""].filter(Boolean).join(" \u00B7 ");
-    sub.hidden = !sub.textContent;
-    if (known.length === 2) sub.title = fmtNum(state.site) + " from this site, " + fmtNum(state.release) + " from GitHub Releases";
-  };
+  const paint = () => { sub.textContent = [d.note, size].filter(Boolean).join(" \u00B7 "); sub.hidden = !sub.textContent; };
   const info = el("div", { className: "dl-info" }, el("strong", { textContent: d.label }), sub);
 
   const acts = el("div", { className: "dl-acts" });
-  const statPath = d.file ? "/dl-" + p.id + "-" + slug(d.file.split("/").pop()) : "";
   if (d.file) {
     // "download" makes the browser save the file instead of opening it (works because it's on the same site)
-    const a = el("a", { className: "btn", href: fileUrl(d.file), download: "", textContent: "Download" });
-    a.addEventListener("click", () => Stats.download(statPath, "Download: " + p.name + " " + d.label));
-    acts.append(a);
+    acts.append(el("a", { className: "btn", href: fileUrl(d.file), download: "", textContent: "Download" }));
   }
   if (releasesOn && d.release) {
-    // A direct link to the release asset: it starts downloading right away (GitHub counts these itself)
+    // A direct link to the release asset: it starts downloading right away
     acts.append(el("a", { className: d.file ? "btn alt" : "btn", href: releasesBase + "/download/" + enc(d.release.tag) + "/" + enc(d.release.asset), rel: "noopener", textContent: "GitHub Release" }));
     acts.append(el("a", { className: "dl-page", href: releasesBase + "/tag/" + enc(d.release.tag), rel: "noopener", textContent: "Release page" }));
   }
   const row = el("li", { className: "dl" }, info, acts);
   row.querySelectorAll(".btn").forEach(b => b.setAttribute("aria-label", b.textContent + ": " + d.label));
   paint();
-
-  // Live lookups (all optional; each one only adds information)
-  const jobs = [];
-  if (d.file) {
-    jobs.push(Stats.liveSize(d.file).then(n => { if (n) { state.size = fmtBytes(n); paint(); } }));
-    jobs.push(Stats.count(statPath).then(n => { if (n !== null) { state.site = n; paint(); } }));
-  }
-  if (releasesOn && d.release) {
-    jobs.push(Stats.release(d.release.tag).then(assets => {
-      const a = assets && assets[d.release.asset];
-      if (!a) return;
-      if (!d.file) state.size = fmtBytes(a.size);
-      if (releaseCounts) state.release = a.downloads;
-      paint();
-    }));
-  }
-  return { row, done: Promise.all(jobs).then(() => (state.site || 0) + (state.release || 0) || (state.site === null && state.release === null ? null : 0)) };
+  if (d.file) FileSize.live(d.file).then(n => { if (n) { size = fmtBytes(n); paint(); } });
+  return row;
 }
 
-function downloadsSection(list, onTotals) {
+function downloadsSection(list) {
   const sec = el("section", { className: "sec" }, el("h2", { textContent: "Downloads" }));
   const groups = [];
   list.forEach(d => {
@@ -69,27 +43,11 @@ function downloadsSection(list, onTotals) {
     if (!g) groups.push(g = { name, items: [] });
     g.items.push(d);
   });
-  const jobs = [];
   groups.forEach(g => {
     if (g.name) sec.append(el("h3", { className: "dl-group", textContent: g.name }));
-    const rows = g.items.map(downloadRow);
-    rows.forEach(r => jobs.push(r.done));
-    sec.append(el("ul", { className: "dls" }, ...rows.map(r => r.row)));
+    sec.append(el("ul", { className: "dls" }, ...g.items.map(downloadRow)));
   });
-  Promise.all(jobs).then(onTotals);
   return sec;
-}
-
-// ---------- Statistics strip ----------
-function statsStrip() {
-  const strip = el("div", { className: "stats", hidden: true });
-  const add = (value, label) => {
-    let item = strip.querySelector('[data-k="' + label + '"]');
-    if (!item) { item = el("div", { className: "stat" }, el("strong"), el("span", { textContent: label })); item.dataset.k = label; strip.append(item); }
-    item.querySelector("strong").textContent = fmtNum(value);
-    strip.hidden = false;
-  };
-  return { strip, add };
 }
 
 // ---------- Compatibility (versions of game / engine / mod loader) ----------
@@ -190,16 +148,8 @@ function render() {
     ));
   }
 
-  const st = statsStrip();
-  parts.push(st.strip);
-
   if (p.support && p.support.length) parts.push(compatSection(p.support));
-  if (p.downloads && p.downloads.length) {
-    parts.push(downloadsSection(p.downloads, totals => {
-      const known = totals.filter(n => n !== null);
-      if (known.length) st.add(known.reduce((a, b) => a + b, 0), "Downloads");
-    }));
-  }
+  if (p.downloads && p.downloads.length) parts.push(downloadsSection(p.downloads));
   if (p.changelog && p.changelog.length) parts.push(changelogSection(p.changelog));
 
   if (p.gallery && p.gallery.length) {
@@ -239,9 +189,6 @@ function render() {
   parts.forEach((n, i) => n.style.setProperty("--i", i));
   root.replaceChildren(...parts);
 
-  // Page views (GoatCounter, when switched on)
-  Stats.view("/p-" + p.id, p.name);
-  Stats.count("/p-" + p.id).then(n => { if (n !== null) st.add(n, "Page views"); });
 }
 
 p ? render() : notFound();

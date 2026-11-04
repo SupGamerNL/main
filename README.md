@@ -23,7 +23,7 @@ main/
 │
 ├── assets/              Everything the pages load
 │   ├── css/style.css    All styling and animations
-│   ├── js/              common.js (shared helpers + SEO tags), stats.js (sizes and statistics), script.js (index + search),
+│   ├── js/              common.js (shared helpers + SEO tags), filesize.js (file sizes), script.js (index + search),
 │   │                    project.js, gallery.js, gallery-page.js, nav.js (burger menu), spotlight.js (cursor glow)
 │   └── img/             Screenshots: img/<project-id>/ (full size) with thumbs/ inside, plus img/general/
 │
@@ -31,7 +31,7 @@ main/
 │   ├── projects.js      The list of projects. The one file to edit when adding something
 │   ├── profiles.js      My profile links (YouTube, Patreon, GitHub and so on)
 │   ├── gallery.js       General screenshots that are not tied to one project
-│   ├── config.js        Site address and statistics settings
+│   ├── config.js        Site address and share image
 │   └── sizes.js         File sizes (generated, do not edit)
 │
 ├── tools/               Optional helper scripts (Python), the site itself never needs them
@@ -121,12 +121,6 @@ downloads: [
 ### File sizes
 
 Sizes are filled in automatically, so there is no `size` to type. `python tools/update-site.py` measures every file in `downloads/` and asks GitHub for the size of every Release asset, and stores them in `data/sizes.js`. The browser also re-checks files on this site live, so a replaced file shows its new size even before the script is run again. (A `size: "..."` on a download still works as a last-resort fallback.)
-
-## Statistics
-
-- **Release downloads**: the project page shows how often a GitHub Release file was downloaded (GitHub's own counter). No setup needed. Switch off with `releaseCounts: false` in `data/config.js`.
-- **Page views and downloads of files on this site**: needs a free [GoatCounter](https://www.goatcounter.com) account (cookie-free, no personal data). Sign up, choose a code, enable "Allow adding visitor counts on your website" under Settings > Site, then put the code in `STATS_CONFIG.goatcounter` in `data/config.js`. Without a code nothing is counted or shown, and no third-party script is loaded. Visitors who send "Do Not Track" are not counted. GoatCounter is free for non-commercial use, so check its terms if your Patreon makes the site count as commercial.
-- The numbers appear as small boxes under the link buttons ("Page views", "Downloads") and next to each file. The total "Downloads" adds the site counter and the Release counter. A Release download started from GitHub's own page is counted by GitHub, but not by GoatCounter.
 
 ## Updating the site (upload workflow)
 

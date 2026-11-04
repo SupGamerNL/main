@@ -263,7 +263,7 @@ header { padding-top: 3rem; }
   .dl-acts .btn { flex: 1 1 auto; text-align: center; }
 }
 
-/* ===== Additions: search, status, covers, compatibility, stats, changelog, timeline ===== */
+/* ===== Additions: search, status, covers, compatibility, changelog, timeline ===== */
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 
 /* Search */
@@ -312,12 +312,7 @@ header { padding-top: 3rem; }
 .facts dd { margin: 0; }
 .chips { display: inline-flex; flex-wrap: wrap; gap: .4rem; }
 
-/* Statistics strip */
-.stats { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.75rem; }
-.stats[hidden] { display: none; }
-.stat { display: flex; flex-direction: column; min-width: 8rem; padding: .6rem 1.1rem; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; }
-.stat strong { font-size: 1.4rem; line-height: 1.2; color: var(--aqua); }
-.stat span { color: var(--muted); font-size: .85rem; }
+/* Download row */
 .dl-sub[hidden] { display: none; }
 
 /* Changelog */
