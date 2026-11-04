@@ -15,7 +15,7 @@ const SITE_CONFIG = {
 // sign up, pick a code (for example "supgamernl"), enable "Allow adding visitor counts on your website"
 // under Settings > Site, then put the code between the quotes. Leave it empty to switch it off.
 const STATS_CONFIG = {
-  goatcounter: "",
+  goatcounter: "supgamernl",
   releaseCounts: true      // show how often a GitHub Release file was downloaded
 };
 // ==========================
