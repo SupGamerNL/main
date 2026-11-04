@@ -31,21 +31,35 @@ const Stats = (() => {
   const view = (path, title) => hit(path, title, false);
   const download = (path, title) => hit(path, title, true);
 
+  // Reading a count. GoatCounter's documented form has a literal slash after /counter/ (".../counter//p-x.json"),
+  // and events may be stored without a leading slash, so several spellings are tried in order until one answers.
+  // Add ?debug=stats to a page address to see every attempt in the browser console (F12).
+  const debug = /[?&]debug=stats\b/.test(location.search);
+  const log = (...a) => { if (debug) console.info("[stats]", ...a); };
+  let lastForm = 0;
   async function count(path) {
     if (!code) return null;
     const key = "gc:" + path, c = recall(key, 5 * 60 * 1000);
     if (c) return c.v;
     const base = "https://" + code + ".goatcounter.com/counter/";
-    for (const url of [base + encodeURIComponent(path) + ".json", base + path + ".json"]) {
+    const bare = path.replace(/^\//, "");
+    const forms = [
+      base + path + ".json",                          // .../counter//p-x.json   (as in GoatCounter's docs)
+      base + bare + ".json",                          // .../counter/dl-x.json   (events without a leading slash)
+      base + encodeURIComponent(path) + ".json",      // .../counter/%2Fp-x.json
+      base + encodeURIComponent(bare) + ".json"
+    ];
+    const order = [lastForm, ...forms.keys()].filter((v, i, a) => a.indexOf(v) === i);
+    for (const i of order) {
       try {
-        const r = await fetch(url);
-        if (r.status === 404) { store(key, 0); return 0; }
-        if (!r.ok) continue;
+        const r = await fetch(forms[i]);
+        log(r.status, forms[i]);
+        if (!r.ok) continue;                          // 404 = not found under this spelling: try the next one
         const n = parseInt(String((await r.json()).count).replace(/\D/g, ""), 10);
-        if (!isNaN(n)) { store(key, n); return n; }
-      } catch (e) { /* try the next form */ }
+        if (!isNaN(n)) { lastForm = i; store(key, n); return n; }
+      } catch (e) { log("failed", forms[i], e.message); }
     }
-    return null;
+    return null;                                      // nothing found: show nothing rather than a misleading 0
   }
 
   // ---- GitHub Releases ----
