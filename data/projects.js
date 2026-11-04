@@ -61,7 +61,7 @@ const PROJECTS = [
     ],
     downloads: [
       { group: "Reforged", label: "Minecraft 1.21.1", note: "v0.1.0",
-        file: "downloads/minecraft/mods/moat/moat-0.1.0-neoforge-1.21.1.jar" },
+        file: "downloads/minecraft/mods/moat/moat-reforged-1.21.1-v0.1.0.jar" },
       { group: "Legacy", label: "Minecraft 1.10.2", note: "v1.1.43",
         file: "downloads/minecraft/mods/moat/MOAT(Mo' Ores And Tools - 1.10.2 - v1.1.43).jar" },
       { group: "Legacy", label: "Minecraft 1.11.2", note: "v2.2.9 Nature Update v.2",
