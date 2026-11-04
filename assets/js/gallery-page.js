@@ -28,3 +28,5 @@ const parts = [
 if (all.length) { parts.push(bar, grid); draw(); }
 parts.forEach((n, i) => n.style.setProperty("--i", i));
 root.append(...parts);
+
+Stats.view("/gallery", "Gallery");

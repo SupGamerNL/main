@@ -3,13 +3,29 @@
 // category: used for the filter buttons.
 // links: shown on the project page (the first two also show on the card). Leave out any you don't need.
 // gallery: screenshots, as { file, caption }. Put the full-size file in assets/img/<id>/ and a small version (about 640px wide) in assets/img/<id>/thumbs/, same name.
+//   Tip: python tools/add-screenshots.py <id> <your screenshots>  makes both files and prints the gallery lines for you.
 // page: the extra info for the project page (intro, versions, sections). All parts are optional.
 // downloads: files for the "Downloads" section on the project page, as
 //   { group?, label, note?, size?, file?, release?: { tag, asset } }
 //   file    = path inside this repo (for example "downloads/minecraft/mods/bnm/x.jar"). Gives a "Download" button.
 //   release = the tag and the exact asset name of a GitHub Release. Gives a "GitHub Release" button (direct download) + a link to the release page.
-//   group   = optional heading to sort files under (for example "Legacy"). size = optional text like "2.2 MB".
+//   group   = optional heading to sort files under (for example "Legacy").
+//   size    = NOT needed any more: file sizes are filled in automatically. Only add it (text like "2.2 MB") as a fallback.
 //   Either file or release can be left out.
+//
+// ---- Optional extras per project ----
+// status    = "released", "in-development", "planned", "on-hold" or "archived". Shows a status badge.
+// cover     = a file name from the project's screenshots folder (assets/img/<id>/). Shown on the card and the project page.
+//             Without it, the first screenshot is used. Without screenshots there is no cover.
+// support   = what the project runs on, one row per version line:
+//             { label?, game?, engine?, versions?: ["1.21.1"], loader?, requires?: ["Some mod"], note? }
+// changelog = [{ version, date?, changes: ["What changed", ...] }], newest first.
+// timeline  = [{ date, title, text? }], oldest first. date is free text, for example "2026-03" or "Spring 2026".
+//
+//   Example (copy into a project, then fill in your own facts):
+//   status: "in-development",
+//   changelog: [ { version: "0.0.2", date: "2026-11-01", changes: ["Added ..."] } ],
+//   timeline: [ { date: "2026-10", title: "Started the project", text: "Optional extra line." } ],
 
 // GitHub repo that holds the Releases ("owner/repo")
 const RELEASES_REPO = "SupGamerNL/main";
@@ -21,20 +37,25 @@ const PROJECTS = [
     id: "mo-ores-n-tools",
     name: "Mo' Ores 'n Tools",
     category: "Minecraft Mods",
+    status: "in-development",
     description: "Adds a massive, well-balanced variety of new ores, robust armor sets, and powerful tools for both modern (Neo)Forge and legacy Minecraft versions.",
     tags: ["Mod", "Forge", "NeoForge"],
+    support: [
+      { label: "Reforged", game: "Minecraft", versions: ["1.21.1"], loader: "NeoForge" },
+      { label: "Legacy", game: "Minecraft", versions: ["1.10.2", "1.11.2", "1.12.2", "1.16.5"], loader: "Forge" }
+    ],
     links: [
       { label: "CurseForge", url: "https://www.curseforge.com/minecraft/mc-mods/moat" },
       { label: "GitHub", url: "https://github.com/SupGamerNL/Mo-Ores-n-Tools" }
     ],
     downloads: [
-      { group: "Legacy", label: "Minecraft 1.10.2", note: "v1.2.71", size: "1.5 MB",
+      { group: "Legacy", label: "Minecraft 1.10.2", note: "v1.2.71",
         file: "downloads/minecraft/mods/moat/MOAT(Mo' Ores And Tools - 1.10.2 - v1.2.71).jar" },
-      { group: "Legacy", label: "Minecraft 1.11.2", note: "v2.2.9 Nature Update v.2", size: "2.2 MB",
+      { group: "Legacy", label: "Minecraft 1.11.2", note: "v2.2.9 Nature Update v.2",
         file: "downloads/minecraft/mods/moat/MOAT(Mo' Ores And Tools - 1.11.2 - v2.2.9 Nature Update v.2).jar" },
-      { group: "Legacy", label: "Minecraft 1.12.2", note: "v3.3.3 Going Mech Patch", size: "2.7 MB",
+      { group: "Legacy", label: "Minecraft 1.12.2", note: "v3.3.3 Going Mech Patch",
         file: "downloads/minecraft/mods/moat/MOAT(Mo' Ores And Tools - 1.12.2 - v3.3.3 - Going Mech Patch).jar" },
-      { group: "Legacy", label: "Minecraft 1.16.5", note: "v6.1.5 Full Release, Advancements Patch", size: "3.2 MB",
+      { group: "Legacy", label: "Minecraft 1.16.5", note: "v6.1.5 Full Release, Advancements Patch",
         file: "downloads/minecraft/mods/moat/MOAT(Mo' Ores and Tools - 1.16.5 - v6.1.5 - Full Release - Advancements Patch).jar" }
     ],
     page: {
@@ -56,8 +77,12 @@ const PROJECTS = [
     id: "blood-n-meat",
     name: "Blood 'n Meat",
     category: "Minecraft Mods",
+    status: "in-development",
     description: "Introduces new raw and cooked meats, coagulated blood, unique crafting recipes, and immersive survival mechanics that give Minecraft a darker, visceral feel.",
     tags: ["Mod", "NeoForge"],
+    support: [
+      { game: "Minecraft", versions: ["1.21.8"], loader: "NeoForge" }
+    ],
     links: [
       { label: "CurseForge", url: "https://www.curseforge.com/minecraft/mc-mods/blood-n-meat" },
       { label: "Modrinth", url: "https://modrinth.com/mod/blood-n-meat" },
@@ -70,7 +95,7 @@ const PROJECTS = [
       { file: "campfire-from-afar.webp", caption: "The same spot from further away, with a red item on the campfire logs and smoke rising." }
     ],
     downloads: [
-      { label: "NeoForge 1.21.8", note: "v0.0.1", size: "22 KB",
+      { label: "NeoForge 1.21.8", note: "v0.0.1",
         file: "downloads/minecraft/mods/bnm/bnm-0.0.1-neoforge-1.21.8.jar" }
     ],
     page: {
@@ -81,13 +106,17 @@ const PROJECTS = [
     id: "hotel-of-secrets",
     name: "Hotel of Secrets",
     category: "Minecraft Maps",
+    status: "released",
     description: "An eerie, atmospheric adventure, puzzle, and thriller map designed to keep players on the edge of their seats.",
     tags: ["1.8.9", "Map"],
+    support: [
+      { game: "Minecraft", versions: ["1.8.9"] }
+    ],
     links: [
       { label: "CurseForge", url: "https://www.curseforge.com/minecraft/worlds/hotel-hotel-of-secrets" }
     ],
     downloads: [
-      { label: "Hotel of Secrets", note: "Minecraft 1.8.9", size: "263 MB",
+      { label: "Hotel of Secrets", note: "Minecraft 1.8.9",
         release: { tag: "minecraft-map", asset: "Hotel.of.Secrets.zip" } }
     ],
     page: {
@@ -98,13 +127,17 @@ const PROJECTS = [
     id: "fnaf-map-season-3",
     name: "Fan Made FNAF Map Season 3",
     category: "Minecraft Maps",
+    status: "released",
     description: "A classic fan-made Five Nights at Freddy's map capturing that signature tense, spooky survival horror vibe.",
     tags: ["1.12.2", "Map", "Vanilla"],
+    support: [
+      { game: "Minecraft", versions: ["1.12.2"], note: "Vanilla" }
+    ],
     links: [
       { label: "CurseForge", url: "https://www.curseforge.com/minecraft/worlds/fan-made-fnaf-map-season-3" }
     ],
     downloads: [
-      { label: "Season 3 map", note: "Minecraft 1.12.2", size: "375 KB",
+      { label: "Season 3 map", note: "Minecraft 1.12.2",
         file: "downloads/minecraft/maps/Season 3 Five Nights at Freddy's V2.zip" }
     ],
     page: {
@@ -115,13 +148,17 @@ const PROJECTS = [
     id: "fnaf-map-season-4",
     name: "Fan Made FNAF Map Season 4",
     category: "Minecraft Maps",
+    status: "released",
     description: "An advanced modded FNAF role-playing and adventure map utilizing immersive environment mods like Custom NPCs, Chisel + CTM, and Decocraft.",
     tags: ["1.12.2", "Map", "Modded"],
+    support: [
+      { game: "Minecraft", versions: ["1.12.2"], requires: ["Custom NPCs", "Chisel + CTM", "Decocraft"], note: "Modded" }
+    ],
     links: [
       { label: "CurseForge", url: "https://www.curseforge.com/minecraft/worlds/fan-made-fnaf-map-season-4" }
     ],
     downloads: [
-      { label: "Season 4 map", note: "Minecraft 1.12.2, modded", size: "332 KB",
+      { label: "Season 4 map", note: "Minecraft 1.12.2, modded",
         file: "downloads/minecraft/maps/Season 4 - Five Nights at Freddy.zip" }
     ],
     page: {
@@ -132,14 +169,18 @@ const PROJECTS = [
     id: "veldoria",
     name: "Veldoria",
     category: "RPG Maker",
+    status: "in-development",
     description: "An indie RPG Maker fantasy adventure featuring custom storytelling, exploration, and retro charm.",
     tags: ["Game", "v0.1.0"],
+    support: [
+      { engine: "RPG Maker" }
+    ],
     links: [
       { label: "itch.io", url: "https://supgamernl.itch.io/veldoria" },
       { label: "GitHub", url: "https://github.com/SupGamerNL/Veldoria" }
     ],
     downloads: [
-      { label: "Veldoria", note: "v0.1.0", size: "120 MB",
+      { label: "Veldoria", note: "v0.1.0",
         release: { tag: "rpg-game", asset: "Veldoria.-RPG.Game-.zip" } }
     ],
     page: {

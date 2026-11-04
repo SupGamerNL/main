@@ -10,6 +10,8 @@ downloads/rpg-maker/
 
 Every file also needs an entry in the `downloads` list of its project in `data/projects.js`, otherwise it won't show up on the project page. See the Downloads section in the main [README](../README.md).
 
+File sizes are filled in automatically (run `python tools/update-site.py` after adding or replacing a file).
+
 Large or versioned files can also be published as GitHub Releases. The project page can show both buttons side by side.
 
 See the copyright and usage terms in [LICENSE.md](../LICENSE.md).
