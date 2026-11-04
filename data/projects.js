@@ -60,6 +60,8 @@ const PROJECTS = [
       { file: "ore-generation.webp", caption: "Oh, what's hidden here, sunstone? (This is shown from 1.11.2's v2.2.9)" }
     ],
     downloads: [
+      { group: "Reforged", label: "Minecraft 1.21.1", note: "v0.1.0",
+        file: "downloads/minecraft/mods/moat/moat-0.1.0-neoforge-1.21.1.jar" },
       { group: "Legacy", label: "Minecraft 1.10.2", note: "v1.1.43",
         file: "downloads/minecraft/mods/moat/MOAT(Mo' Ores And Tools - 1.10.2 - v1.1.43).jar" },
       { group: "Legacy", label: "Minecraft 1.11.2", note: "v2.2.9 Nature Update v.2",
@@ -79,8 +81,8 @@ const PROJECTS = [
       ],
       sections: [
         { title: "Materials in the works", text: "The materials list for Reforged is still being drafted, so this can change.",
-          chips: ["Tin", "Bronze", "Steel", "Nickel", "Invar", "Ruby", "Chromium"] },
-        { title: "Planned", chips: ["Zinc", "Brass", "Titanium", "Tungsten", "Shungite", "Azurite", "Peridot", "Sunstone"] }
+          chips: ["Garnet", "Tanzanite"] },
+        { title: "Planned", chips: ["Tin", "Lead", "Zinc", "Aluminum"] }
       ]
     }
   },
