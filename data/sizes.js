@@ -5,10 +5,11 @@ const FILE_SIZES = {
   "downloads/minecraft/maps/Season 3 Five Nights at Freddy's V2.zip": 383977,
   "downloads/minecraft/maps/Season 4 - Five Nights at Freddy.zip": 339972,
   "downloads/minecraft/mods/bnm/bnm-0.0.1-neoforge-1.21.8.jar": 22026,
-  "downloads/minecraft/mods/moat/MOAT(Mo' Ores And Tools - 1.10.2 - v1.2.71).jar": 1599269,
+  "downloads/minecraft/mods/moat/MOAT(Mo' Ores And Tools - 1.10.2 - v1.1.43).jar": 1082214,
   "downloads/minecraft/mods/moat/MOAT(Mo' Ores And Tools - 1.11.2 - v2.2.9 Nature Update v.2).jar": 2338077,
   "downloads/minecraft/mods/moat/MOAT(Mo' Ores And Tools - 1.12.2 - v3.3.3 - Going Mech Patch).jar": 2812331,
   "downloads/minecraft/mods/moat/MOAT(Mo' Ores and Tools - 1.16.5 - v6.1.5 - Full Release - Advancements Patch).jar": 3391212,
+  "downloads/minecraft/mods/moat/moat-reforged-1.21.1-v0.1.0.jar": 68536,
   "release:minecraft-map/Hotel.of.Secrets.zip": 275357242,
   "release:rpg-game/Veldoria.-RPG.Game-.zip": 125827513
 };

@@ -6,5 +6,8 @@ const SITE_CONFIG = {
   name: "SupGamer NL",
   author: "Jelle \"SupGamer NL\" Koerselman",
   image: "assets/img/icon-image.png",          // default share image (used when a project has no cover or screenshot)
-  imageAlt: "SupGamer NL profile artwork"
+  imageAlt: "SupGamer NL profile artwork",
+  // Where "Report a bug" leads. Needs Issues switched on for that GitHub repo.
+  // A single project can use its own repo: add  issues: "https://github.com/SupGamerNL/<repo>/issues"  to that project in projects.js.
+  issues: "https://github.com/SupGamerNL/main/issues"
 };

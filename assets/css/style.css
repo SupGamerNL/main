@@ -337,3 +337,6 @@ header { padding-top: 3rem; }
 @media (prefers-reduced-motion: reduce) {
   .status[data-s="in-development"]::before { animation: none; }
 }
+
+/* "Copy share link" is a <button> that looks like the link buttons */
+button.btn { border: 0; font: inherit; font-weight: 700; cursor: pointer; }

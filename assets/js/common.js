@@ -15,6 +15,16 @@ const Site = (() => {
   const fileUrl = path => path.split("/").map(enc).join("/");
   const abs = path => new URL(path, cfg.url).href;
   const projectUrl = id => "project.html?id=" + encodeURIComponent(id);
+  // The link to post in Discord/Reddit/etc: a small page with the project's own title, text and image (made by tools/update-site.py)
+  const shareUrl = id => abs("share/" + encodeURIComponent(id) + "/");
+  // "Report a bug" link: the project's own `issues` address, else the site-wide one. GitHub addresses open a new issue with the title started.
+  function issueUrl(p) {
+    const base = p.issues || cfg.issues;
+    if (!base) return "";
+    return /^https:\/\/github\.com\/[^/]+\/[^/]+\/issues\/?$/.test(base)
+      ? base.replace(/\/$/, "") + "/new?title=" + encodeURIComponent(p.name + ": ")
+      : base;
+  }
 
   // Sizes: 1 KB = 1024 bytes, like before ("375 KB", "1.5 MB", "263 MB")
   function fmtBytes(n) {
@@ -102,7 +112,7 @@ const Site = (() => {
     }
   }
 
-  return { cfg, IMG, el, enc, fileUrl, abs, projectUrl, fmtBytes, STATUS, statusBadge, rowTarget, versionText, supportLine, cover, norm, words, searchText, setHead };
+  return { cfg, IMG, el, enc, fileUrl, abs, projectUrl, shareUrl, issueUrl, fmtBytes, STATUS, statusBadge, rowTarget, versionText, supportLine, cover, norm, words, searchText, setHead };
 })();
 
 // Pause the background pulse when the tab isn't visible

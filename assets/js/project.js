@@ -1,4 +1,4 @@
-// Needs data/projects.js + common.js + gallery.js + filesize.js loaded first.
+// Needs data/projects.js + data/changelogs.js + common.js + gallery.js + filesize.js loaded first.
 // Opened as project.html?id=<project id>
 const { el, enc, fileUrl, fmtBytes } = Site;
 const root = document.getElementById("project");
@@ -142,15 +142,24 @@ function render() {
 
   parts.push(el("p", { className: "lead", textContent: page.intro || p.description }));
 
-  if (p.links && p.links.length) {
-    parts.push(el("div", { className: "btns" },
-      ...p.links.map(l => el("a", { className: "btn", href: l.url, textContent: l.label }))
-    ));
-  }
+  const btns = el("div", { className: "btns" }, ...(p.links || []).map(l => el("a", { className: "btn", href: l.url, textContent: l.label })));
+  const bug = Site.issueUrl(p);
+  if (bug) btns.append(el("a", { className: "btn alt", href: bug, rel: "noopener", textContent: "Report a bug" }));
+  const share = el("button", { type: "button", className: "btn alt", textContent: "Copy share link" });
+  share.addEventListener("click", async () => {
+    const url = Site.shareUrl(p.id);
+    try { await navigator.clipboard.writeText(url); share.textContent = "Link copied!"; }
+    catch (e) { window.prompt("Copy this link:", url); }
+    setTimeout(() => { share.textContent = "Copy share link"; }, 2000);
+  });
+  btns.append(share);
+  parts.push(btns);
 
   if (p.support && p.support.length) parts.push(compatSection(p.support));
   if (p.downloads && p.downloads.length) parts.push(downloadsSection(p.downloads));
-  if (p.changelog && p.changelog.length) parts.push(changelogSection(p.changelog));
+  // A changelog typed into projects.js wins; otherwise the one fetched by tools/fetch-changelogs.py (data/changelogs.js)
+  const log = (p.changelog && p.changelog.length) ? p.changelog : ((typeof CHANGELOGS !== "undefined" && CHANGELOGS[p.id]) || []);
+  if (log.length) parts.push(changelogSection(log));
 
   if (p.gallery && p.gallery.length) {
     const grid = el("ul", { className: "shots" });
