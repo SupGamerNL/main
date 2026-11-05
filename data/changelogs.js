@@ -9,5 +9,51 @@ const CHANGELOGS = {
         "Added the bare minimum of items, tabs and recipes, including a procedure. As it is built with MCreator."
       ]
     }
+  ],
+  "mo-ores-n-tools": [
+    {
+      "version": "moat-reforged-1.21.1-v0.1.0",
+      "date": "2026-11-04",
+      "changes": [
+        "======================================================================",
+        "Legend: A = Added",
+        "Legend: C = Changed",
+        "Legend: R = Removed",
+        "Legend: ======================================================================",
+        "Legend: CHANGELOG",
+        "Legend: A: moat-reforged-1.21.1-v0.1.0.jar",
+        "Legend: C: Black Pearl and Blue Pearl to Shungite and Azurite respectively.",
+        "Legend: C: Shungite generates deep underground in the following biomes of the Dark Forest, Deep Dark, Swamp and Mangrove Swamp as an ordinary ore similar to Iron and Copper.",
+        "Legend: C: Azurite generates deep underground in the following biomes of the Badlands, Eroded Badlands, Wooded Badlands and Desert within a geode similar to Amethyst.",
+        "Legend: R: Everything else that came before from the latest 1.16.4/5 releases of the Legacy version."
+      ]
+    },
+    {
+      "version": "[FORGE-1.16.5] MOAT 6.1.5. - Advancement Patch",
+      "date": "2022-06-09",
+      "changes": [
+        "NOTE: Over 30 advancements were created in this patch update, it will take some time for us to get the 'Return of Mother Nature' update done, this upcoming update will also be known as the Life Update.",
+        "Added: in total 35 new advancements to the mod.",
+        "Added: furnace & blast furnace recipes to the Alien Black/Blue Pearl ores.",
+        "Changed: How bushes update on tick-update to the different Berry Bushes.",
+        "Changed: Alien Black/Blue Pearl ore drops, they now drop themselves as blocks, instead of dropping their Gems."
+      ]
+    },
+    {
+      "version": "Mo' Ores And Tools - 1.12.2 - v3.3.3 - Going Mech Patch",
+      "date": "2019-07-16",
+      "changes": [
+        "Add some new recipes, I also changed some to shapeless recipes and I've reworked some of the recipes for Mechanical tools and armor."
+      ]
+    }
+  ],
+  "hotel-of-secrets": [
+    {
+      "version": "Hotel | Hotel of Secrets \\ MAP",
+      "date": "2017-08-17",
+      "changes": [
+        "Just the full release"
+      ]
+    }
   ]
 };
