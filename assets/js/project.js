@@ -186,11 +186,14 @@ function render() {
   (page.sections || []).forEach(s => {
     const sec = el("section", { className: "sec" }, el("h2", { textContent: s.title }));
     if (s.text) sec.append(el("p", { textContent: s.text }));
+    if (s.list && s.list.length) sec.append(el("ul", { className: "bullets" }, ...s.list.map(t => el("li", { textContent: t }))));
     if (s.chips && s.chips.length) {
       sec.append(el("div", { className: "meta" }, ...s.chips.map(c => el("span", { className: "tag", textContent: c }))));
     }
     parts.push(sec);
   });
+
+  if (p.credits) parts.push(el("section", { className: "sec" }, el("h2", { textContent: "Credits & license" }), el("p", { textContent: p.credits })));
 
   if (p.timeline && p.timeline.length) parts.push(timelineSection(p.timeline));
 

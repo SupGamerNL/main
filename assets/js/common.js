@@ -73,7 +73,7 @@ const Site = (() => {
       (p.downloads || []).map(d => [d.label, d.note, d.group].join(" ")).join(" "),
       (p.support || []).map(r => [r.label, rowTarget(r), (r.versions || []).join(" "), r.loader, (r.requires || []).join(" "), r.note].join(" ")).join(" "),
       (page.versions || []).map(v => [v.name, v.range].join(" ")).join(" "),
-      (page.sections || []).map(s => [s.title, s.text, (s.chips || []).join(" ")].join(" ")).join(" ")];
+      (page.sections || []).map(s => [s.title, s.text, (s.chips || []).join(" "), (s.list || []).join(" ")].join(" ")).join(" "), p.credits];
     return words(parts.filter(Boolean).join(" ")) + " ";
   }
 

@@ -7,7 +7,7 @@ What it does
      so the site can show file sizes without you typing them.
   3. Rewrites sitemap.xml.
   4. Refreshes the generated SEO blocks inside index.html and project.html
-     (structured data + the plain link list for visitors/crawlers without JavaScript).
+     (structured data + the plain link list for visitors/crawlers without JavaScript), and the structured data of about.html.
   5. Makes a small share page per project in share/<id>/index.html. Chat apps (Discord, Reddit, ...) don't run
      JavaScript, so they show the project's own title, text and cover image when you post THIS link
      (https://.../share/<id>/). Visitors who open it are forwarded to the real project page.
@@ -158,7 +158,7 @@ def project_url(site: dict, pid: str) -> str:
 
 def write_sitemap(site: dict) -> None:
     base = site["site"]["url"]
-    urls = [base, base + "gallery.html"] + [project_url(site, p["id"]) for p in site["projects"]]
+    urls = [base, base + "about.html", base + "gallery.html"] + [project_url(site, p["id"]) for p in site["projects"]]
     body = "\n".join(f"  <url><loc>{html.escape(u)}</loc></url>" for u in urls)
     (ROOT / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + body + "\n</urlset>\n",
@@ -203,6 +203,18 @@ def update_html(site: dict) -> None:
     index = ROOT / "index.html"
     text = replace_block(index.read_text(encoding="utf-8"), "ld", ld_script(graph))
     index.write_text(replace_block(text, "list", nolist), encoding="utf-8")
+
+    about = ROOT / "about.html"
+    if about.is_file():
+        profile = {
+            "@context": "https://schema.org",
+            "@type": "ProfilePage", "@id": base + "about.html#profile", "url": base + "about.html",
+            "name": "About " + cfg["name"], "inLanguage": "en", "isPartOf": {"@id": base + "#website"},
+            "mainEntity": {"@type": "Person", "@id": base + "#person", "name": cfg["author"], "alternateName": cfg["name"], "url": base,
+                           "description": "IT specialist from the Netherlands who builds PCs, develops mods and add-ons and makes simple RPG games.",
+                           "sameAs": [p["url"] for p in site["profiles"]]},
+        }
+        about.write_text(replace_block(about.read_text(encoding="utf-8"), "ld", ld_script(profile)), encoding="utf-8")
 
     proj = ROOT / "project.html"
     proj.write_text(replace_block(proj.read_text(encoding="utf-8"), "list", nolist), encoding="utf-8")

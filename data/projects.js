@@ -14,6 +14,9 @@
 //   Either file or release can be left out.
 //
 // ---- Optional extras per project ----
+// issues    = where "Report a bug" leads for this project (its own GitHub repo's Issues page). Without it the site-wide one in data/config.js is used.
+// credits   = a short text for the "Credits & license" section (asset licenses, fan-project disclaimers, thanks).
+// page.sections can also hold a `list: ["...", "..."]` (bullet points) next to `text` and `chips`.
 // status    = "released", "in-development", "planned", "on-hold" or "archived". Shows a status badge.
 // cover     = a file name from the project's screenshots folder (assets/img/<id>/). Shown on the card and the project page.
 //             Without it, the first screenshot is used. Without screenshots there is no cover.
@@ -44,6 +47,7 @@ const PROJECTS = [
       { label: "Reforged", game: "Minecraft", versions: ["1.21.1"], loader: "NeoForge" },
       { label: "Legacy", game: "Minecraft", versions: ["1.10.2", "1.11.2", "1.12.2", "1.16.5"], loader: "Forge" }
     ],
+    issues: "https://github.com/SupGamerNL/Mo-Ores-n-Tools/issues",
     links: [
       { label: "CurseForge", url: "https://www.curseforge.com/minecraft/mc-mods/moat" },
       { label: "GitHub", url: "https://github.com/SupGamerNL/Mo-Ores-n-Tools" }
@@ -96,6 +100,7 @@ const PROJECTS = [
     support: [
       { game: "Minecraft", versions: ["1.21.8"], loader: "NeoForge" }
     ],
+    issues: "https://github.com/SupGamerNL/blood-n-meat/issues",
     links: [
       { label: "CurseForge", url: "https://www.curseforge.com/minecraft/mc-mods/blood-n-meat" },
       { label: "Modrinth", url: "https://modrinth.com/mod/blood-n-meat" },
@@ -188,6 +193,8 @@ const PROJECTS = [
     support: [
       { engine: "RPG Maker" }
     ],
+    issues: "https://github.com/SupGamerNL/Veldoria/issues",
+    credits: "Includes default RPG Maker (MV/MZ) assets, which remain under RPG Maker's own license terms.",
     links: [
       { label: "itch.io", url: "https://supgamernl.itch.io/veldoria" },
       { label: "GitHub", url: "https://github.com/SupGamerNL/Veldoria" }
@@ -198,6 +205,75 @@ const PROJECTS = [
     ],
     page: {
       intro: "An original indie RPG project built with classic retro mechanics, atmospheric soundtracks, and a custom fantasy world."
+    }
+  },
+  {
+    id: "legends-reborn",
+    name: "The Legend of SupGamer NL - Legends Reborn",
+    category: "RPG Maker",
+    status: "on-hold",
+    description: "A game about a young man with three friends which have the power to save the world.",
+    tags: ["Game", "Windows"],
+    support: [
+      { engine: "RPG Maker", note: "Windows" }
+    ],
+    links: [
+      { label: "itch.io", url: "https://supgamernl.itch.io/legends-of-supgamernl" }
+    ],
+    credits: "Includes default RPG Maker (MV/MZ) assets, which remain under RPG Maker's own license terms.",
+    page: {
+      intro: "After sometime when 4 heroes saved the world when they lived in The Netherlands, they moved all together to a different and unknown land, where they split up and lived far apart from each other. Years later the world is in danger again, and it's in need of the lost heroes! What will happen if they don't save the world from a new and fearsome enemy.",
+      sections: [
+        { title: "Note", text: "The in-game text is converted back to English earlier then expected, but there is a high possibility that the grammar is still incomplete or work in progress." }
+      ]
+    }
+  },
+  {
+    id: "pokemon-neveo-version",
+    name: "Pokémon Neveo version",
+    category: "RPG Maker",
+    status: "archived",
+    description: "In this fangame, you go about the region of Nevelon, a vast region that holds 2 major islands, and in between these 2 islands lies a smaller one, where the Pokémon League is being held.",
+    tags: ["Pokémon", "Fan game"],
+    support: [
+      { engine: "Pokémon Essentials", versions: ["v19.1"] }
+    ],
+    links: [
+      { label: "EeveeExpo thread", url: "https://eeveeexpo.com/threads/4866" }
+    ],
+    credits: "Pokémon is a trademark of Nintendo, Creatures Inc. and GAME FREAK inc. This is a non-profit fan project and is not affiliated with or endorsed by them. Built with Pokémon Essentials v19.1 and community scripts: Voltseon's PokéSearch, ThatWelshOne_'s Encounter List UI, Deoxysprime's EVs and IVs in Summary, Luka SJ's Elite Battle DX and Golisopod User's Gen 8 Project for PE v19.1.",
+    timeline: [
+      { date: "2022-03-08", title: "Recruitment post on EeveeExpo", text: "Looking for sprite artists and writers." }
+    ],
+    page: {
+      intro: "A Pokémon fan game project made with Pokémon Essentials v19.1. This page keeps the archived recruitment post from EeveeExpo, which looked for sprite artists and writers.",
+      sections: [
+        { title: "Unique features", list: [
+          "Voltseon's PokéSearch. Search for Pokémon by utilizing certain berries and repels.",
+          "ThatWelshOne_'s Encounter List UI. So that you can catch Pokémon to fill up your PokéDex.",
+          "Deoxysprime EVs and IVs in Summary. See your Pokémon EVs and IVs in your Pokémon summaries.",
+          "Luka SJ's Elite Battle DX. For a more streamlined battling experience.",
+          "Golisopod User's Gen 8 Project for PE v19.1. So that most if not all Pokémon are available in the game.",
+          "Three new Pokémon types. Sound-type, Digital-type, and Synthetic-type.",
+          "Running shoes before you leave your house!",
+          "Maybe regional variants.",
+          "Gen 5 up to Gen 8 game mechanics.",
+          "Toggleable EXP. All key-item.",
+          "Trade Pokémon evolve without being traded, they now evolve with an item.",
+          "Somewhat inspired by the Netherlands, specifically for (new/regional variants) Pokémon based on animals in the Netherlands.",
+          "Nuzlocke Mode. This can be activated before you begin your new adventure, you can also customize some of the rules!",
+          "Time Shading, but wild Pokémon are not dependent on the time of day.",
+          "No actual evil team, just a cult of chaotic neutral scientists.",
+          "Fakemon starter trio, some new Pokémon evolutions, but a PokéDex that is mostly filled with pre-existing Pokémon.",
+          "Possibly more features will be added in the future."
+        ] },
+        { title: "Plot", text: "As of now, there is not a plot to go around. The only plot-related points are as follows;", list: [
+          "Your father is the current champion.",
+          "Prof. Alder researched new types like the Digital- and Sound-types, his wife is the second professor, who researches Pokémon speech and wants to translate it to human speech.",
+          "The third researcher, researches in one specific new type, one that he created, the Synthetic-type.",
+          "Ancient Ruins, which hold secrets to a past world."
+        ] }
+      ]
     }
   }
 ];
