@@ -26,7 +26,7 @@ main/
 ├── assets/              Everything the pages load
 │   ├── css/style.css    All styling and animations
 │   ├── js/              common.js (shared helpers + SEO tags), filesize.js (file sizes), script.js (index + search),
-│   │                    project.js, about.js (About page), gallery.js, gallery-page.js, nav.js (burger menu), spotlight.js (cursor glow)
+│   │                    project.js, about.js (About page), copy.js (copy-link buttons + notification), gallery.js, gallery-page.js, nav.js (burger menu), spotlight.js (cursor glow)
 │   └── img/             Screenshots: img/<project-id>/ (full size) with thumbs/ inside, plus img/general/
 │
 ├── data/
@@ -73,6 +73,10 @@ All of these can be left out. The full explanation is in the comment at the top 
 ## Search and filters
 
 The search box on the index looks through names, descriptions, categories, tags, versions, loaders, required mods, status, download labels and the material chips. A search word has to match the start of a word, so `forge` finds Forge and `neoforge` finds NeoForge, and `1.12` finds 1.12.2. Several words must all match. It works together with the category buttons. Press `/` to jump to the search box. The address updates (`index.html?q=forge&cat=Minecraft+Mods`), so a search can be shared or bookmarked.
+
+## Copy-link buttons
+
+Every project card has a small copy icon in its top-right corner (it copies the project's share link), every row in a project's "Downloads" has a copy icon (it copies the direct download link: the file on this site, or the GitHub Release file), and the "Copy share link" button on a project page does the same as the card icon. After copying, a small "Link copied!" notification pops up at the bottom of the screen for about two seconds. The code is `assets/js/copy.js` (script) and the "Copy-to-clipboard buttons" block at the end of `assets/css/style.css` (looks). To add a copy button anywhere else in a script: `Copy.button({ text: "https://...", label: "Copy link" })` gives you the button, and `Copy.text("https://...")` copies straight away. If the browser blocks copying, a box with the link appears so it can be copied by hand.
 
 ## Share links
 

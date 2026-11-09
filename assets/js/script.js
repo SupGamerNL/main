@@ -1,4 +1,4 @@
-// Needs data/projects.js + common.js loaded first (PROJECTS, Site)
+// Needs data/projects.js + common.js + copy.js loaded first (PROJECTS, Site, Copy)
 const { el } = Site;
 const grid = document.getElementById("grid");
 const filters = document.getElementById("filters");
@@ -69,6 +69,8 @@ function card(p) {
       el("a", { href: url, textContent: "Details" }),
       ...(p.links || []).slice(0, 2).map(l => el("a", { href: l.url, textContent: l.label })))
   );
+  // Copy the share link: a small icon in the top-right corner of the card (see .copy-corner in the CSS)
+  li.append(Copy.button({ text: Site.shareUrl(p.id), icon: true, className: "sm copy-corner", aria: "Copy share link for " + p.name }));
   return li;
 }
 

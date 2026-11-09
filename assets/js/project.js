@@ -1,4 +1,4 @@
-// Needs data/projects.js + data/changelogs.js + common.js + gallery.js + filesize.js loaded first.
+// Needs data/projects.js + data/changelogs.js + common.js + copy.js + gallery.js + filesize.js loaded first.
 // Opened as project.html?id=<project id>
 const { el, enc, fileUrl, fmtBytes } = Site;
 const root = document.getElementById("project");
@@ -21,10 +21,13 @@ function downloadRow(d) {
   if (d.file) {
     // "download" makes the browser save the file instead of opening it (works because it's on the same site)
     acts.append(el("a", { className: "btn", href: fileUrl(d.file), download: "", textContent: "Download" }));
+    acts.append(Copy.button({ text: Site.abs(fileUrl(d.file)), icon: true, aria: "Copy download link for " + d.label + " (this site)" }));
   }
   if (releasesOn && d.release) {
     // A direct link to the release asset: it starts downloading right away
-    acts.append(el("a", { className: d.file ? "btn alt" : "btn", href: releasesBase + "/download/" + enc(d.release.tag) + "/" + enc(d.release.asset), rel: "noopener", textContent: "GitHub Release" }));
+    const releaseUrl = releasesBase + "/download/" + enc(d.release.tag) + "/" + enc(d.release.asset);
+    acts.append(el("a", { className: d.file ? "btn alt" : "btn", href: releaseUrl, rel: "noopener", textContent: "GitHub Release" }));
+    acts.append(Copy.button({ text: releaseUrl, icon: true, aria: "Copy GitHub Release download link for " + d.label }));
     acts.append(el("a", { className: "dl-page", href: releasesBase + "/tag/" + enc(d.release.tag), rel: "noopener", textContent: "Release page" }));
   }
   const row = el("li", { className: "dl" }, info, acts);
@@ -146,12 +149,7 @@ function render() {
   const bug = Site.issueUrl(p);
   if (bug) btns.append(el("a", { className: "btn alt", href: bug, rel: "noopener", textContent: "Report a bug" }));
   const share = el("button", { type: "button", className: "btn alt", textContent: "Copy share link" });
-  share.addEventListener("click", async () => {
-    const url = Site.shareUrl(p.id);
-    try { await navigator.clipboard.writeText(url); share.textContent = "Link copied!"; }
-    catch (e) { window.prompt("Copy this link:", url); }
-    setTimeout(() => { share.textContent = "Copy share link"; }, 2000);
-  });
+  share.addEventListener("click", () => Copy.text(Site.shareUrl(p.id)));
   btns.append(share);
   parts.push(btns);
 
