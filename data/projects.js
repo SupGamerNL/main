@@ -41,16 +41,18 @@ const PROJECTS = [
     name: "Mo' Ores 'n Tools",
     category: "Minecraft Mods",
     status: "in-development",
-    description: "Adds a massive, well-balanced variety of new ores, robust armor sets, and powerful tools for both modern (Neo)Forge and legacy Minecraft versions.",
+    description: "A vanilla-friendly survival expansion that adds dozens of new ores, tools, armor sets and decorative blocks, expanding Minecraft's material progression without machines or automation. Available for modern NeoForge and legacy Forge versions.",
     tags: ["Mod", "Forge", "NeoForge"],
     support: [
-      { label: "Reforged", game: "Minecraft", versions: ["1.21.1"], loader: "NeoForge" },
+      { label: "Reforged", game: "Minecraft", versions: ["1.21.1"], loader: "NeoForge", note: "Built with MCreator" },
       { label: "Legacy", game: "Minecraft", versions: ["1.10.2", "1.11.2", "1.12.2", "1.16.5"], loader: "Forge" }
     ],
     issues: "https://github.com/SupGamerNL/Mo-Ores-n-Tools/issues",
+    credits: "Licensed under the MIT License. You are free to use the mod in modpacks; credit is appreciated but not required. Built with MCreator. Thanks to Mojang for Minecraft and to MCreator for the development tools.",
     links: [
       { label: "CurseForge", url: "https://www.curseforge.com/minecraft/mc-mods/moat" },
-      { label: "GitHub", url: "https://github.com/SupGamerNL/Mo-Ores-n-Tools" }
+      { label: "GitHub", url: "https://github.com/SupGamerNL/Mo-Ores-n-Tools" },
+      { label: "Wiki", url: "https://supgamernl.github.io/Mo-Ores-n-Tools/wiki.html" }
     ],
     gallery: [
       { file: "materials.webp", caption: "A few materials thrown on pillars; from left to right we have: A black pearl, purple orb shard and mud ball. (This is shown from 1.10.2's v1.1.43)" },
@@ -76,7 +78,7 @@ const PROJECTS = [
         file: "downloads/minecraft/mods/moat/MOAT(Mo' Ores and Tools - 1.16.5 - v6.1.5 - Full Release - Advancements Patch).jar" }
     ],
     page: {
-      intro: "A comprehensive expansion for Minecraft's underground progression, bringing custom metallurgy, tiered equipment, and active multi-version development.",
+      intro: "Mo' Ores 'n Tools is a survival expansion for Minecraft Java Edition. You mine deeper, discover new materials, craft better gear and progress step by step, with no power systems and no machines. The legacy versions (Minecraft 1.16.5 and earlier) are now considered complete. Development has moved to Reforged, a redesign for Minecraft 1.21.1 and beyond rather than a simple port.",
       versions: [
         { name: "Reforged", range: "Modern NeoForge; Minecraft 1.21.1", note: "The current version, built from the ground up again.",
           links: [{ label: "Trello board", url: "https://trello.com/b/48BHW3tG/neoforge-mo-ores-n-tools" }] },
@@ -84,6 +86,20 @@ const PROJECTS = [
           links: [{ label: "Trello board", url: "https://trello.com/b/eCEEPdK0/forge-mo-ores-and-tools" }] }
       ],
       sections: [
+        { title: "Core features", list: [
+          "Dozens of new ores with their own world-generation ranges",
+          "Expanded tool and armor progression paths",
+          "Decorative stone, ore and material blocks",
+          "Survival-balanced gameplay focused on exploration",
+          "Simple, intuitive crafting: no power systems, no machines"
+        ] },
+        { title: "Design philosophy", text: "Vanilla-friendly, progression-focused and low in complexity: you mine, you craft, you progress.", list: [
+          "Vanilla-friendly: fits naturally into survival gameplay",
+          "Progression-focused: materials matter and upgrades feel earned",
+          "Low complexity: depth without automation or tech overload"
+        ] },
+        { title: "In the legacy versions", text: "The legacy versions add ores that generate in the Overworld and the Nether, such as Tin, Copper, Black Pearl and Blue Pearl, plus items like Strong String and Gears. Most recipes show up in JEI (Just Enough Items). They also include everything from my earlier mod, SupG NL's Crazy Mod." },
+        { title: "Version numbers", text: "Files use a custom format, 1.2.3: the first number is the Minecraft version, the second is a major mod update and the third is a minor update or patch. Legacy example: moat-1.16.5-v6.1.5. Reforged example: moat-reforged-1.21.1-v1.0.0." },
         { title: "Materials in the works", text: "The materials list for Reforged is still being drafted, so this can change.",
           chips: ["Garnet", "Tanzanite"] },
         { title: "Planned", chips: ["Tin", "Lead", "Zinc", "Aluminum"] }
@@ -95,16 +111,18 @@ const PROJECTS = [
     name: "Blood 'n Meat",
     category: "Minecraft Mods",
     status: "in-development",
-    description: "Introduces new raw and cooked meats, coagulated blood, unique crafting recipes, and immersive survival mechanics that give Minecraft a darker, visceral feel.",
+    description: "Adds new raw and cooked meats, coagulated blood, unique crafting recipes and survival mechanics that give Minecraft a darker, visceral feel.",
     tags: ["Mod", "NeoForge"],
     support: [
-      { game: "Minecraft", versions: ["1.21.8"], loader: "NeoForge" }
+      { game: "Minecraft", versions: ["1.21.8"], loader: "NeoForge", note: "Client and server" }
     ],
     issues: "https://github.com/SupGamerNL/blood-n-meat/issues",
+    credits: "Licensed under the MIT License.",
     links: [
       { label: "CurseForge", url: "https://www.curseforge.com/minecraft/mc-mods/blood-n-meat" },
       { label: "Modrinth", url: "https://modrinth.com/mod/blood-n-meat" },
-      { label: "GitHub", url: "https://github.com/SupGamerNL/blood-n-meat" }
+      { label: "GitHub", url: "https://github.com/SupGamerNL/blood-n-meat" },
+      { label: "Wiki", url: "https://github.com/SupGamerNL/Blood-n-Meat/wiki" }
     ],
     gallery: [
       { file: "item-frames.webp", caption: "Item frames on a wooden wall showing the mod's red items: a blood drop, a blood blob, a bloodied ingot and a piece of red meat." },
@@ -117,7 +135,10 @@ const PROJECTS = [
         file: "downloads/minecraft/mods/bnm/bnm-0.0.1-neoforge-1.21.8.jar" }
     ],
     page: {
-      intro: "Overhauls survival gameplay with gritty new culinary options, blood-harvesting mechanics, and atmospheric crafting"
+      intro: "Raw. Bloody. Survival intensified. Blood 'n Meat adds new raw and cooked meats, coagulated blood, unique crafting recipes and survival mechanics that give Minecraft a darker, visceral feel.",
+      sections: [
+        { title: "Early development", text: "The mod is in very early beta (and alpha) development, so I don't recommend installing it just yet." }
+      ]
     }
   },
   {
@@ -125,11 +146,12 @@ const PROJECTS = [
     name: "Hotel of Secrets",
     category: "Minecraft Maps",
     status: "released",
-    description: "An eerie, atmospheric adventure, puzzle, and thriller map designed to keep players on the edge of their seats.",
+    description: "An adventure, puzzle and thriller map in which you play a detective whose newest case leads to an old, abandoned hotel.",
     tags: ["1.8.9", "Map"],
     support: [
-      { game: "Minecraft", versions: ["1.8.9"] }
+      { game: "Minecraft", versions: ["1.8.9"], requires: ["OptiFine"] }
     ],
+    credits: "The resource pack included in the map is made by The Last Day Team.",
     links: [
       { label: "CurseForge", url: "https://www.curseforge.com/minecraft/worlds/hotel-hotel-of-secrets" }
     ],
@@ -138,7 +160,14 @@ const PROJECTS = [
         release: { tag: "minecraft-map", asset: "Hotel.of.Secrets.zip" } }
     ],
     page: {
-      intro: "Step into a chilling, puzzle-filled adventure where every corridor hides a dark secret waiting to be uncovered."
+      intro: "You play a detective who was hired by the police to solve cases and mysteries that no one else would take on. When you get a new case, it leads you to an old, abandoned hotel. As you come closer, the air gets heavier and it draws you in, and so your adventure begins.",
+      sections: [
+        { title: "Before you play", list: [
+          "You need OptiFine to play this map.",
+          "Multiplayer works too, but every player who joins must download the resource pack first, otherwise it won't work.",
+          "The resource pack that is already installed in the map is made by The Last Day Team. Only two textures were changed for this map: the torch is now a flashlight, and the cobweb hangs from the ceiling."
+        ] }
+      ]
     }
   },
   {
@@ -146,20 +175,29 @@ const PROJECTS = [
     name: "Fan Made FNAF Map Season 3",
     category: "Minecraft Maps",
     status: "released",
-    description: "A classic fan-made Five Nights at Freddy's map capturing that signature tense, spooky survival horror vibe.",
+    description: "A fan-made Five Nights at Freddy's map for FNAF role-playing. It is pure vanilla Minecraft: no mods, and not even OptiFine, needed.",
     tags: ["1.12.2", "Map", "Vanilla"],
     support: [
-      { game: "Minecraft", versions: ["1.12.2"], note: "Vanilla" }
+      { game: "Minecraft", versions: ["1.12.2"], note: "Vanilla, no mods needed. CurseForge also lists it for Minecraft 1.10 to 1.12.1." }
     ],
+    credits: "Made with some help from my friend GoldieGames. Five Nights at Freddy's is created by Scott Cawthon; this map is fan-made and not affiliated with him.",
     links: [
-      { label: "CurseForge", url: "https://www.curseforge.com/minecraft/worlds/fan-made-fnaf-map-season-3" }
+      { label: "CurseForge", url: "https://www.curseforge.com/minecraft/worlds/fan-made-fnaf-map-season-3" },
+      { label: "Build video", url: "https://www.youtube.com/watch?v=Q_uvowjgWnM" }
     ],
     downloads: [
       { label: "Season 3 map", note: "Minecraft 1.12.2",
         file: "downloads/minecraft/maps/Season 3 Five Nights at Freddy's V2.zip" }
     ],
     page: {
-      intro: "A fan-made FNAF map for Minecraft, made by me. This is Season 3. You can download it on CurseForge."
+      intro: "This map was made by me (SupGamer NL), with some help from my friend GoldieGames. It is not a remake of Scott Cawthon's official Five Nights at Freddy's 3 game, just a map made for FNAF role-playing. This is Season 3, and you can download it on CurseForge.",
+      sections: [
+        { title: "Good to know", list: [
+          "Totally basic Minecraft, without mods.",
+          "It can be played with the normal resource pack, and OptiFine isn't needed.",
+          "You can watch how I built the whole map on my YouTube channel, SupGamer NL: search for \"Minecraft | S3 Fan Made FNAF Map Video's\"."
+        ] }
+      ]
     }
   },
   {
@@ -167,20 +205,25 @@ const PROJECTS = [
     name: "Fan Made FNAF Map Season 4",
     category: "Minecraft Maps",
     status: "released",
-    description: "An advanced modded FNAF role-playing and adventure map utilizing immersive environment mods like Custom NPCs, Chisel + CTM, and Decocraft.",
+    description: "A small but fun Five Nights at Freddy's role-playing map with a new and slightly unique look. It uses several mods, including Custom NPCs, Chisel + CTM and Decocraft.",
     tags: ["1.12.2", "Map", "Modded"],
     support: [
-      { game: "Minecraft", versions: ["1.12.2"], requires: ["Custom NPCs", "Chisel + CTM", "Decocraft"], note: "Modded" }
+      { game: "Minecraft", versions: ["1.12.2"], requires: ["Chisel + CTM", "Custom NPCs", "Decocraft", "MrCrayFish's Furniture", "Placeable Items", "Security Craft", "ThutCore + Thut's Elevator"], note: "Modded. OptiFine is highly recommended." }
     ],
+    credits: "Five Nights at Freddy's is created by Scott Cawthon; this map is fan-made and not affiliated with him. Thanks to the authors of the required mods.",
     links: [
-      { label: "CurseForge", url: "https://www.curseforge.com/minecraft/worlds/fan-made-fnaf-map-season-4" }
+      { label: "CurseForge", url: "https://www.curseforge.com/minecraft/worlds/fan-made-fnaf-map-season-4" },
+      { label: "Video", url: "https://www.youtube.com/watch?v=55PPkCVMyDA" }
     ],
     downloads: [
       { label: "Season 4 map", note: "Minecraft 1.12.2, modded",
         file: "downloads/minecraft/maps/Season 4 - Five Nights at Freddy.zip" }
     ],
     page: {
-      intro: "Season 4 elevates the FNAF Minecraft experience with deep mod integration, custom environments, and enhanced roleplay mechanics."
+      intro: "A small but fun role-playing map for all Five Nights at Freddy's fans who want a new and slightly unique-looking map for role-playing. This is Season 4.",
+      sections: [
+        { title: "Recommended", text: "I highly recommend using OptiFine, because it has a built-in dynamic lighting system." }
+      ]
     }
   },
   {
@@ -188,13 +231,13 @@ const PROJECTS = [
     name: "Veldoria",
     category: "RPG Maker",
     status: "in-development",
-    description: "An indie RPG Maker fantasy adventure featuring custom storytelling, exploration, and retro charm.",
+    description: "A work-in-progress fantasy RPG built with RPG Maker MZ. In a land where steam-driven machines hum beside ancient magic, Morgan must find a way through lost memories and reclaim the truth.",
     tags: ["Game", "v0.1.0"],
     support: [
-      { engine: "RPG Maker" }
+      { engine: "RPG Maker MZ" }
     ],
     issues: "https://github.com/SupGamerNL/Veldoria/issues",
-    credits: "Includes default RPG Maker (MV/MZ) assets, which remain under RPG Maker's own license terms.",
+    credits: "The GitHub repository lists the MIT License. Includes default RPG Maker MZ assets, which remain under RPG Maker's own license terms.",
     links: [
       { label: "itch.io", url: "https://supgamernl.itch.io/veldoria" },
       { label: "GitHub", url: "https://github.com/SupGamerNL/Veldoria" }
@@ -204,7 +247,22 @@ const PROJECTS = [
         release: { tag: "rpg-game", asset: "Veldoria.-RPG.Game-.zip" } }
     ],
     page: {
-      intro: "An original indie RPG project built with classic retro mechanics, atmospheric soundtracks, and a custom fantasy world."
+      intro: "The Story of Veldoria is an RPG built with RPG Maker MZ. In the land of Veldoria, steam-driven machines hum beside ancient magic, and peace is always fragile. Two childhood friends, Kaelen and Morgan, once shared dreams of greatness: one was chosen to be the hero, and the other was left behind. Now that darkness is rising again, Morgan must find a way through lost memories and reclaim the truth.",
+      sections: [
+        { title: "Elemental Essence System", list: [
+          "Seven primal elements: Neutral, Earth, Fire, Grass, Frost, Thunder and Water",
+          "Hybrid forces: Lumen and Umbra bring light and shadow dynamics",
+          "Fusion essences: over a dozen secondary and tertiary elements, such as Verdix, Vepres, Pyrus, Solis and Caelus"
+        ] },
+        { title: "Class evolution paths", text: "You start as a base class (for example Soldier, Mage or Archer), evolve into an advanced class (such as Knight, Caster or Machinist) and then choose a final evolution that reflects your philosophy and elemental affinity.", list: [
+          "Morgan Tiaturnus: Deamon Slayer → Deamon Reaver → Eidolo-Bound or Memo-Breaker",
+          "Kaelen Markurnium: Marked Hero → Hero → Legendary Hero or Eclipser"
+        ] },
+        { title: "Dungeons and exploration", text: "The first dungeon, the Temple of the Forgotten Bough deep in Draevenwood Forest, tests your memory, wits and combat skills. Solve puzzles, uncover hidden memories and reclaim the past." },
+        { title: "Materials and crafting", text: "Collect Sharp Fangs, Carapaces, Poison Glands and other essence-infused materials, then forge weapons, armor and items that carry the story of the beasts themselves. Trade or craft to suit your preferred playstyle." },
+        { title: "Work in progress", text: "This project is a work in progress. Contributions, bug reports and ideas are welcome through pull requests or issues on GitHub." },
+        { title: "From the lore", text: "\"A class is not just power; it is purpose. What you become depends not only on what you fight, but on what you remember.\" Veldoriun Marturni, First King of Veldoria" }
+      ]
     }
   },
   {
@@ -212,19 +270,21 @@ const PROJECTS = [
     name: "The Legend of SupGamer NL - Legends Reborn",
     category: "RPG Maker",
     status: "on-hold",
-    description: "A game about a young man with three friends which have the power to save the world.",
+    description: "A game about a young man with three friends who have the power to save the world.",
     tags: ["Game", "Windows"],
     support: [
       { engine: "RPG Maker", note: "Windows" }
     ],
     links: [
-      { label: "itch.io", url: "https://supgamernl.itch.io/legends-of-supgamernl" }
+      { label: "itch.io", url: "https://supgamernl.itch.io/the-legend-of-supgamer-nl-legends-reborn" }
     ],
     credits: "Includes default RPG Maker (MV/MZ) assets, which remain under RPG Maker's own license terms.",
     page: {
-      intro: "After sometime when 4 heroes saved the world when they lived in The Netherlands, they moved all together to a different and unknown land, where they split up and lived far apart from each other. Years later the world is in danger again, and it's in need of the lost heroes! What will happen if they don't save the world from a new and fearsome enemy.",
+      intro: "After some time, when four heroes had saved the world while living in the Netherlands, they moved together to a different and unknown land, where they split up and lived far apart from each other. Years later, the world is in danger again and it needs the lost heroes! What will happen if they don't save the world from a new and fearsome enemy?",
       sections: [
-        { title: "Note", text: "The in-game text is converted back to English earlier then expected, but there is a high possibility that the grammar is still incomplete or work in progress." }
+        { title: "Genres", chips: ["Role Playing", "Action", "Adventure", "Puzzle", "Strategy"] },
+        { title: "Note", text: "The in-game text was converted back to English earlier than expected, but the grammar may still be incomplete or a work in progress." },
+        { title: "Suggestions and ideas", text: "With your help the game can become even better, nicer, funnier and more balanced, even though it is still a work in progress." }
       ]
     }
   },
@@ -233,7 +293,7 @@ const PROJECTS = [
     name: "Pokémon Neveo version",
     category: "RPG Maker",
     status: "archived",
-    description: "In this fangame, you go about the region of Nevelon, a vast region that holds 2 major islands, and in between these 2 islands lies a smaller one, where the Pokémon League is being held.",
+    description: "In this fan game, you explore the region of Nevelon, a vast region with two major islands. Between them lies a smaller island where the Pokémon League is held.",
     tags: ["Pokémon", "Fan game"],
     support: [
       { engine: "Pokémon Essentials", versions: ["v19.1"] }
@@ -249,29 +309,29 @@ const PROJECTS = [
       intro: "A Pokémon fan game project made with Pokémon Essentials v19.1. This page keeps the archived recruitment post from EeveeExpo, which looked for sprite artists and writers.",
       sections: [
         { title: "Unique features", list: [
-          "Voltseon's PokéSearch. Search for Pokémon by utilizing certain berries and repels.",
-          "ThatWelshOne_'s Encounter List UI. So that you can catch Pokémon to fill up your PokéDex.",
-          "Deoxysprime EVs and IVs in Summary. See your Pokémon EVs and IVs in your Pokémon summaries.",
-          "Luka SJ's Elite Battle DX. For a more streamlined battling experience.",
-          "Golisopod User's Gen 8 Project for PE v19.1. So that most if not all Pokémon are available in the game.",
-          "Three new Pokémon types. Sound-type, Digital-type, and Synthetic-type.",
+          "Voltseon's PokéSearch: search for Pokémon by using certain berries and repels.",
+          "ThatWelshOne_'s Encounter List UI: so you can catch Pokémon to fill up your PokéDex.",
+          "Deoxysprime's EVs and IVs in Summary: see your Pokémon's EVs and IVs in their summaries.",
+          "Luka SJ's Elite Battle DX: a more streamlined battling experience.",
+          "Golisopod User's Gen 8 Project for PE v19.1: so that most, if not all, Pokémon are available in the game.",
+          "Three new Pokémon types: Sound, Digital and Synthetic.",
           "Running shoes before you leave your house!",
           "Maybe regional variants.",
           "Gen 5 up to Gen 8 game mechanics.",
           "Toggleable EXP. All key-item.",
-          "Trade Pokémon evolve without being traded, they now evolve with an item.",
-          "Somewhat inspired by the Netherlands, specifically for (new/regional variants) Pokémon based on animals in the Netherlands.",
-          "Nuzlocke Mode. This can be activated before you begin your new adventure, you can also customize some of the rules!",
-          "Time Shading, but wild Pokémon are not dependent on the time of day.",
+          "Pokémon that evolve by trading evolve without being traded; they now evolve with an item.",
+          "Somewhat inspired by the Netherlands, especially the (new and regional variant) Pokémon based on animals from the Netherlands.",
+          "Nuzlocke Mode, which you can activate before you begin your new adventure. You can also customize some of the rules!",
+          "Time shading, but wild Pokémon are not dependent on the time of day.",
           "No actual evil team, just a cult of chaotic neutral scientists.",
-          "Fakemon starter trio, some new Pokémon evolutions, but a PokéDex that is mostly filled with pre-existing Pokémon.",
+          "A Fakemon starter trio and some new Pokémon evolutions, but a PokéDex that is mostly filled with existing Pokémon.",
           "Possibly more features will be added in the future."
         ] },
-        { title: "Plot", text: "As of now, there is not a plot to go around. The only plot-related points are as follows;", list: [
+        { title: "Plot", text: "As of now, there is no plot. The only plot-related points are as follows:", list: [
           "Your father is the current champion.",
-          "Prof. Alder researched new types like the Digital- and Sound-types, his wife is the second professor, who researches Pokémon speech and wants to translate it to human speech.",
-          "The third researcher, researches in one specific new type, one that he created, the Synthetic-type.",
-          "Ancient Ruins, which hold secrets to a past world."
+          "Prof. Alder researched new types like the Digital and Sound types. His wife is the second professor, who researches Pokémon speech and wants to translate it into human speech.",
+          "The third researcher studies one specific new type that he created: the Synthetic type.",
+          "Ancient ruins hold secrets of a past world."
         ] }
       ]
     }
