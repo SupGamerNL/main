@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script src="assets/js/intro.js" defer></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark">
@@ -27,6 +28,16 @@
 <script type="application/ld+json" id="ld-site">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://supgamernl.github.io/main/#website", "name": "SupGamer NL", "url": "https://supgamernl.github.io/main/", "description": "Minecraft mods, maps and indie game projects by Jelle Koerselman.", "inLanguage": "en", "publisher": {"@id": "https://supgamernl.github.io/main/#person"}, "potentialAction": {"@type": "SearchAction", "target": {"@type": "EntryPoint", "urlTemplate": "https://supgamernl.github.io/main/?q={search_term_string}"}, "query-input": "required name=search_term_string"}}, {"@type": "Person", "@id": "https://supgamernl.github.io/main/#person", "name": "Jelle \"SupGamer NL\" Koerselman", "alternateName": "SupGamer NL", "url": "https://supgamernl.github.io/main/", "sameAs": ["https://www.youtube.com/@SupGamerNL", "https://www.patreon.com/cw/supgamernl", "https://github.com/SupGamerNL", "https://supgamernl.itch.io/", "https://www.curseforge.com/members/supg_nl/projects", "https://steamcommunity.com/id/SupGamer_NL/", "https://www.reddit.com/user/SupGamer-NL/", "https://suno.com/@supgamernl"]}, {"@type": "ItemList", "name": "Creations by SupGamer NL", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Mo' Ores 'n Tools", "url": "https://supgamernl.github.io/main/project.html?id=mo-ores-n-tools"}, {"@type": "ListItem", "position": 2, "name": "Blood 'n Meat", "url": "https://supgamernl.github.io/main/project.html?id=blood-n-meat"}, {"@type": "ListItem", "position": 3, "name": "Hotel of Secrets", "url": "https://supgamernl.github.io/main/project.html?id=hotel-of-secrets"}, {"@type": "ListItem", "position": 4, "name": "Fan Made FNAF Map Season 3", "url": "https://supgamernl.github.io/main/project.html?id=fnaf-map-season-3"}, {"@type": "ListItem", "position": 5, "name": "Fan Made FNAF Map Season 4", "url": "https://supgamernl.github.io/main/project.html?id=fnaf-map-season-4"}, {"@type": "ListItem", "position": 6, "name": "Veldoria", "url": "https://supgamernl.github.io/main/project.html?id=veldoria"}, {"@type": "ListItem", "position": 7, "name": "The Legend of SupGamer NL - Legends Reborn", "url": "https://supgamernl.github.io/main/project.html?id=legends-reborn"}, {"@type": "ListItem", "position": 8, "name": "Pokémon Neveo version", "url": "https://supgamernl.github.io/main/project.html?id=pokemon-neveo-version"}]}]}</script>
 <!-- ld:end -->
 <script>document.documentElement.className = "js";</script>
+<link rel="stylesheet" href="assets/css/intro.css">
+<script>
+/* intro gate: decides whether the boot intro plays this visit */
+(function(){try{
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;      // reduced motion: no intro
+  if(/[?&](q|cat)=/.test(location.search)||location.hash.length>1)return; // filter / #section deep links
+  if(sessionStorage.getItem("sgIntro"))return;                           // already played this session
+  document.documentElement.setAttribute("data-intro","pending");
+}catch(e){}})();
+</script>
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
