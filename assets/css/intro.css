@@ -27,7 +27,7 @@
   position: absolute;
   width: calc(50% + 1px);
   height: calc(50% + 1px);
-  background-color: var(--black);
+  background-color: var(--bg);
   background-image:
     radial-gradient(circle at var(--cx) var(--cy), rgba(0, 229, 255, .13), transparent 62%),
     linear-gradient(rgba(0, 229, 255, .045) 1px, transparent 1px),
@@ -69,8 +69,8 @@
 
 /* halo + core are plain CSS gradients (percentages of the 600-unit HUD) */
 .sg-halo { position: absolute; inset: 11.67%; border-radius: 50%; background: radial-gradient(circle closest-side, rgba(0, 229, 255, .3), rgba(0, 229, 255, 0)); }
-.sg-core { position: absolute; inset: 44.33%; border-radius: 50%; background: radial-gradient(circle closest-side, var(--white), var(--cyan) 30%, rgba(0, 229, 255, 0)); animation: sg-pulse 1.6s ease-in-out infinite; }
-.sg-dot { position: absolute; inset: 49.17%; border-radius: 50%; background: var(--white); }
+.sg-core { position: absolute; inset: 44.33%; border-radius: 50%; background: radial-gradient(circle closest-side, var(--text), var(--cyan) 30%, rgba(0, 229, 255, 0)); animation: sg-pulse 1.6s ease-in-out infinite; }
+.sg-dot { position: absolute; inset: 49.17%; border-radius: 50%; background: var(--text); }
 @keyframes sg-pulse { 50% { transform: scale(1.25); opacity: .65; } }
 .is-ready .sg-core { animation: sg-flash .7s ease-out; }
 @keyframes sg-flash { 40% { transform: scale(2.2); opacity: 1; } 100% { transform: scale(1.2); } }
@@ -96,7 +96,7 @@
 .sg-track { position: relative; flex: 1; height: 2px; overflow: hidden; background: rgba(0, 229, 255, .16); }
 .sg-fill { position: absolute; inset: 0; background: linear-gradient(90deg, var(--blue), var(--cyan)); transform: scaleX(0); transform-origin: left; }
 .is-ready .sg-fill { background: var(--amber); }
-.sg-pct { width: 3.6em; text-align: right; font-size: 12px; letter-spacing: .08em; color: var(--white); }
+.sg-pct { width: 3.6em; text-align: right; font-size: 12px; letter-spacing: .08em; color: var(--text); }
 .is-ready .sg-pct { color: var(--amber); }
 .sg-meta { display: flex; justify-content: space-between; margin-top: 8px; font-size: 10px; letter-spacing: .2em; color: var(--muted); }
 

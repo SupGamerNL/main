@@ -24,7 +24,7 @@ main/
 ├── .nojekyll            Tells GitHub Pages to serve the files as they are
 │
 ├── assets/              Everything the pages load
-│   ├── css/style.css    All styling and animations
+│   ├── css/style.css    All styling and animations (dark / light / retro palettes are the variable blocks at the top)
 │   ├── js/              common.js (shared helpers + SEO tags), script.js (index + search),
 │   │                    project.js, about.js (About page), copy.js (copy-link buttons + notification), gallery.js, gallery-page.js, ui.js (burger menu + cursor glow), intro.js (boot intro, loaded only when it plays)
 │   └── img/             Screenshots: img/<project-id>/ (full size) with thumbs/ inside, plus img/general/
