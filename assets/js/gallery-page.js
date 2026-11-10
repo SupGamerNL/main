@@ -1,7 +1,8 @@
 // Builds the main gallery page: all screenshots from every project, with a filter per project.
+// Needs common.js (Site) and gallery.js (Gallery) loaded first.
 const root = document.getElementById("gallery");
 const all = Gallery.collect();
-const mk = (tag, props = {}, ...kids) => { const n = Object.assign(document.createElement(tag), props); n.append(...kids); return n; };
+const mk = Site.el;
 
 const names = ["All", ...new Set(all.map(i => i.project))];
 let active = "All";
@@ -26,5 +27,5 @@ const parts = [
   mk("p", { className: "lead", textContent: all.length ? "Screenshots from my creations. Click one to see it bigger." : "No screenshots yet." })
 ];
 if (all.length) { parts.push(bar, grid); draw(); }
-parts.forEach((n, i) => n.style.setProperty("--i", i));
+parts.forEach((n, i) => n.style.setProperty("--i", Math.min(i, 8)));
 root.append(...parts);

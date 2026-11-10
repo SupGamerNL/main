@@ -276,7 +276,7 @@ const PROJECTS = [
       { engine: "RPG Maker", note: "Windows" }
     ],
     links: [
-      { label: "itch.io", url: "https://supgamernl.itch.io/the-legend-of-supgamer-nl-legends-reborn" }
+      { label: "itch.io", url: "https://supgamernl.itch.io/legends-of-supgamernl" }
     ],
     credits: "Includes default RPG Maker (MV/MZ) assets, which remain under RPG Maker's own license terms.",
     page: {

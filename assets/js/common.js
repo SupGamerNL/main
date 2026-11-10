@@ -78,44 +78,41 @@ const Site = (() => {
   }
 
   // ---- <head> helpers (project pages set their own SEO tags here) ----
-  function metaTag(selector, attr, value) {
-    let n = document.head.querySelector(selector);
-    if (!n) {
-      n = el(selector.startsWith("link") ? "link" : "meta");
-      const m = selector.match(/\[(\w+(?::\w+)?)="([^"]+)"\]/);
-      if (m) n.setAttribute(m[1], m[2]);
-      document.head.append(n);
-    }
-    n.setAttribute(attr, value);
+  function setMeta(key, value, content) { // key: "name" or "property"
+    let n = document.head.querySelector(`meta[${key}="${value}"]`);
+    if (!n) { n = el("meta"); n.setAttribute(key, value); document.head.append(n); }
+    n.setAttribute("content", content);
   }
   function setHead(o) {
+    const image = o.image || abs(cfg.image);
     document.title = o.title;
-    metaTag('meta[name="description"]', "content", o.description);
-    metaTag('link[rel="canonical"]', "href", o.url);
-    metaTag('meta[name="robots"]', "content", o.robots || "index, follow, max-image-preview:large");
-    metaTag('meta[property="og:type"]', "content", o.type || "website");
-    metaTag('meta[property="og:title"]', "content", o.title);
-    metaTag('meta[property="og:description"]', "content", o.description);
-    metaTag('meta[property="og:url"]', "content", o.url);
-    metaTag('meta[property="og:image"]', "content", o.image || abs(cfg.image));
-    metaTag('meta[property="og:image:alt"]', "content", o.imageAlt || cfg.imageAlt);
-    metaTag('meta[name="twitter:card"]', "content", o.image ? "summary_large_image" : "summary");
-    metaTag('meta[name="twitter:title"]', "content", o.title);
-    metaTag('meta[name="twitter:description"]', "content", o.description);
-    metaTag('meta[name="twitter:image"]', "content", o.image || abs(cfg.image));
+    let link = document.head.querySelector('link[rel="canonical"]');
+    if (!link) { link = el("link", { rel: "canonical" }); document.head.append(link); }
+    link.href = o.url;
+    [["name", "description", o.description],
+     ["name", "robots", o.robots || "index, follow, max-image-preview:large"],
+     ["property", "og:type", o.type || "website"],
+     ["property", "og:title", o.title],
+     ["property", "og:description", o.description],
+     ["property", "og:url", o.url],
+     ["property", "og:image", image],
+     ["property", "og:image:alt", o.imageAlt || cfg.imageAlt],
+     ["name", "twitter:card", o.image ? "summary_large_image" : "summary"],
+     ["name", "twitter:title", o.title],
+     ["name", "twitter:description", o.description],
+     ["name", "twitter:image", image]].forEach(m => setMeta(...m));
     if (o.jsonld) {
-      const old = document.getElementById("ld-page");
-      if (old) old.remove();
-      const s = el("script", { type: "application/ld+json", id: "ld-page" });
-      s.textContent = JSON.stringify(o.jsonld);
-      document.head.append(s);
+      document.getElementById("ld-page")?.remove();
+      document.head.append(el("script", { type: "application/ld+json", id: "ld-page", textContent: JSON.stringify(o.jsonld) }));
     }
   }
 
-  return { cfg, IMG, el, enc, fileUrl, abs, projectUrl, shareUrl, issueUrl, fmtBytes, STATUS, statusBadge, rowTarget, versionText, supportLine, cover, norm, words, searchText, setHead };
-})();
+  // ---- "Find me online" pills (from data/profiles.js); the featured one goes first ----
+  function renderProfiles(list) {
+    if (!list || typeof PROFILES === "undefined") return;
+    const sorted = [...PROFILES].sort((a, b) => !!b.featured - !!a.featured);
+    list.append(...sorted.map(p => el("li", {}, el("a", { href: p.url, textContent: p.label, className: p.featured ? "featured" : "" }))));
+  }
 
-// Pause the background pulse when the tab isn't visible
-document.addEventListener("visibilitychange", () => {
-  document.documentElement.classList.toggle("paused", document.hidden);
-});
+  return { cfg, IMG, el, enc, fileUrl, abs, projectUrl, shareUrl, issueUrl, fmtBytes, statusBadge, rowTarget, supportLine, cover, words, searchText, setHead, renderProfiles };
+})();

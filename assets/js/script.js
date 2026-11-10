@@ -15,6 +15,9 @@ let query = params.get("q") || "";
 box.value = query;
 
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+// While the boot intro covers the page the cards wait, so their fly-in is seen when the intro opens
+let held = document.documentElement.hasAttribute("data-intro");
+const waiting = [];
 const io = ("IntersectionObserver" in window && !reduce)
   ? new IntersectionObserver((entries) => {
       // Stagger cards that appear in the same batch
@@ -39,7 +42,7 @@ function matches(p) {
   return wanted.every(w => hay.get(p.id).includes(" " + w));
 }
 
-function card(p) {
+function card(p, i) {
   const url = Site.projectUrl(p.id);
   const c = Site.cover(p);
   const badge = Site.statusBadge(p);
@@ -48,7 +51,7 @@ function card(p) {
   if (c) {
     // Decorative: the title below is the real link, so this one is skipped by keyboards and screen readers
     const a = el("a", { className: "card-cover", href: url, tabIndex: -1 },
-      el("img", { src: c.thumb, alt: "", loading: "lazy", decoding: "async", width: 640, height: 360 }));
+      el("img", { src: c.thumb, alt: "", loading: i < 3 ? "eager" : "lazy", decoding: "async", width: 640, height: 360 }));
     a.setAttribute("aria-hidden", "true");
     li.append(a);
   }
@@ -76,6 +79,8 @@ function card(p) {
 
 function render(animate) {
   const list = PROJECTS.filter(matches);
+  if (io) io.disconnect();
+  waiting.length = 0;
   grid.replaceChildren();
   const filtering = query.trim() || active !== "All";
   results.textContent = filtering ? (list.length ? list.length + " of " + PROJECTS.length + " creations" : "No matches") : "";
@@ -87,10 +92,10 @@ function render(animate) {
     grid.append(el("li", { className: "empty" }, el("p", { textContent: "Nothing matches that. Try fewer words, a version number or a loader like Forge." }), reset));
     return;
   }
-  list.forEach(p => {
-    const c = card(p);
+  list.forEach((p, i) => {
+    const c = card(p, i);
     grid.append(c);
-    if (io && animate) { c.classList.add("pre"); io.observe(c); }
+    if (io && animate) { c.classList.add("pre"); held ? waiting.push(c) : io.observe(c); }
   });
 }
 
@@ -124,18 +129,19 @@ document.addEventListener("keydown", e => {
 
 renderFilters();
 render(true);
+if (held) document.addEventListener("sgintro:reveal", () => { held = false; waiting.forEach(c => io.observe(c)); waiting.length = 0; }, { once: true });
 
-// Hero art: pixel gem (c = cyan, a = aqua, t = turquoise, w = white, . = empty)
+// Hero art: pixel gem (c = cyan, a = aqua, t = turquoise, w = white, b = electric blue, m = electric amber, . = empty)
 const GEM = [
   "...tttttt...",
   "..tcwwccat..",
   ".tcwccccaat.",
   "tttttttttttt",
-  ".tccwcccaat.",
-  "..tcwccaat..",
-  "...tccaat...",
-  "....tcat....",
-  ".....tt....."
+  ".tccwcccabt.",
+  "..tcwccabt..",
+  "...tccabt...",
+  "....tcbt....",
+  ".....tm....."
 ];
 const gem = document.getElementById("gem");
 if (gem) {
@@ -160,9 +166,4 @@ if (count) {
 }
 
 // "About me" profile links (from data/profiles.js)
-const profiles = document.getElementById("profiles");
-if (profiles && typeof PROFILES !== "undefined") {
-  // Featured links go first (the sort keeps the rest in their original order)
-  const sorted = [...PROFILES].sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
-  profiles.append(...sorted.map(p => el("li", {}, el("a", { href: p.url, textContent: p.label, className: p.featured ? "featured" : "" }))));
-}
+Site.renderProfiles(document.getElementById("profiles"));

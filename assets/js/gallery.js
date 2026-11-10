@@ -1,8 +1,7 @@
 // Shared gallery code: collects the screenshots, draws thumbnails and runs the lightbox.
-// Needs projects.js (PROJECTS) and data/gallery.js (GALLERY_EXTRA) loaded first.
+// Needs data/projects.js (PROJECTS), data/gallery.js (GALLERY_EXTRA) and common.js (Site) loaded first.
 const Gallery = (() => {
-  const IMG = "assets/img/";
-  const h = (tag, props = {}, ...kids) => { const n = Object.assign(document.createElement(tag), props); n.append(...kids); return n; };
+  const { el: h, IMG } = Site;
 
   // Every screenshot of every project, plus the general ones from data/gallery.js
   function collect() {
@@ -26,7 +25,7 @@ const Gallery = (() => {
       b.setAttribute("aria-label", "Open: " + it.caption);
       b.addEventListener("click", () => openBox(items, i));
       const li = h("li", {}, b);
-      li.style.setProperty("--i", Math.min(i, 12));
+      li.style.setProperty("--i", Math.min(i, 8));
       return li;
     }));
   }

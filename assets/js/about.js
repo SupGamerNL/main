@@ -18,8 +18,4 @@ if (makes) {
 }
 
 // Profile links (from data/profiles.js); the featured one goes first
-const profiles = document.getElementById("profiles");
-if (profiles && typeof PROFILES !== "undefined") {
-  const sorted = [...PROFILES].sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
-  profiles.append(...sorted.map(p => el("li", {}, el("a", { href: p.url, textContent: p.label, className: p.featured ? "featured" : "" }))));
-}
+Site.renderProfiles(document.getElementById("profiles"));

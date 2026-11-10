@@ -25,8 +25,8 @@ main/
 │
 ├── assets/              Everything the pages load
 │   ├── css/style.css    All styling and animations
-│   ├── js/              common.js (shared helpers + SEO tags), filesize.js (file sizes), script.js (index + search),
-│   │                    project.js, about.js (About page), copy.js (copy-link buttons + notification), gallery.js, gallery-page.js, nav.js (burger menu), spotlight.js (cursor glow)
+│   ├── js/              common.js (shared helpers + SEO tags), script.js (index + search),
+│   │                    project.js, about.js (About page), copy.js (copy-link buttons + notification), gallery.js, gallery-page.js, ui.js (burger menu + cursor glow), intro.js (boot intro, loaded only when it plays)
 │   └── img/             Screenshots: img/<project-id>/ (full size) with thumbs/ inside, plus img/general/
 │
 ├── data/

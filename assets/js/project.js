@@ -1,4 +1,4 @@
-// Needs data/projects.js + data/changelogs.js + common.js + copy.js + gallery.js + filesize.js loaded first.
+// Needs data/projects.js + data/sizes.js + data/changelogs.js + common.js + copy.js + gallery.js loaded first.
 // Opened as project.html?id=<project id>
 const { el, enc, fileUrl, fmtBytes } = Site;
 const root = document.getElementById("project");
@@ -8,11 +8,23 @@ const p = PROJECTS.find(x => x.id === id);
 const releasesOn = typeof RELEASES_LIVE !== "undefined" && RELEASES_LIVE && typeof RELEASES_REPO !== "undefined";
 const releasesBase = releasesOn ? "https://github.com/" + RELEASES_REPO + "/releases" : "";
 
+// ---------- File sizes ----------
+// data/sizes.js (made by tools/update-site.py) has the size of every download and is shown at once. For files on this
+// site the browser then also asks for the current size, so a replaced file shows its new size right away.
+const sizeKey = d => d.file || (d.release ? "release:" + d.release.tag + "/" + d.release.asset : "");
+const knownSize = d => { const n = typeof FILE_SIZES !== "undefined" && FILE_SIZES[sizeKey(d)]; return n ? fmtBytes(n) : (d.size || ""); };
+async function liveSize(path) {
+  try {
+    const r = await fetch(fileUrl(path), { method: "HEAD", cache: "no-cache" });
+    const n = parseInt(r.headers.get("content-length"), 10);
+    return r.ok && n > 0 ? n : null;
+  } catch (e) { return null; }
+}
+
 // ---------- Downloads ----------
-// Each row shows: note and file size. The size comes from data/sizes.js at once; for files on this site
-// the browser then checks the current size.
+// Each row shows: note and file size.
 function downloadRow(d) {
-  let size = FileSize.known(d);
+  let size = knownSize(d);
   const sub = el("span", { className: "dl-sub" });
   const paint = () => { sub.textContent = [d.note, size].filter(Boolean).join(" \u00B7 "); sub.hidden = !sub.textContent; };
   const info = el("div", { className: "dl-info" }, el("strong", { textContent: d.label }), sub);
@@ -33,7 +45,7 @@ function downloadRow(d) {
   const row = el("li", { className: "dl" }, info, acts);
   row.querySelectorAll(".btn").forEach(b => b.setAttribute("aria-label", b.textContent + ": " + d.label));
   paint();
-  if (d.file) FileSize.live(d.file).then(n => { if (n) { size = fmtBytes(n); paint(); } });
+  if (d.file) liveSize(d.file).then(n => { if (n) { size = fmtBytes(n); paint(); } });
   return row;
 }
 
@@ -71,12 +83,9 @@ function compatSection(rows) {
 
 // ---------- Changelog + timeline ----------
 function changelogSection(list) {
-  const items = list.map((c, i) => {
-    const d = el("details", { className: "log", open: i === 0 },
-      el("summary", {}, el("strong", { textContent: c.version }), ...(c.date ? [el("span", { className: "log-date", textContent: c.date })] : [])),
-      el("ul", {}, ...c.changes.map(t => el("li", { textContent: t }))));
-    return d;
-  });
+  const items = list.map((c, i) => el("details", { className: "log", open: i === 0 },
+    el("summary", {}, el("strong", { textContent: c.version }), ...(c.date ? [el("span", { className: "log-date", textContent: c.date })] : [])),
+    el("ul", {}, ...c.changes.map(t => el("li", { textContent: t })))));
   return el("section", { className: "sec" }, el("h2", { textContent: "Changelog" }), ...items);
 }
 
@@ -195,10 +204,9 @@ function render() {
 
   if (p.timeline && p.timeline.length) parts.push(timelineSection(p.timeline));
 
-  // Stagger the entrance of each block (one-time, CSS does the animating)
-  parts.forEach((n, i) => n.style.setProperty("--i", i));
+  // Stagger the entrance of each block (one-time, CSS does the animating; capped so long pages don't wait)
+  parts.forEach((n, i) => n.style.setProperty("--i", Math.min(i, 8)));
   root.replaceChildren(...parts);
-
 }
 
 p ? render() : notFound();
