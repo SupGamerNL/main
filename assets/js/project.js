@@ -145,7 +145,6 @@ function render() {
   parts.push(el("h1", { textContent: p.name }));
   parts.push(el("div", { className: "meta" },
     ...(badge ? [badge] : []),
-    el("span", { className: "tag", textContent: p.category }),
     ...(p.tags || []).map(t => el("span", { className: "tag", textContent: t }))
   ));
 

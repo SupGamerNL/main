@@ -67,7 +67,7 @@ function card(p, i) {
     })));
   }
   li.append(
-    el("div", { className: "meta" }, ...(p.tags || []).map(t => el("span", { className: "tag", textContent: t }))),
+    el("div", { className: "meta" }, ...[p.category, ...(p.tags || [])].map(t => el("span", { className: "tag", textContent: t }))),
     el("div", { className: "links" },
       el("a", { href: url, textContent: "Details" }),
       ...(p.links || []).slice(0, 2).map(l => el("a", { href: l.url, textContent: l.label })))
