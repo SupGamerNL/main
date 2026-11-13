@@ -156,6 +156,7 @@ function render() {
   const btns = el("div", { className: "btns" }, ...(p.links || []).map(l => el("a", { className: "btn", href: l.url, textContent: l.label })));
   const bug = Site.issueUrl(p);
   if (bug) btns.append(el("a", { className: "btn alt", href: bug, rel: "noopener", textContent: "Report a bug" }));
+  if (Site.cfg.discussions) btns.append(el("a", { className: "btn alt", href: Site.cfg.discussions, rel: "noopener", textContent: "Questions & feedback" }));
   const share = el("button", { type: "button", className: "btn alt", textContent: "Copy share link" });
   share.addEventListener("click", () => Copy.text(Site.shareUrl(p.id)));
   btns.append(share);

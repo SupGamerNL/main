@@ -9,5 +9,7 @@ const SITE_CONFIG = {
   imageAlt: "SupGamer NL profile artwork",
   // Where "Report a bug" leads. Needs Issues switched on for that GitHub repo.
   // A single project can use its own repo: add  issues: "https://github.com/SupGamerNL/<repo>/issues"  to that project in projects.js.
-  issues: "https://github.com/SupGamerNL/main/issues"
+  issues: "https://github.com/SupGamerNL/main/issues",
+  // Where "Questions & feedback" leads (GitHub Discussions must be switched on for that repo). Leave empty ("") to hide the buttons on project pages.
+  discussions: "https://github.com/SupGamerNL/main/discussions"
 };
