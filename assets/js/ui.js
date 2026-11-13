@@ -1,16 +1,27 @@
-// Site chrome for every page: the theme button, the burger menu of the navigation bar and the cursor spotlight.
+// Site chrome for every page: the appearance settings, the burger menu of the navigation bar and the cursor spotlight.
 (() => {
-  /* ---- Themes: dark (default) / light, plus a hidden 16-bit retro mode on top of either.
-          The saved choice is applied by a tiny inline script in every page's <head> (so nothing flashes);
-          this part adds the button and the easter egg. Hold the button for a second, or enter the Konami code. ---- */
+  /* ---- Appearance settings: theme, text size and motion (saved on this device), plus a hidden 16-bit retro mode.
+          The saved choices are applied by a tiny inline script in every page's <head> (so nothing flashes);
+          this part builds the settings button + panel.
+          Easter egg: click the little amber square at the bottom of the hero gem on the home page. On phones (where the gem is
+          hidden) hold the settings button for a second instead. ---- */
   const html = document.documentElement;
-  const nav = document.querySelector(".nav-in");
+  const nav = document.querySelector(".nav");
+  const navIn = nav && nav.querySelector(".nav-in");
   const save = (k, v) => { try { v ? localStorage.setItem(k, v) : localStorage.removeItem(k); } catch (e) { /* private mode: just not remembered */ } };
 
-  const ICON = {
-    sun: '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
-    moon: '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>'
-  };
+  const isRetro = () => html.hasAttribute("data-retro");
+  const GROUPS = [
+    { label: "Theme", attr: "theme", key: "sgTheme", opts: [["", "Dark"], ["light", "Light"]] },
+    { label: "Text size", attr: "text", key: "sgText", opts: [["s", "Small"], ["", "Normal"], ["l", "Large"], ["xl", "XL"]] },
+    { label: "Motion", attr: "motion", key: "sgMotion", opts: [["full", "Full"], ["reduced", "Reduced"], ["off", "Off"]] }
+  ];
+  const HINT = "Reduced: no looping or background animation, no intro. Off: no animation at all.";
+
+  function setGroup(g, value) {
+    value ? html.setAttribute("data-" + g.attr, value) : html.removeAttribute("data-" + g.attr);
+    save(g.key, value); // motion keeps an explicit "full", so a system "reduce motion" setting no longer overrides it
+  }
 
   // One small message (the pages with copy.js already have a toast; the others get a minimal one)
   function say(message) {
@@ -22,49 +33,70 @@
     clearTimeout(say.t);
     say.t = setTimeout(() => t.classList.remove("show"), 2600);
   }
-
-  const isLight = () => html.dataset.theme === "light";
-  const isRetro = () => html.hasAttribute("data-retro");
-
   function setRetro(on) {
     on ? html.setAttribute("data-retro", "on") : html.removeAttribute("data-retro");
     save("sgRetro", on ? "1" : "");
-    say(on ? "16-BIT MODE ON. Hold the theme button to switch it off." : "16-bit mode off.");
+    say(on ? "16-BIT MODE ON. You found the secret!" : "16-bit mode off.");
+    if (render) render();
   }
 
-  if (nav) {
-    const btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "theme-toggle";
-    const paint = () => {
-      const label = isLight() ? "Switch to dark mode" : "Switch to light mode";
-      btn.innerHTML = isLight() ? ICON.moon : ICON.sun;
-      btn.setAttribute("aria-label", label);
-      btn.title = label;
+  let render = null;
+  if (navIn) {
+    const el = Site.el;
+    const btn = el("button", { type: "button", className: "theme-toggle", title: "Appearance settings" });
+    btn.setAttribute("aria-label", "Appearance settings");
+    btn.setAttribute("aria-expanded", "false");
+    btn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h9M19 7h1M4 17h1M11 17h9"/><circle cx="16" cy="7" r="2.6"/><circle cx="8" cy="17" r="2.6"/></svg>';
+
+    const panel = el("div", { className: "settings", id: "settings", hidden: true });
+    panel.setAttribute("role", "group");
+    panel.setAttribute("aria-label", "Appearance settings");
+    btn.setAttribute("aria-controls", "settings");
+    const body = el("div");
+    const reset = el("button", { type: "button", className: "set-reset", textContent: "Reset to defaults" });
+    panel.append(el("p", { className: "set-title", textContent: "Appearance" }), body, reset);
+    nav.append(panel);
+
+    render = () => {
+      const rows = GROUPS.map(g => {
+        const current = html.getAttribute("data-" + g.attr) || (g.attr === "motion" ? "full" : "");
+        const seg = el("div", { className: "seg" }, ...g.opts.map(([value, label]) => {
+          const b = el("button", { type: "button", textContent: label });
+          b.setAttribute("aria-pressed", String(value === current));
+          b.addEventListener("click", () => { setGroup(g, value); render(); });
+          return b;
+        }));
+        return el("div", { className: "set-row" }, el("span", { className: "set-label", textContent: g.label }), seg,
+          ...(g.attr === "motion" ? [el("p", { className: "set-hint", textContent: HINT })] : []));
+      });
+      if (isRetro()) {
+        const off = el("button", { type: "button", className: "set-reset", textContent: "Turn off" });
+        off.addEventListener("click", () => setRetro(false));
+        rows.push(el("div", { className: "set-row set-retro" }, el("span", { textContent: "16-bit mode is on" }), off));
+      }
+      body.replaceChildren(...rows);
+    };
+    reset.addEventListener("click", () => { GROUPS.forEach(g => { html.removeAttribute("data-" + g.attr); save(g.key, ""); }); render(); });
+
+    const setOpen = open => {
+      panel.hidden = !open;
+      btn.setAttribute("aria-expanded", String(open));
+      if (open) { render(); nav.classList.remove("open"); const t = nav.querySelector(".nav-toggle"); if (t) t.setAttribute("aria-expanded", "false"); }
     };
     let held = false, timer = 0;
-    btn.addEventListener("click", () => {
-      if (held) { held = false; return; }               // that press was the long-press easter egg, not a click
-      isLight() ? html.removeAttribute("data-theme") : html.setAttribute("data-theme", "light");
-      save("sgTheme", isLight() ? "light" : "");
-      paint();
-    });
-    btn.addEventListener("pointerdown", () => { held = false; timer = setTimeout(() => { held = true; setRetro(!isRetro()); }, 1000); });
+    btn.addEventListener("click", () => { if (held) { held = false; return; } setOpen(panel.hidden); });
+    // Phones: hold the button for a second for the hidden mode (the gem is not shown there)
+    btn.addEventListener("pointerdown", () => { held = false; timer = setTimeout(() => { held = true; setOpen(false); setRetro(!isRetro()); }, 1000); });
     ["pointerup", "pointerleave", "pointercancel"].forEach(ev => btn.addEventListener(ev, () => clearTimeout(timer)));
     btn.addEventListener("contextmenu", e => e.preventDefault());
-    paint();
-    nav.append(btn);
+    // composedPath() still lists the panel after a button inside it was re-rendered away, so choosing an option keeps the panel open
+    document.addEventListener("click", e => { if (!panel.hidden && !e.composedPath().some(n => n === panel || n === btn)) setOpen(false); });
+    document.addEventListener("keydown", e => { if (e.key === "Escape" && !panel.hidden) { setOpen(false); btn.focus(); } });
+    navIn.append(btn);
   }
 
-  // Konami code: up up down down left right left right B A
-  const KONAMI = ["arrowup", "arrowup", "arrowdown", "arrowdown", "arrowleft", "arrowright", "arrowleft", "arrowright", "b", "a"];
-  let seq = [];
-  document.addEventListener("keydown", e => {
-    if (e.target.closest && e.target.closest("input, textarea, select, [contenteditable]")) return;
-    seq.push(e.key.toLowerCase());
-    seq = seq.slice(-KONAMI.length);
-    if (seq.join() === KONAMI.join()) { seq = []; setRetro(!isRetro()); }
-  });
+  // The hidden switch: the amber square in the hero gem
+  document.addEventListener("click", e => { if (e.target.closest && e.target.closest('.gem i[data-c="m"]')) setRetro(!isRetro()); });
 })();
 
 (() => {
@@ -89,7 +121,6 @@
 
   const R = 260;   // radius in px (half of .spot width/height in style.css)
   const G = 48;    // grid size in px (the page grid)
-  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   const spot = document.createElement("div");
   const grid = document.createElement("i");   // the brighter grid, wider than the spot so it can slide inside it
@@ -102,7 +133,7 @@
 
   function draw() {
     raf = 0;
-    const k = reduce ? 1 : 0.22; // follow smoothly, or snap if the visitor prefers reduced motion
+    const k = 0.22; // follow smoothly
     x += (tx - x) * k;
     y += (ty - y) * k;
     const done = Math.abs(tx - x) < 0.5 && Math.abs(ty - y) < 0.5;
@@ -116,7 +147,7 @@
   }
 
   addEventListener("pointermove", e => {
-    if (e.pointerType === "touch") return;
+    if (e.pointerType === "touch" || ["reduced", "off"].includes(document.documentElement.dataset.motion)) return; // no glow with reduced motion
     tx = e.clientX; ty = e.clientY;
     if (!shown) { x = tx; y = ty; shown = true; spot.classList.add("on"); }
     if (!raf) raf = requestAnimationFrame(draw); // the loop only runs while the glow is catching up

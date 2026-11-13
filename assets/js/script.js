@@ -14,7 +14,8 @@ let active = cats.includes(params.get("cat")) ? params.get("cat") : "All";
 let query = params.get("q") || "";
 box.value = query;
 
-const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const motion = document.documentElement.dataset.motion;   // "reduced" | "off" | "full" (explicit choice) | undefined
+const reduce = motion ? motion !== "full" : matchMedia("(prefers-reduced-motion: reduce)").matches;
 // While the boot intro covers the page the cards wait, so their fly-in is seen when the intro opens
 let held = document.documentElement.hasAttribute("data-intro");
 const waiting = [];

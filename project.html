@@ -23,7 +23,7 @@
 <meta name="twitter:image" content="https://supgamernl.github.io/main/assets/img/icon-image.png">
 <link rel="icon" type="image/png" href="assets/img/icon-image.png">
 <script>document.documentElement.className = "js";
-try{var s=localStorage,h=document.documentElement;if(s.getItem("sgTheme")==="light")h.dataset.theme="light";if(s.getItem("sgRetro"))h.dataset.retro="on"}catch(e){}</script>
+try{var s=localStorage,h=document.documentElement,g=function(k){return s.getItem(k)},t=g("sgText"),m=g("sgMotion");if(g("sgTheme")==="light")h.dataset.theme="light";if(g("sgRetro"))h.dataset.retro="on";if(t==="s"||t==="l"||t==="xl")h.dataset.text=t;if(!m&&matchMedia("(prefers-reduced-motion: reduce)").matches)m="off";if(m==="reduced"||m==="off"||m==="full")h.dataset.motion=m}catch(e){}</script>
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>

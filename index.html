@@ -29,12 +29,13 @@
 <link rel="stylesheet" href="assets/css/style.css">
 <script>
 /* Marks the page as "JavaScript on" and decides whether the boot intro plays: once per browser session, and never with
-   reduced motion or when a filter / #section link was opened. Only then are intro.css and intro.js downloaded. */
+   reduced motion (system or the site setting) or when a filter / #section link was opened. Only then are intro.css and intro.js downloaded. */
 (function (d) {
   d.className = "js";
-  try { if (localStorage.getItem("sgTheme") === "light") d.dataset.theme = "light"; if (localStorage.getItem("sgRetro")) d.dataset.retro = "on"; } catch (e) {}
+  try{var s=localStorage,g=function(k){return s.getItem(k)},t=g("sgText"),m=g("sgMotion");if(g("sgTheme")==="light")d.dataset.theme="light";if(g("sgRetro"))d.dataset.retro="on";if(t==="s"||t==="l"||t==="xl")d.dataset.text=t;if(!m&&matchMedia("(prefers-reduced-motion: reduce)").matches)m="off";if(m==="reduced"||m==="off"||m==="full")d.dataset.motion=m}catch(e){}
   try {
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches || /[?&](q|cat)=/.test(location.search) ||
+    if (d.dataset.motion ? d.dataset.motion !== "full" : matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if ( /[?&](q|cat)=/.test(location.search) ||
         location.hash.length > 1 || sessionStorage.getItem("sgIntro")) return;
     d.setAttribute("data-intro", "pending"); // style.css covers the page right away, so nothing flashes
     var css = document.createElement("link"), js = document.createElement("script");

@@ -25,7 +25,7 @@
 <link rel="icon" type="image/png" href="assets/img/icon-image.png">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Project Gallery","url":"https://supgamernl.github.io/main/gallery.html","description":"Screenshots from Minecraft mods, maps and indie game creations by SupGamer NL.","isPartOf":{"@type":"WebSite","name":"SupGamer NL","url":"https://supgamernl.github.io/main/"}}</script>
 <script>document.documentElement.className = "js";
-try{var s=localStorage,h=document.documentElement;if(s.getItem("sgTheme")==="light")h.dataset.theme="light";if(s.getItem("sgRetro"))h.dataset.retro="on"}catch(e){}</script>
+try{var s=localStorage,h=document.documentElement,g=function(k){return s.getItem(k)},t=g("sgText"),m=g("sgMotion");if(g("sgTheme")==="light")h.dataset.theme="light";if(g("sgRetro"))h.dataset.retro="on";if(t==="s"||t==="l"||t==="xl")h.dataset.text=t;if(!m&&matchMedia("(prefers-reduced-motion: reduce)").matches)m="off";if(m==="reduced"||m==="off"||m==="full")h.dataset.motion=m}catch(e){}</script>
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
