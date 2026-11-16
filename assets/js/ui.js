@@ -12,9 +12,10 @@
 
   const isRetro = () => html.hasAttribute("data-retro");
   const GROUPS = [
-    { label: "Theme", attr: "theme", key: "sgTheme", opts: [["", "Dark"], ["light", "Light"]] },
-    { label: "Text size", attr: "text", key: "sgText", opts: [["s", "Small"], ["", "Normal"], ["l", "Large"], ["xl", "XL"]] },
-    { label: "Motion", attr: "motion", key: "sgMotion", opts: [["full", "Full"], ["reduced", "Reduced"], ["off", "Off"]] }
+    { label: "Theme", attr: "theme", key: "sgTheme", def: "", opts: [["", "Dark"], ["light", "Light"]] },
+    { label: "Contrast", attr: "contrast", key: "sgContrast", def: "default", opts: [["low", "Low"], ["default", "Default"], ["high", "High"]] },
+    { label: "Text size", attr: "text", key: "sgText", def: "", opts: [["s", "Small"], ["", "Normal"], ["l", "Large"], ["xl", "XL"]] },
+    { label: "Motion", attr: "motion", key: "sgMotion", def: "full", opts: [["full", "Full"], ["reduced", "Reduced"], ["off", "Off"]] }
   ];
   const HINT = "Reduced: no looping or background animation, no intro. Off: no animation at all.";
 
@@ -59,7 +60,7 @@
 
     render = () => {
       const rows = GROUPS.map(g => {
-        const current = html.getAttribute("data-" + g.attr) || (g.attr === "motion" ? "full" : "");
+        const current = html.getAttribute("data-" + g.attr) || g.def;
         const seg = el("div", { className: "seg" }, ...g.opts.map(([value, label]) => {
           const b = el("button", { type: "button", textContent: label });
           b.setAttribute("aria-pressed", String(value === current));

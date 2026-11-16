@@ -9,7 +9,7 @@
 <base href="https://supgamernl.github.io/main/">
 <title>Page not found | SupGamer NL</title>
 <link rel="icon" type="image/png" href="assets/img/icon-image.png">
-<script>try{var s=localStorage,h=document.documentElement,g=function(k){return s.getItem(k)},t=g("sgText"),m=g("sgMotion");if(g("sgTheme")==="light")h.dataset.theme="light";if(g("sgRetro"))h.dataset.retro="on";if(t==="s"||t==="l"||t==="xl")h.dataset.text=t;if(!m&&matchMedia("(prefers-reduced-motion: reduce)").matches)m="off";if(m==="reduced"||m==="off"||m==="full")h.dataset.motion=m}catch(e){}</script>
+<script>try{var s=localStorage,h=document.documentElement,g=function(k){return s.getItem(k)},t=g("sgText"),m=g("sgMotion"),c=g("sgContrast");if(g("sgTheme")==="light")h.dataset.theme="light";if(g("sgRetro"))h.dataset.retro="on";if(t==="s"||t==="l"||t==="xl")h.dataset.text=t;if(!m&&matchMedia("(prefers-reduced-motion: reduce)").matches)m="off";if(m==="reduced"||m==="off"||m==="full")h.dataset.motion=m;if(!c)c=matchMedia("(prefers-contrast: more)").matches?"high":matchMedia("(prefers-contrast: less)").matches?"low":"";if(c==="low"||c==="high"||c==="default")h.dataset.contrast=c}catch(e){}</script>
 <link rel="stylesheet" href="assets/css/style.css">
 <script>
 // Old pre-rendered address (projects/<id>/): send visitors to the matching project page
@@ -20,6 +20,7 @@
 </script>
 </head>
 <body>
+<a class="skip" href="#content">Skip to content</a>
 <div class="pulse" aria-hidden="true"></div>
 <nav class="nav" aria-label="Main">
   <div class="nav-in">
@@ -31,7 +32,7 @@
     </ul>
   </div>
 </nav>
-<main class="project">
+<main id="content" class="project" tabindex="-1">
   <h1>Page not found</h1>
   <p class="lead">That address doesn't lead anywhere. Head back to the index to find what you were looking for.</p>
   <div class="btns"><a class="btn" href="index.html">Back to all creations</a></div>

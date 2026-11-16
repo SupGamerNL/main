@@ -64,6 +64,7 @@ All of these can be left out. The full explanation is in the comment at the top 
 - `status`: `"released"`, `"in-development"`, `"planned"`, `"on-hold"` or `"archived"`. Shows a status badge on the card and the page.
 - `cover`: a file name from the project's screenshots folder. Without it the first screenshot is used. No screenshots, no cover.
 - `support`: what the project runs on, one row per version line: `{ label?, game?, engine?, versions?, loader?, requires?, note? }`. Shown as a short line on the card, as the "Compatibility" section on the page, and it is searchable.
+- `released` / `updated` (optional): `"2026"`, `"2026-11"` or `"2026-11-04"`. Used by the date sort orders on the index. If left out, the oldest and newest date found in the changelog and timeline are used. Projects with no date at all are listed last.
 - `changelog`: `[{ version, date?, changes: [...] }]`, newest first. Shows a "Changelog" section.
 - `timeline`: `[{ date, title, text? }]`, oldest first. Shows a "Timeline" section.
 - `credits`: a short text for a "Credits & license" section (asset licenses, fan-project disclaimers, thanks).
@@ -72,7 +73,7 @@ All of these can be left out. The full explanation is in the comment at the top 
 
 ## Search and filters
 
-The search box on the index looks through names, descriptions, categories, tags, versions, loaders, required mods, status, download labels and the material chips. A search word has to match the start of a word, so `forge` finds Forge and `neoforge` finds NeoForge, and `1.12` finds 1.12.2. Several words must all match. It works together with the category buttons. Press `/` to jump to the search box. The address updates (`index.html?q=forge&cat=Minecraft+Mods`), so a search can be shared or bookmarked.
+The search box on the index looks through names, descriptions, categories, tags, versions, loaders, required mods, status, download labels and the material chips. A search word has to match the start of a word, so `forge` finds Forge and `neoforge` finds NeoForge, and `1.12` finds 1.12.2. Several words must all match. It works together with the category buttons. Press `/` to jump to the search box. The "Filters" button adds status chips, a game-version dropdown and a loader dropdown (their options are read from the `support` rows), and "Sort by" offers name A-Z / Z-A, recently updated, recently released, oldest first and development status. All of it is in the address too (`status=`, `ver=`, `loader=`, `sort=`). The address updates (`index.html?q=forge&cat=Minecraft+Mods`), so a search can be shared or bookmarked.
 
 ## Copy-link buttons
 

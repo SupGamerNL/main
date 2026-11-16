@@ -73,6 +73,11 @@ def validate(site: dict) -> None:
         ids.add(pid)
         if p.get("status") and p["status"] not in STATUSES:
             err(f'{where}: status "{p["status"]}" is not one of {sorted(STATUSES)}')
+        for field in ("released", "updated"):
+            if p.get(field) and not re.fullmatch(r"\d{4}(-\d{2}(-\d{2})?)?", str(p[field])):
+                err(f'{where}: "{field}" must look like 2026, 2026-11 or 2026-11-04 (got "{p[field]}")')
+        if p.get("released") and p.get("updated") and str(p["updated"]) < str(p["released"]):
+            err(f'{where}: "updated" ({p["updated"]}) is earlier than "released" ({p["released"]})')
         for link in p.get("links", []):
             if not link.get("label") or not link.get("url"):
                 err(f"{where}: every link needs a label and a url")

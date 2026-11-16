@@ -50,6 +50,18 @@ const Site = (() => {
     return b;
   }
 
+  // ---- Dates (used for sorting). Optional "released" / "updated" in projects.js (YYYY, YYYY-MM or YYYY-MM-DD);
+  //      otherwise the oldest / newest date found in the changelog and timeline is used. ----
+  const DATE = /^\d{4}(-\d{2}(-\d{2})?)?$/;
+  const dateKey = d => (DATE.test(d || "") ? d + "-01-01".slice(d.length - 4) : "");   // sortable YYYY-MM-DD, "" if missing or invalid
+  function dates(p) {
+    const log = p.changelog || (typeof CHANGELOGS !== "undefined" && CHANGELOGS[p.id]) || [];
+    const list = [...log.map(c => c.date), ...(p.timeline || []).map(t => t.date)].filter(dateKey).sort((a, b) => (dateKey(a) < dateKey(b) ? -1 : 1));
+    const released = dateKey(p.released) ? p.released : list[0] || "";
+    const updated = dateKey(p.updated) ? p.updated : list[list.length - 1] || released;
+    return { released, updated };
+  }
+
   // ---- Versions / compatibility ----
   const rowTarget = r => r.game || r.engine || "";
   function versionText(v) { return !v || !v.length ? "" : v.length > 2 ? v[0] + " \u2013 " + v[v.length - 1] : v.join(", "); }
@@ -114,5 +126,5 @@ const Site = (() => {
     list.append(...sorted.map(p => el("li", {}, el("a", { href: p.url, textContent: p.label, className: p.featured ? "featured" : "" }))));
   }
 
-  return { cfg, IMG, el, enc, fileUrl, abs, projectUrl, shareUrl, issueUrl, fmtBytes, statusBadge, rowTarget, supportLine, cover, words, searchText, setHead, renderProfiles };
+  return { cfg, IMG, el, enc, fileUrl, abs, projectUrl, shareUrl, issueUrl, fmtBytes, STATUS, statusBadge, dates, dateKey, rowTarget, supportLine, cover, words, searchText, setHead, renderProfiles };
 })();
