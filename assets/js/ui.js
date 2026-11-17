@@ -156,3 +156,28 @@
 
   document.documentElement.addEventListener("mouseleave", () => { shown = false; spot.classList.remove("on"); });
 })();
+
+(() => {
+  /* ---- Back-to-top button: appears once the page has been scrolled a bit (handy on long project pages), on every page ---- */
+  const SHOW_AFTER = 500; // px scrolled before the button appears
+  const html = document.documentElement;
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "to-top";
+  btn.setAttribute("aria-label", "Back to top");
+  btn.title = "Back to top";
+  btn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
+  document.body.append(btn);   // last in the page, so keyboard users reach it right after the footer
+
+  let ticking = false;
+  const update = () => { ticking = false; btn.classList.toggle("show", window.scrollY > SHOW_AFTER); };
+  addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  update();
+
+  btn.addEventListener("click", e => {
+    const calm = ["reduced", "off"].includes(html.dataset.motion) || (!html.dataset.motion && matchMedia("(prefers-reduced-motion: reduce)").matches);
+    window.scrollTo({ top: 0, behavior: calm ? "auto" : "smooth" });
+    // Keyboard: continue from the top of the page (the brand link), instead of from a button that is about to disappear
+    if (e.detail === 0) { const first = document.querySelector(".nav-brand"); if (first) first.focus({ preventScroll: true }); }
+  });
+})();

@@ -107,7 +107,7 @@
   font: inherit; font-size: 12px; letter-spacing: .18em; cursor: pointer; transition: color .15s, opacity .35s ease-in;
 }
 .sg-skip:hover { color: var(--cyan); }
-.sg-skip:focus-visible { color: var(--cyan); outline: 2px solid var(--amber); outline-offset: -2px; }
+.sg-skip:focus-visible { color: var(--cyan); outline: 3px solid var(--focus); outline-offset: -3px; }
 
 /* screen-reader-only live text */
 .sg-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }

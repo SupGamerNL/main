@@ -22,6 +22,7 @@
   --turq: #40e0d0;
   --blue: #3d8bff;        /* Electric Blue */
   --amber: #ffbf00;       /* Electric Amber */
+  --focus: #ffbf00;       /* keyboard focus ring */
   --on-accent: #05090a;   /* text on turquoise / gradient buttons */
   --accent-hover: #7fffd4;
   --grad: linear-gradient(90deg, var(--blue), var(--cyan), var(--aqua), var(--turq));  /* text + underline */
@@ -53,6 +54,7 @@
 /* Light mode */
 html[data-theme="light"] {
   color-scheme: light;
+  --focus: #945200;
   --bg: #f2f8f7; --panel: #ffffff; --panel-hi: #e4f1ef; --line: #bdd3cf; --text: #0a1f21; --muted: #466663;
   --cyan: #006d92; --aqua: #067256; --turq: #14b8a6; --blue: #1d5fe0; --amber: #c77a00;
   --on-accent: #04211f; --accent-hover: #3fd9c8;
@@ -70,6 +72,7 @@ html[data-theme="light"] {
 
 /* 16-bit retro, dark: a night-time SNES menu */
 html[data-retro] {
+  --focus: #fcd838;
   --bg: #101040; --panel: #1a1a70; --panel-hi: #2424a0; --line: #6c6cf0; --text: #fcfcfc; --muted: #b8b8f8;
   --cyan: #38d8f8; --aqua: #58f898; --turq: #28d8a8; --blue: #7c98ff; --amber: #fcd838;
   --on-accent: #101040; --accent-hover: #fcd838;
@@ -85,6 +88,7 @@ html[data-retro] {
 }
 /* 16-bit retro, light: a Mega-Drive-style sky */
 html[data-theme="light"][data-retro] {
+  --focus: #7a3a00;
   --bg: #b8e0f8; --panel: #fcfcfc; --panel-hi: #e8f4ff; --line: #181028; --text: #181028; --muted: #3a3a78;
   --cyan: #0050b8; --aqua: #006830; --turq: #28d8a8; --blue: #2038e8; --amber: #b85800;
   --on-accent: #181028; --accent-hover: #fcd838;
@@ -113,7 +117,17 @@ html { color-scheme: dark; scroll-behavior: smooth; scroll-padding-top: calc(var
 body { margin: 0; padding-top: var(--nav-h); background: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.6; }
 ::selection { background: var(--sel); color: var(--text); }
 a { color: var(--cyan); }
-a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; border-radius: 4px; }
+a:focus-visible, button:focus-visible, select:focus-visible, summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+/* Keyboard users can always tell WHERE they are: the whole card / row / group around the focused element lights up too */
+:is(.card, .rel-card, .dl, .version, .log):has(:focus-visible) { border-color: var(--focus); background: var(--panel-hi); }
+.nav-links a:focus-visible { color: var(--text); background: var(--panel); }
+:is(.filters button, .chip, .adv-toggle, .theme-toggle, .nav-toggle):focus-visible { border-color: var(--focus); }
+.log summary:focus-visible { background: var(--panel-hi); }
+.shot:focus-visible { border-color: var(--focus); }
+.shot:focus-visible img { transform: scale(1.04); }
+/* Inside containers that clip (the segmented controls) the ring is drawn inwards so it is never cut off */
+.seg button:focus-visible { outline-offset: -3px; background: var(--panel-hi); }
+.seg button[aria-pressed="true"]:focus-visible { background: var(--turq); }
 /* Skip link: only visible while it has keyboard focus */
 .skip { position: absolute; left: .75rem; top: -5rem; z-index: 100; padding: .6rem 1rem; color: var(--text); background: var(--panel); border: 2px solid var(--amber); border-radius: 8px; font-weight: 700; text-decoration: none; }
 .skip:focus { top: .75rem; }
@@ -239,7 +253,7 @@ h1 span { background: var(--grad); -webkit-background-clip: text; background-cli
 .search input { width: 100%; font: inherit; color: var(--text); background: var(--panel); border: 1px solid var(--line); border-radius: 999px; padding: .6rem 2.6rem .6rem 1.2rem; transition: border-color .15s, background .15s; }
 .search input::placeholder { color: var(--muted); opacity: .85; }
 .search input:hover { border-color: var(--turq); }
-.search input:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; background: var(--panel-hi); }
+.search input:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; background: var(--panel-hi); }
 .search input::-webkit-search-cancel-button { display: none; }
 .q-clear { position: absolute; right: .35rem; top: 50%; transform: translateY(-50%); width: 2rem; height: 2rem; border: 0; border-radius: 50%; background: transparent; color: var(--muted); font-size: 1.4rem; line-height: 1; cursor: pointer; }
 .q-clear:hover { color: var(--cyan); background: var(--panel-hi); }
@@ -390,7 +404,6 @@ button.btn { border: 0; font: inherit; font-weight: 700; cursor: pointer; }
 .rel-card:hover { background: var(--panel-hi); border-color: var(--cyan); }
 .rel-card[data-cat="Minecraft Mods"] { border-left-color: var(--aqua); }
 .rel-card[data-cat="RPG Maker"] { border-left-color: var(--blue); }
-.rel-card:focus-within { border-color: var(--amber); }
 .rel-title { color: var(--text); font-weight: 700; font-size: 1.1rem; text-decoration: none; }
 .rel-title:hover { color: var(--aqua); }
 .rel-title::after { content: ""; position: absolute; inset: 0; }   /* the whole card is clickable */
@@ -454,6 +467,14 @@ body:has(dialog[open]) { overflow: hidden; }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 .toast:empty { display: none; }
 
+/* Back to top (ui.js). It is hidden with visibility, so it cannot be tabbed to until it shows */
+.to-top { position: fixed; right: max(1rem, env(safe-area-inset-right)); bottom: max(1rem, calc(env(safe-area-inset-bottom) + .5rem)); z-index: 30; display: grid; place-items: center; width: 3rem; height: 3rem; padding: 0; color: var(--text); background: var(--panel); border: 1px solid var(--line); border-radius: 999px; box-shadow: var(--shadow); cursor: pointer;
+  opacity: 0; visibility: hidden; transform: translate3d(0, .6rem, 0); transition: opacity .2s ease, transform .2s ease, visibility 0s .2s, border-color .15s, color .15s; }
+.to-top.show { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+.to-top:hover, .to-top:focus-visible { color: var(--cyan); border-color: var(--focus); }
+.to-top svg { width: 1.4rem; height: 1.4rem; }
+@media print { .to-top, .skip { display: none; } }
+
 /* ---- 13. Cursor spotlight (behind all content; mouse-like devices only, see ui.js) ---- */
 .spot {
   position: fixed; top: 0; left: 0; width: 520px; height: 520px; z-index: 0; pointer-events: none; overflow: hidden;
@@ -488,6 +509,7 @@ html[data-retro] :is(.card, .version, .dl, .log, .about, .shot, .cover, .toast) 
 html[data-retro] .nav { border-bottom-width: 2px; }
 html[data-retro] :is(.btn, .filters button, .profiles a, .search input, .adv-toggle, .chip, .adv select) { border-width: 2px; }
 html[data-retro] .btn { box-shadow: 3px 3px 0 var(--px); }
+html[data-retro] .to-top { border-width: 2px; box-shadow: 3px 3px 0 var(--px); }
 html[data-retro] .btn.alt { box-shadow: inset 0 0 0 2px var(--turq), 3px 3px 0 var(--px); }
 html[data-retro] .btn:active, html[data-retro] .profiles a:active { transform: translate(2px, 2px); box-shadow: none; }
 html[data-retro] .profiles a.featured { box-shadow: 3px 3px 0 var(--px); }
@@ -519,12 +541,13 @@ html:is([data-motion="reduced"], [data-motion="off"]) .spot { display: none; }
 html:is([data-motion="reduced"], [data-motion="off"]) :is(header > *, .project > *, .shots li) { animation-name: fade; }
 html:is([data-motion="reduced"], [data-motion="off"]) .card.pre { transform: none; }
 /* Off: nothing moves at all */
-html[data-motion="off"] *, html[data-motion="off"] *::before, html[data-motion="off"] *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+html:is([data-motion="reduced"], [data-motion="off"]) { scroll-behavior: auto; }   /* no smooth scrolling for jumps and the back-to-top button */
+html[data-motion="off"], html[data-motion="off"] *, html[data-motion="off"] *::before, html[data-motion="off"] *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 html[data-motion="off"] .card.pre { opacity: 1; }
 html[data-motion="off"] .toast { transform: translate(-50%, 0); }
 /* Same as "off" when the system asks for reduced motion and JavaScript has not set anything (for example with scripts blocked) */
 @media (prefers-reduced-motion: reduce) {
-  html:not([data-motion]) *, html:not([data-motion]) *::before, html:not([data-motion]) *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  html:not([data-motion]), html:not([data-motion]) *, html:not([data-motion]) *::before, html:not([data-motion]) *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   html:not([data-motion]) .pulse { opacity: .25; }
   html:not([data-motion]) .card.pre { opacity: 1; transform: none; }
 }
