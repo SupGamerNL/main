@@ -11,18 +11,21 @@ bar.setAttribute("role", "group");
 bar.setAttribute("aria-label", "Filter screenshots");
 const grid = mk("ul", { className: "shots" });
 
+// The buttons are built once and only updated, so keyboard focus stays on the one that was used
+const buttons = names.map(n => {
+  const b = mk("button", { type: "button", textContent: n });
+  b.addEventListener("click", () => { active = n; draw(); });
+  return b;
+});
+bar.append(...buttons);
+
 function draw() {
   Gallery.thumbs(grid, active === "All" ? all : all.filter(i => i.project === active));
-  bar.replaceChildren(...names.map(n => {
-    const b = mk("button", { type: "button", textContent: n });
-    b.setAttribute("aria-pressed", String(n === active));
-    b.addEventListener("click", () => { active = n; draw(); });
-    return b;
-  }));
+  buttons.forEach((b, i) => b.setAttribute("aria-pressed", String(names[i] === active)));
 }
 
 const parts = [
-  mk("a", { className: "back", href: "index.html", textContent: "Back to all creations" }),
+  Site.breadcrumbs([{ label: "Home", href: "index.html" }, { label: "Gallery" }]),
   mk("h1", { textContent: "Gallery" }),
   mk("p", { className: "lead", textContent: all.length ? "Screenshots from my creations. Click one to see it bigger." : "No screenshots yet." })
 ];

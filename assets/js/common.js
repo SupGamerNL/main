@@ -119,6 +119,21 @@ const Site = (() => {
     }
   }
 
+  // ---- Breadcrumbs: Home > ... > current page (the last item is the current page and not a link) ----
+  const CREATIONS = "index.html#grid";                                                      // the project list on the home page
+  const categoryUrl = c => "index.html?cat=" + encodeURIComponent(c) + "#grid";             // the list filtered to one category
+  function breadcrumbs(items) {   // items: [{ label, href? }]
+    const nav = el("nav", { className: "crumbs" });
+    nav.setAttribute("aria-label", "Breadcrumb");
+    nav.append(el("ol", {}, ...items.map((it, i) => {
+      if (i < items.length - 1) return el("li", {}, el("a", { href: it.href, textContent: it.label }));
+      const here = el("span", { textContent: it.label });
+      here.setAttribute("aria-current", "page");
+      return el("li", {}, here);
+    })));
+    return nav;
+  }
+
   // ---- "Find me online" pills (from data/profiles.js); the featured one goes first ----
   function renderProfiles(list) {
     if (!list || typeof PROFILES === "undefined") return;
@@ -126,5 +141,5 @@ const Site = (() => {
     list.append(...sorted.map(p => el("li", {}, el("a", { href: p.url, textContent: p.label, className: p.featured ? "featured" : "" }))));
   }
 
-  return { cfg, IMG, el, enc, fileUrl, abs, projectUrl, shareUrl, issueUrl, fmtBytes, STATUS, statusBadge, dates, dateKey, rowTarget, supportLine, cover, words, searchText, setHead, renderProfiles };
+  return { cfg, IMG, el, enc, fileUrl, abs, projectUrl, shareUrl, issueUrl, fmtBytes, STATUS, statusBadge, dates, dateKey, rowTarget, supportLine, cover, words, searchText, setHead, renderProfiles, breadcrumbs, CREATIONS, categoryUrl };
 })();

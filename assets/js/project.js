@@ -118,18 +118,64 @@ function seo() {
           isPartOf: { "@type": "WebSite", name: Site.cfg.name, url: Site.cfg.url }
         }, image ? { image } : {}, (p.links || []).length ? { sameAs: p.links.map(l => l.url) } : {}),
         { "@type": "BreadcrumbList", itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Creations", item: Site.cfg.url },
-          { "@type": "ListItem", position: 2, name: p.name, item: url }
+          { "@type": "ListItem", position: 1, name: "Home", item: Site.cfg.url },
+          { "@type": "ListItem", position: 2, name: "Creations", item: Site.abs(Site.CREATIONS) },
+          { "@type": "ListItem", position: 3, name: p.category, item: Site.abs(Site.categoryUrl(p.category)) },
+          { "@type": "ListItem", position: 4, name: p.name, item: url }
         ] }
       ]
     }
   });
 }
 
+// ---------- Related projects ("You might also be interested in") ----------
+// Scored from the data: same category, shared loader / game version / game or engine / tags. Archived projects rank lower.
+function relatedSection() {
+  const facts = x => {
+    const rows = x.support || [];
+    return {
+      loaders: new Set(rows.flatMap(r => String(r.loader || "").split(/\s*(?:\/|,|&|\band\b)\s*/i)).filter(Boolean)),
+      versions: new Set(rows.flatMap(r => r.versions || []).map(String)),
+      games: new Set(rows.map(Site.rowTarget).filter(Boolean)),
+      tags: new Set((x.tags || []).map(t => t.toLowerCase()))
+    };
+  };
+  const shared = (a, b) => [...a].filter(v => b.has(v));
+  const mine = facts(p);
+  const ranked = PROJECTS.filter(o => o.id !== p.id).map((o, i) => {
+    const f = facts(o), cat = o.category === p.category;
+    const loaders = shared(mine.loaders, f.loaders), versions = shared(mine.versions, f.versions), games = shared(mine.games, f.games), tags = shared(mine.tags, f.tags);
+    const score = (cat ? 3 : 0) + Math.min(loaders.length, 2) * 2 + Math.min(versions.length, 2) * 2 + (games.length ? 1 : 0) + Math.min(tags.length, 3) - (o.status === "archived" ? 2 : 0);
+    const why = [...(cat ? [o.category] : []), ...loaders, ...versions.slice(0, 2), ...(!cat && !versions.length && !loaders.length ? games : [])].slice(0, 3);
+    return { o, i, score, why };
+  }).filter(r => r.score > 0).sort((a, b) => b.score - a.score || a.i - b.i).slice(0, 3);
+
+  const inCategory = PROJECTS.filter(o => o.category === p.category).length;
+  const more = el("p", { className: "rel-more" },
+    ...(inCategory > 1 ? [el("a", { href: Site.categoryUrl(p.category), textContent: "See all " + p.category }), " \u00B7 "] : []),
+    el("a", { href: Site.CREATIONS, textContent: "Browse all creations" }));
+  const sec = el("section", { className: "sec related" }, el("h2", { textContent: "You might also be interested in" }));
+  if (ranked.length) {
+    sec.append(el("ul", { className: "rel-list" }, ...ranked.map(({ o, why }) => {
+      const li = el("li", { className: "rel-card" });
+      li.dataset.cat = o.category;
+      const badge = Site.statusBadge(o);
+      li.append(
+        el("a", { className: "rel-title", href: Site.projectUrl(o.id), textContent: o.name }),
+        ...(badge ? [badge] : []),
+        el("p", { className: "rel-desc", textContent: o.description }),
+        ...(why.length ? [el("div", { className: "meta" }, ...why.map(w => el("span", { className: "tag", textContent: w })))] : []));
+      return li;
+    })));
+  }
+  sec.append(more);
+  return sec;
+}
+
 function notFound() {
   Site.setHead({ title: "Project not found | SupGamer NL", description: "There's no project with that id.", url: Site.abs("index.html"), robots: "noindex" });
   root.replaceChildren(
-    el("a", { className: "back", href: "index.html", textContent: "Back to all creations" }),
+    Site.breadcrumbs([{ label: "Home", href: "index.html" }, { label: "Creations", href: Site.CREATIONS }, { label: "Not found" }]),
     el("h1", { textContent: "Project not found" }),
     el("p", { className: "lead", textContent: "There's no project with that id. Pick one from the index instead." })
   );
@@ -140,7 +186,12 @@ function render() {
   seo();
   const parts = [];
 
-  parts.push(el("a", { className: "back", href: "index.html", textContent: "Back to all creations" }));
+  parts.push(Site.breadcrumbs([
+    { label: "Home", href: "index.html" },
+    { label: "Creations", href: Site.CREATIONS },
+    { label: p.category, href: Site.categoryUrl(p.category) },
+    { label: p.name }
+  ]));
   const badge = Site.statusBadge(p);
   parts.push(el("h1", { textContent: p.name }));
   parts.push(el("div", { className: "meta" },
@@ -203,6 +254,7 @@ function render() {
   if (p.credits) parts.push(el("section", { className: "sec" }, el("h2", { textContent: "Credits & license" }), el("p", { textContent: p.credits })));
 
   if (p.timeline && p.timeline.length) parts.push(timelineSection(p.timeline));
+  parts.push(relatedSection());
 
   // Stagger the entrance of each block (one-time, CSS does the animating; capped so long pages don't wait)
   parts.forEach((n, i) => n.style.setProperty("--i", Math.min(i, 8)));

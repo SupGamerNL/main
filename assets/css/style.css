@@ -334,9 +334,12 @@ button.btn { border: 0; font: inherit; font-weight: 700; cursor: pointer; }
 .project > * { animation: rise .7s var(--ease) both; animation-delay: calc(var(--i, 0) * 70ms); }
 .project h1 { font-size: clamp(2.2rem, 6vw, 3.8rem); margin: 1.5rem 0 1rem; }
 .project .meta { margin-bottom: 1.25rem; }
-.back { display: inline-block; color: var(--muted); text-decoration: none; }
-.back::before { content: "\2190\00a0"; }
-.back:hover { color: var(--cyan); }
+.crumbs { margin: 0 0 1rem; font-size: .9rem; }
+.crumbs ol { display: flex; flex-wrap: wrap; gap: .2rem .5rem; margin: 0; padding: 0; list-style: none; }
+.crumbs li + li::before { content: "\203A"; margin-right: .5rem; color: var(--muted); }
+.crumbs a { color: var(--muted); text-decoration: none; }
+.crumbs a:hover { color: var(--cyan); text-decoration: underline; }
+.crumbs [aria-current] { color: var(--text); font-weight: 700; }
 .cover { margin: 0 0 1.5rem; max-width: 46rem; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--panel); aspect-ratio: 16 / 9; }
 .cover img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .sec { margin-top: 3rem; }
@@ -380,6 +383,20 @@ button.btn { border: 0; font: inherit; font-weight: 700; cursor: pointer; }
 .makes a { font-weight: 700; }
 .makes > div > p { margin-top: 1.25rem; }
 .fineprint p { color: var(--muted); max-width: 46rem; }
+
+/* Related projects at the bottom of a project page */
+.rel-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin: 0; padding: 0; list-style: none; }
+.rel-card { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: .55rem; padding: 1.1rem 1.25rem; background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--turq); border-radius: 6px; transition: background .15s, border-color .15s; }
+.rel-card:hover { background: var(--panel-hi); border-color: var(--cyan); }
+.rel-card[data-cat="Minecraft Mods"] { border-left-color: var(--aqua); }
+.rel-card[data-cat="RPG Maker"] { border-left-color: var(--blue); }
+.rel-card:focus-within { border-color: var(--amber); }
+.rel-title { color: var(--text); font-weight: 700; font-size: 1.1rem; text-decoration: none; }
+.rel-title:hover { color: var(--aqua); }
+.rel-title::after { content: ""; position: absolute; inset: 0; }   /* the whole card is clickable */
+.rel-card p { margin: 0; color: var(--muted); font-size: .9rem; }
+.rel-desc { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.rel-more { margin-top: 1rem !important; }
 
 /* ---- 10. Downloads ---- */
 .dl-group { margin: 1.5rem 0 .6rem; font-size: 1.05rem; color: var(--aqua); }
