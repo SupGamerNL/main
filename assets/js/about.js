@@ -13,7 +13,7 @@ if (makes) {
         return el("li", {}, el("a", { href: Site.projectUrl(p.id), textContent: p.name }), ...(badge ? [badge] : []));
       }))
     ]),
-    el("p", {}, el("a", { href: "index.html", textContent: "Browse everything with search and filters" }))
+    el("p", {}, el("a", { href: Site.here("index.html"), textContent: "Browse everything with search and filters" }))
   );
 }
 

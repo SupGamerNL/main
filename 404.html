@@ -12,7 +12,7 @@
 <script>try{var s=localStorage,h=document.documentElement,g=function(k){return s.getItem(k)},t=g("sgText"),m=g("sgMotion"),c=g("sgContrast");if(g("sgTheme")==="light")h.dataset.theme="light";if(g("sgRetro"))h.dataset.retro="on";if(t==="s"||t==="l"||t==="xl")h.dataset.text=t;if(!m&&matchMedia("(prefers-reduced-motion: reduce)").matches)m="off";if(m==="reduced"||m==="off"||m==="full")h.dataset.motion=m;if(!c)c=matchMedia("(prefers-contrast: more)").matches?"high":matchMedia("(prefers-contrast: less)").matches?"low":"";if(c==="low"||c==="high"||c==="default")h.dataset.contrast=c}catch(e){}</script>
 <link rel="stylesheet" href="assets/css/style.css">
 <script>
-// Old pre-rendered address (projects/<id>/): send visitors to the matching project page
+// A project page that has not been generated yet (tools/update-site.py makes projects/<id>/): fall back to the dynamic page, so the link still works
 (function () {
   var m = location.pathname.match(/\/projects\/([^\/]+)\/?$/);
   if (m) location.replace("https://supgamernl.github.io/main/project.html?id=" + m[1]);

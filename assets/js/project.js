@@ -1,8 +1,8 @@
 // Needs data/projects.js + data/sizes.js + data/changelogs.js + common.js + copy.js + gallery.js loaded first.
-// Opened as project.html?id=<project id>
+// Used by the generated pages projects/<id>/index.html (the id is in <html data-project>) and, as a fallback, by project.html?id=<project id>
 const { el, enc, fileUrl, fmtBytes } = Site;
 const root = document.getElementById("project");
-const id = new URLSearchParams(location.search).get("id");
+const id = document.documentElement.dataset.project || new URLSearchParams(location.search).get("id");
 const p = PROJECTS.find(x => x.id === id);
 
 const releasesOn = typeof RELEASES_LIVE !== "undefined" && RELEASES_LIVE && typeof RELEASES_REPO !== "undefined";
@@ -175,7 +175,7 @@ function relatedSection() {
 function notFound() {
   Site.setHead({ title: "Project not found | SupGamer NL", description: "There's no project with that id.", url: Site.abs("index.html"), robots: "noindex" });
   root.replaceChildren(
-    Site.breadcrumbs([{ label: "Home", href: "index.html" }, { label: "Creations", href: Site.CREATIONS }, { label: "Not found" }]),
+    Site.breadcrumbs([{ label: "Home", href: Site.here("index.html") }, { label: "Creations", href: Site.CREATIONS }, { label: "Not found" }]),
     el("h1", { textContent: "Project not found" }),
     el("p", { className: "lead", textContent: "There's no project with that id. Pick one from the index instead." })
   );
@@ -187,7 +187,7 @@ function render() {
   const parts = [];
 
   parts.push(Site.breadcrumbs([
-    { label: "Home", href: "index.html" },
+    { label: "Home", href: Site.here("index.html") },
     { label: "Creations", href: Site.CREATIONS },
     { label: p.category, href: Site.categoryUrl(p.category) },
     { label: p.name }

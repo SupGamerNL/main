@@ -25,7 +25,7 @@ function draw() {
 }
 
 const parts = [
-  Site.breadcrumbs([{ label: "Home", href: "index.html" }, { label: "Gallery" }]),
+  Site.breadcrumbs([{ label: "Home", href: Site.here("index.html") }, { label: "Gallery" }]),
   mk("h1", { textContent: "Gallery" }),
   mk("p", { className: "lead", textContent: all.length ? "Screenshots from my creations. Click one to see it bigger." : "No screenshots yet." })
 ];

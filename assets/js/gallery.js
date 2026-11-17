@@ -64,7 +64,7 @@ const Gallery = (() => {
     capText.textContent = it.caption;
     count.textContent = list.length > 1 ? (pos + 1) + " / " + list.length : "";
     link.hidden = !it.id;
-    if (it.id) { link.href = "project.html?id=" + encodeURIComponent(it.id); link.textContent = it.project; }
+    if (it.id) { link.href = Site.projectUrl(it.id); link.textContent = it.project; }
     [-1, 1].forEach(d => { new Image().src = list[(pos + d + list.length) % list.length].src; }); // preload neighbours
   }
 

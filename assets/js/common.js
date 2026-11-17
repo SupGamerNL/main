@@ -1,7 +1,11 @@
 // Shared helpers for every page. Needs data/config.js (SITE_CONFIG) and data/projects.js (PROJECTS) loaded first.
 const Site = (() => {
   const cfg = SITE_CONFIG;
-  const IMG = "assets/img/";
+  // Pages inside projects/<id>/ set data-root="../../" on <html>, so every link and file path below still points at the site root.
+  const ROOT = document.documentElement.dataset.root || "";
+  const here = path => ROOT + path;                                     // a site-root path ("assets/img/x.webp") -> usable from this page
+  const siteRel = path => (ROOT && path.startsWith(ROOT) ? path.slice(ROOT.length) : path);
+  const IMG = here("assets/img/");
 
   function el(tag, props = {}, ...kids) {
     const n = Object.assign(document.createElement(tag), props);
@@ -12,11 +16,11 @@ const Site = (() => {
   // Encode a path piece for a URL. encodeURIComponent leaves ' ( ) alone, so those are done too
   // (file names like "MOAT(Mo' Ores ...).jar" then work everywhere).
   const enc = s => encodeURIComponent(s).replace(/['()]/g, c => "%" + c.charCodeAt(0).toString(16).toUpperCase());
-  const fileUrl = path => path.split("/").map(enc).join("/");
-  const abs = path => new URL(path, cfg.url).href;
-  const projectUrl = id => "project.html?id=" + encodeURIComponent(id);
-  // The link to post in Discord/Reddit/etc: a small page with the project's own title, text and image (made by tools/update-site.py)
-  const shareUrl = id => abs("share/" + encodeURIComponent(id) + "/");
+  const fileUrl = path => here(path.split("/").map(enc).join("/"));
+  const abs = path => new URL(siteRel(path), cfg.url).href;                   // the full public address (accepts paths made with here())
+  const projectUrl = id => here("projects/" + encodeURIComponent(id) + "/");   // each project has its own page (made by tools/update-site.py)
+  // The link to post in Discord/Reddit/etc: the project page itself (it carries its own title, text and image for link previews)
+  const shareUrl = id => abs(projectUrl(id));
   // "Report a bug" link: the project's own `issues` address, else the site-wide one. GitHub addresses open a new issue with the title started.
   function issueUrl(p) {
     const base = p.issues || cfg.issues;
@@ -120,8 +124,8 @@ const Site = (() => {
   }
 
   // ---- Breadcrumbs: Home > ... > current page (the last item is the current page and not a link) ----
-  const CREATIONS = "index.html#grid";                                                      // the project list on the home page
-  const categoryUrl = c => "index.html?cat=" + encodeURIComponent(c) + "#grid";             // the list filtered to one category
+  const CREATIONS = here("index.html#grid");                                                      // the project list on the home page
+  const categoryUrl = c => here("index.html?cat=" + encodeURIComponent(c) + "#grid");             // the list filtered to one category
   function breadcrumbs(items) {   // items: [{ label, href? }]
     const nav = el("nav", { className: "crumbs" });
     nav.setAttribute("aria-label", "Breadcrumb");
@@ -141,5 +145,5 @@ const Site = (() => {
     list.append(...sorted.map(p => el("li", {}, el("a", { href: p.url, textContent: p.label, className: p.featured ? "featured" : "" }))));
   }
 
-  return { cfg, IMG, el, enc, fileUrl, abs, projectUrl, shareUrl, issueUrl, fmtBytes, STATUS, statusBadge, dates, dateKey, rowTarget, supportLine, cover, words, searchText, setHead, renderProfiles, breadcrumbs, CREATIONS, categoryUrl };
+  return { cfg, IMG, here, el, enc, fileUrl, abs, projectUrl, shareUrl, issueUrl, fmtBytes, STATUS, statusBadge, dates, dateKey, rowTarget, supportLine, cover, words, searchText, setHead, renderProfiles, breadcrumbs, CREATIONS, categoryUrl };
 })();
